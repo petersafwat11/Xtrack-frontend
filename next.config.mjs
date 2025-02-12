@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    BACKEND_SERVER: "http://localhost:5000", // Development server URL
+    BACKEND_SERVER: "https://xtrack-backend-production.up.railway.app",
   },
   images: {
     domains: ["localhost"],
