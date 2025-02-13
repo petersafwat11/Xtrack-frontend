@@ -9,14 +9,13 @@ const Login = () => {
       <div className={classes.content}>
         <div className={classes.brandSection}>
           <div className={classes.brandImage}>
-            {/* <Image
-              src="/images/brand-illustration.svg" // Add your brand image
+            <Image
+              src="/svg/technology.jpg" // Add your brand image
               alt="Xtrack Brand"
               fill
-              style={{ objectFit: "contain" }}
               priority
-            /> */}
-            I Will Provide an Image Here
+            />
+            {/* I Will Provide an Image Here */}
           </div>
         </div>
         <div className={classes.formSection}>
