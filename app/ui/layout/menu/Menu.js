@@ -22,6 +22,7 @@ const menuItems = [
       { title: "Air Cargo", path: "/dashboard/air-cargo" },
       { title: "Vessel", path: "/dashboard/vessel" },
       { title: "Port Congestion", path: "/dashboard/port-congestion" },
+      { title: "Ocean Traffic", path: "/dashboard/ocean-traffic" },
     ],
   },
   {

@@ -4,30 +4,29 @@ import { NextResponse } from "next/server";
 const PUBLIC_PATHS = ["/_next/", "/static/", "/api/", "/svg/"];
 
 export function middleware(request) {
-  const url = request.nextUrl.clone();
-  const { pathname } = url;
+  const { pathname } = request.nextUrl;
 
   // Bypass middleware for public paths
   if (PUBLIC_PATHS.some((path) => pathname.startsWith(path))) {
     return NextResponse.next();
   }
 
-  const token = request.cookies.get("token");
-  const userCookie = request.cookies.get("user");
+  // Get auth token from cookies
+  const authToken = request.cookies.get("token")?.value;
 
   // Allow access to login page without authentication
   if (pathname === "/login") {
-    if (token && userCookie) {
-      url.pathname = "/";
-      return NextResponse.redirect(url);
+    if (authToken) {
+      // If user is authenticated, redirect to dashboard
+      return NextResponse.redirect(new URL("/dashboard", request.url));
     }
     return NextResponse.next();
   }
 
-  // Require authentication for all other pages
-  if (!token || !userCookie) {
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
+  // Protect all other routes
+  if (!authToken) {
+    // If user is not authenticated, redirect to login
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   return NextResponse.next();
@@ -39,9 +38,9 @@ export const config = {
      * Match all request paths except:
      * 1. /api/ (API routes)
      * 2. /_next/ (Next.js internals)
-     * 3. /images/ (static files)
-     * 4. /favicon.ico, /site.webmanifest (static files)
+     * 3. /static/ (static files)
+     * 4. /svg/ (svg files)
      */
-    "/((?!api|_next|images|favicon.ico|site.webmanifest).*)",
+    "/((?!api|_next|static|svg).*)",
   ],
 };
