@@ -9,54 +9,79 @@ import {
   FiSettings,
   FiChevronDown,
   FiChevronRight,
+  FiMenu,
 } from "react-icons/fi";
-
-const menuItems = [
-  {
-    title: "Dashboard",
-    icon: <FiHome />,
-    path: "/dashboard",
-    children: [
-      { title: "Ocean (AF)", path: "/dashboard/ocean-af" },
-      { title: "Ocean (SR)", path: "/dashboard/ocean-sr" },
-      { title: "Air Cargo", path: "/dashboard/air-cargo" },
-      { title: "Vessel", path: "/dashboard/vessel" },
-      { title: "Port Congestion", path: "/dashboard/port-congestion" },
-      { title: "Ocean Traffic", path: "/dashboard/ocean-traffic" },
-    ],
-  },
-  {
-    title: "Schedule",
-    icon: <FiCalendar />,
-    path: "/schedule",
-    children: [
-      { title: "Ocean", path: "/schedule/ocean" },
-      { title: "Air", path: "/schedule/air" },
-    ],
-  },
-  {
-    title: "Settings",
-    icon: <FiSettings />,
-    path: "/settings",
-    children: [
-      { title: "Profile", path: "/settings/profile" },
-      { title: "API Endpoints", path: "/settings/api-endpoints" },
-      { title: "Logs", path: "/settings/logs" },
-      { title: "Feedback", path: "/settings/feedback" },
-      { title: "Support", path: "/settings/support" },
-    ],
-  },
-];
 
 const Menu = ({ isOpen }) => {
   const [expandedItems, setExpandedItems] = useState({});
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const pathname = usePathname();
+  const menuItems = [
+    {
+      title: "Dashboard",
+      icon: (
+        <FiHome
+          onClick={() => {
+            setIsCollapsed(false);
+          }}
+        />
+      ),
+      path: "/dashboard",
+      children: [
+        { title: "Ocean (AF)", path: "/dashboard/ocean-af" },
+        { title: "Ocean (SR)", path: "/dashboard/ocean-sr" },
+        { title: "Air Cargo", path: "/dashboard/air-cargo" },
+        { title: "Vessel", path: "/dashboard/vessel" },
+        { title: "Port Congestion", path: "/dashboard/port-congestion" },
+        { title: "Ocean Traffic", path: "/dashboard/ocean-traffic" },
+      ],
+    },
+    {
+      title: "Schedule",
+      icon: (
+        <FiCalendar
+          onClick={() => {
+            setIsCollapsed(false);
+          }}
+        />
+      ),
+      path: "/schedule",
+      children: [
+        { title: "Ocean", path: "/schedule/ocean" },
+        { title: "Air", path: "/schedule/air" },
+      ],
+    },
+    {
+      title: "Settings",
+      icon: (
+        <FiSettings
+          onClick={() => {
+            setIsCollapsed(false);
+          }}
+        />
+      ),
+      path: "/settings",
+      children: [
+        { title: "Profile", path: "/settings/profile" },
+        { title: "API Endpoints", path: "/settings/api-endpoints" },
+        { title: "Logs", path: "/settings/logs" },
+        { title: "Feedback", path: "/settings/feedback" },
+        { title: "Support", path: "/settings/support" },
+      ],
+    },
+  ];
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   const toggleSubmenu = (title) => {
-    setExpandedItems((prev) => ({
-      ...prev,
-      [title]: !prev[title],
-    }));
+    if (!isCollapsed) {
+      setExpandedItems((prev) => ({
+        ...prev,
+        [title]: !prev[title],
+      }));
+    }
   };
 
   const isActive = (path) => pathname === path;
@@ -64,9 +89,16 @@ const Menu = ({ isOpen }) => {
     children?.some((child) => pathname === child.path);
 
   return (
-    <nav className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
+    <nav
+      className={`${styles.sidebar} ${isOpen ? styles.open : ""} ${
+        isCollapsed ? styles.collapsed : ""
+      }`}
+    >
       <div className={styles.menuHeader}>
         <h1 className={styles.title}>Xtrack</h1>
+        <button className={styles.menuToggle} onClick={toggleCollapse}>
+          <FiMenu size={20} />
+        </button>
       </div>
 
       <ul className={styles.menu}>
