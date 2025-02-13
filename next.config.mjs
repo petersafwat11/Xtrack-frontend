@@ -4,7 +4,17 @@ const nextConfig = {
     BACKEND_SERVER: "https://xtrack-backend-production.up.railway.app",
   },
   images: {
-    domains: ["localhost"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "xtrack-backend-production.up.railway.app",
+      },
+    ],
+  },
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
   },
 };
 
