@@ -4,9 +4,11 @@ import styles from "./loginForm.module.css";
 import { toast } from "react-hot-toast";
 import api from "@/app/lib/axios";
 import { useRouter } from "next/navigation";
+import Signup from "../signupForm/signup";
 
-const LoginForm = ({ isOpen, onClose }) => {
+const LoginForm = () => {
   const router = useRouter();
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [formData, setFormData] = useState({
     user_id: "",
     user_pwd: "",
@@ -32,8 +34,7 @@ const LoginForm = ({ isOpen, onClose }) => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.data.user));
         toast.success("Login successful!");
-        onClose();
-        router.push("/forget-password");
+        router.push("/dashboard");
       }
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Login failed";
@@ -42,14 +43,10 @@ const LoginForm = ({ isOpen, onClose }) => {
     }
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
-        <button className={styles.closeButton} onClick={onClose}>
-          ×
-        </button>
+    <>
+      <Signup isOpen={isSignupOpen} onClose={() => setIsSignupOpen(false)} />
+      <div className={styles.container}>
         <h2 className={styles.title}>Xtrack</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
@@ -85,8 +82,17 @@ const LoginForm = ({ isOpen, onClose }) => {
             Login
           </button>
         </form>
+        <div className={styles.signupPrompt}>
+          <p>{`Don't have an account?`}</p>
+          <button
+            onClick={() => setIsSignupOpen(true)}
+            className={styles.signupButton}
+          >
+            Sign Up
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

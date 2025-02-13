@@ -2,10 +2,12 @@ import React from "react";
 import classes from "./page.module.css";
 import LoginForm from "../ui/loginForm/LoginForm";
 
-const Login = async () => {
+const Login = () => {
   return (
-    <div className={classes["page"]}>
-      <LoginForm />
+    <div className={classes.page}>
+      <div className={classes.container}>
+        <LoginForm />
+      </div>
     </div>
   );
 };

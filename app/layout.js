@@ -2,11 +2,11 @@
 import { Geist } from "next/font/google";
 import "./globals.css";
 import Menu from "./ui/layout/menu/Menu";
-import Header from "./ui/layout/header/Header";
 import styles from "./layout.module.css";
 import { useState } from "react";
 import { DMSans } from "./fonts";
 import { Toaster } from "react-hot-toast";
+import { usePathname } from "next/navigation";
 // export const metadata = {
 //   title: "Dashboard",
 //   description: "Dashboard application",
@@ -14,6 +14,8 @@ import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/login";
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -22,10 +24,11 @@ export default function RootLayout({ children }) {
       <body className={DMSans.className}>
         <Toaster position="top-right" />
         <div className={styles.layout}>
-          <Header onMenuToggle={toggleMenu} isMenuOpen={isMenuOpen} />
-          <Menu isOpen={isMenuOpen} />
+          {!isLoginPage && <Menu isOpen={isMenuOpen} />}
           <main
-            className={`${styles.main} ${!isMenuOpen ? styles.expanded : ""}`}
+            className={`${styles.main} ${
+              !isMenuOpen || isLoginPage ? styles.expanded : ""
+            }`}
           >
             {children}
           </main>

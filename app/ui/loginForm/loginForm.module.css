@@ -1,6 +1,6 @@
 .container {
   width: min(25rem, 90%);
-  margin: 5rem auto 0;
+  margin: 0 auto;
 }
 .form {
   border-radius: 0.75rem;
@@ -32,7 +32,6 @@
   font-size: 0.75rem;
   /* color: var(--black-90); */
   color: #d32626;
-
   font-weight: 500;
 }
 .login-button {
@@ -212,4 +211,31 @@
   .submitButton {
     padding: 0.75rem;
   }
+}
+
+.signupPrompt {
+  margin-top: 1.5rem;
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.signupPrompt p {
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.signupButton {
+  background: none;
+  border: none;
+  color: #2196f3;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s ease;
+}
+
+.signupButton:hover {
+  color: #1976d2;
+  text-decoration: underline;
 }

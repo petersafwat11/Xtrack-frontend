@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./signup.module.css";
 import { COUNTRIES } from "@/app/utils/countries";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import api from "@/app/lib/axios";
 
 const Signup = ({ isOpen, onClose }) => {
@@ -17,6 +17,8 @@ const Signup = ({ isOpen, onClose }) => {
   });
   const [captchaValue, setCaptchaValue] = useState(null);
   const [error, setError] = useState("");
+
+  if (!isOpen) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,12 +71,8 @@ const Signup = ({ isOpen, onClose }) => {
     }
   };
 
-  if (!isOpen) return null;
-
   return (
     <div className={styles.overlay}>
-      {/* <Toaster position="top-center" reverseOrder={false} /> */}
-
       <div className={styles.modal}>
         <button className={styles.closeButton} onClick={onClose}>
           ×
