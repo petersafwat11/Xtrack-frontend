@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
            />
            }
           <main
-            className={`${styles.main} ${
+            className={`${isLoginPage? styles.login : styles.main} ${
               !isMenuOpen || isLoginPage ? styles.expanded : ""
             }`}
           >
