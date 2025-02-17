@@ -2,8 +2,8 @@
 import { useState } from "react";
 import styles from "./CargoTracker.module.css";
 import axios from "axios";
-import jsonData from "../../../json.json";
-
+// import jsonData from "../../../json.json";
+//dfsfljdfjdkml
 export default function CargoTracker() {
   const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
@@ -37,7 +37,7 @@ export default function CargoTracker() {
 
     try {
       const response = await axios.get(
-        `http://178.128.210.208:8000/airrates/api/tracker/${searchNumber}`
+        `https://178.128.210.208:8000/airrates/api/tracker/${searchNumber}`
       );
 
       if (response.status_code === "WRONG_NUMBER") {
