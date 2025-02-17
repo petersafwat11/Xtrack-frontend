@@ -10,6 +10,25 @@ export default function CargoTracker() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const formatSearchNumber = (value) => {
+    // Remove any non-digit characters
+    const numbers = value.replace(/[^\d]/g, '');
+    
+    // Add hyphen after the third digit if there are more than 3 digits
+    if (numbers.length > 3) {
+      return numbers.slice(0, 3) + '-' + numbers.slice(3);
+    }
+    return numbers;
+  };
+
+  const handleSearchChange = (e) => {
+    const formattedValue = formatSearchNumber(e.target.value);
+    // Limit the total length (including hyphen) to 12 characters
+    if (formattedValue.length <= 12) {
+      setSearchNumber(formattedValue);
+    }
+  };
+
   const generateMetaData = (data) => {
     const metadata = {
       number: data?.metadata?.request_parameters?.number || null,
@@ -17,9 +36,9 @@ export default function CargoTracker() {
       updated_at: data?.metadata?.updated_at || null,
       status: data?.data?.status || null,
       arrival: data?.data?.arrival_datetime_local?.actual || null,
-      from_airport: data?.data?.from?.iata_code || null,
+      from_name: data?.data?.from?.name || null,
       from_country: data?.data?.from?.country || null,
-      to_airport: data?.data?.to?.iata_code || null,
+      to_name: data?.data?.to?.name || null,
       to_country: data?.data?.to?.country || null,
       departure: data?.data?.departure_datetime_local?.actual || null,
     };
@@ -60,8 +79,7 @@ export default function CargoTracker() {
       setData(responseData);
       setMetadata(generateMetaData(responseData));
     } catch (error) {
-          setError("An error occurred while fetching tracking information. Please try again.");
-      
+      setError("An error occurred while fetching tracking information. Please try again.");
       console.error("Tracking Error:", error);
     } finally {
       setLoading(false);
@@ -72,13 +90,19 @@ export default function CargoTracker() {
     <div className={styles.container}>
       <div className={styles.searchSection}>
         <div className={styles.searchForm}>
+          <div className={styles.searchInputContainer}>
+          <p className={styles.searchLabel}>AIRWAY BILL</p>
+
           <input
             type="text"
             value={searchNumber}
-            onChange={(e) => setSearchNumber(e.target.value)}
+            onChange={handleSearchChange}
             placeholder="Enter tracking number"
             className={styles.searchInput}
+            maxLength={12}
           />
+
+          </div>
           <button
             onClick={fetchData}
             className={styles.searchButton}
@@ -105,45 +129,37 @@ export default function CargoTracker() {
       {metadata !== null && !loading && !error && (
         <div className={styles.metadata}>
           <div className={styles.metadataItem}>
-            <p className={styles.label}>Number</p>
+            <p className={styles.label}>MAWB</p>
             <p className={styles.value}>{metadata?.number}</p>
           </div>
           <div className={styles.metadataItem}>
-            <p className={styles.label}>Airline</p>
+            <p className={styles.label}>AIRLINE</p>
             <p className={styles.value}>{metadata?.airline}</p>
           </div>
           <div className={styles.metadataItem}>
-            <p className={styles.label}>Updated At</p>
+            <p className={styles.label}>UPDATED AT</p>
             <p className={styles.value}>{metadata?.updated_at}</p>
-          </div>
-          <div className={styles.metadataItem}>
-            <p className={styles.label}>Status</p>
-            <p className={styles.value}>{metadata?.status}</p>
-          </div>
-          <div className={styles.metadataItem}>
-            <p className={styles.label}>Arrival</p>
-            <p className={styles.value}>{metadata?.arrival}</p>
           </div>
 
           <div className={styles.metadataItem}>
-            <p className={styles.label}>From Airport</p>
-            <p className={styles.value}>{metadata?.from_airport}</p>
+            <p className={styles.label}>FROM </p>
+            <p className={styles.value}> {metadata?.from_name}, {metadata?.from_country}</p>
           </div>
           <div className={styles.metadataItem}>
-            <p className={styles.label}>From Country</p>
-            <p className={styles.value}>{metadata?.from_country}</p>
+            <p className={styles.label}>TO </p>
+            <p className={styles.value}>{metadata?.to_name}, {metadata?.to_country}</p>
           </div>
           <div className={styles.metadataItem}>
-            <p className={styles.label}>To Airport</p>
-            <p className={styles.value}>{metadata?.to_airport}</p>
+            <p className={styles.label}>STATUS</p>
+            <p className={styles.value}>{metadata?.status}</p>
           </div>
           <div className={styles.metadataItem}>
-            <p className={styles.label}>To Country</p>
-            <p className={styles.value}>{metadata?.to_country}</p>
-          </div>
-          <div className={styles.metadataItem}>
-            <p className={styles.label}>Departure</p>
+            <p className={styles.label}>DEPARTURE DATE</p>
             <p className={styles.value}>{metadata?.departure}</p>
+          </div>
+          <div className={styles.metadataItem}>
+            <p className={styles.label}>ARRIVAL DATE</p>
+            <p className={styles.value}>{metadata?.arrival}</p>
           </div>
         </div>
       )}
@@ -157,25 +173,23 @@ export default function CargoTracker() {
           <table className={styles.table}>
             <thead>
               <tr className={styles["table-header"]}>
-                <th className={styles["header-item"]}>Order ID</th>
-                <th className={styles["header-item"]}>Event Code</th>
-                <th className={styles["header-item"]}>description</th>
-                <th className={styles["header-item"]}>Location</th>
-                <th className={styles["header-item"]}>State</th>
-                <th className={styles["header-item"]}>Country</th>
-                <th className={styles["header-item"]}>Date Time</th>
+                <th className={styles["header-item"]}>ID</th>
+                <th className={styles["header-item"]}>DATE</th>
+                <th className={styles["header-item"]}>EVENT</th>
+                <th className={styles["header-item"]}>DESCRIPTION</th>
+                <th className={styles["header-item"]}>LOCATION</th>
+                <th className={styles["header-item"]}>IATA/ICAO</th>
               </tr>
             </thead>
             <tbody>
               {data?.data?.events?.map((event, index) => (
                 <tr className={styles["table-row"]} key={index}>
                   <td className={styles["row-item"]}>{event.order_id}</td>
+                  <td className={styles["row-item"]}>{event.datetime_local.actual}</td>
                   <td className={styles["row-item"]}>{event.event_code}</td>
                   <td className={styles["row-item"]}>{event.description}</td>
-                  <td className={styles["row-item"]}>{event.location.name}</td>
-                  <td className={styles["row-item"]}>{event.location.state}</td>
-                  <td className={styles["row-item"]}>{event.location.country}</td>
-                  <td className={styles["row-item"]}>{event.datetime_local.actual}</td>
+                  <td className={styles["row-item"]}>{event.location?.name}, {event.location?.country}</td>
+                  <td className={styles["row-item"]}>{event.location?.iata_code}/{event.location?.icao_code} </td>
                 </tr>
               ))}
             </tbody>

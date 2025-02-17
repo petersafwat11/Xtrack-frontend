@@ -38,7 +38,27 @@
   color: #5a5acc;
   font-size: 2.3rem; */
 }
-
+.about-us{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  width: 80%;
+  margin: 1rem auto 0;
+}
+.text{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.title{
+  color: #4a5568;
+}
+.text-item{
+  color: #4a5568;
+}
 .formSection {
   width: 40%;
   display: flex;
@@ -53,7 +73,7 @@
   font-weight: 500;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .brandSection {
     display: none;
   }
