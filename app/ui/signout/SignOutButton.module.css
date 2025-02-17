@@ -3,7 +3,7 @@
   top: 1rem;
   right: 1rem;
   padding: 0.5rem 1rem;
-  background-color: #2563eb;
+  background-color: #f1093f;
   color: white;
   border: none;
   border-radius: 0.375rem;
@@ -13,5 +13,5 @@
 }
 
 .signOutButton:hover {
-  background-color: #1d4ed8;
+  background-color: #c80533;
 }

@@ -79,8 +79,7 @@ const LoginForm = () => {
         onClose={() => setIsForgetPasswordOpen(false)}
       />
       <div className={styles.container}>
-        <h2 className={styles.title}>
-          {/* Xtrack */}
+        {/* <h2 className={styles.title}>
 
           <svg
             width="230"
@@ -102,7 +101,6 @@ const LoginForm = () => {
               </linearGradient>
             </defs>
 
-            {/* X */}
             <path
               d="M30 15 L45 30 L30 45 M60 15 L45 30 L60 45"
               stroke="url(#logoGradient)"
@@ -112,7 +110,6 @@ const LoginForm = () => {
               fill="none"
             />
 
-            {/* T */}
             <path
               d="M65 15 H85 M75 15 V45"
               stroke="url(#logoGradient)"
@@ -121,7 +118,6 @@ const LoginForm = () => {
               strokeLinejoin="round"
             />
 
-            {/* R */}
             <path
               d="M95 15 V45 M95 15 H110 Q120 15 120 25 L95 25"
               stroke="url(#logoGradient)"
@@ -136,7 +132,6 @@ const LoginForm = () => {
               strokeLinecap="round"
             />
 
-            {/* A */}
             <path
               d="M130 45 L145 15 L160 45 M135 35 H155"
               stroke="url(#logoGradient)"
@@ -144,7 +139,6 @@ const LoginForm = () => {
               strokeLinecap="round"
             />
 
-            {/* C */}
             <path
               d="M185 15 H170 Q165 15 165 30 Q165 45 170 45 H185"
               stroke="url(#logoGradient)"
@@ -152,7 +146,6 @@ const LoginForm = () => {
               strokeLinecap="round"
             />
 
-            {/* K */}
             <path
               d="M195 15 V45 M195 30 L210 15 M195 30 L210 45"
               stroke="url(#logoGradient)"
@@ -170,7 +163,7 @@ const LoginForm = () => {
 
             <circle cx="45" cy="30" r="3" fill="#00B8D9" />
           </svg>
-        </h2>
+        </h2> */}
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor="user_id" className={styles.label}>

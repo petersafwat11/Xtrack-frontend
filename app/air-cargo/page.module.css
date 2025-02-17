@@ -2,3 +2,9 @@
   min-height: 100vh;
   background-color: #f9fafb;
 }
+.title{
+  color: #24af4b;
+  font-weight: 800;
+  font-size: 3rem;
+  margin-left: 1rem;
+}

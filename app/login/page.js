@@ -35,7 +35,7 @@ Track WW aims to provide any tracking required for the shipping community as wel
             </div>
           </div>
           <LoginForm />
-          <p className={classes["copyright"]}>Copyright © 2025 Xtrack.</p>
+          <p className={classes["copyright"]}>Copyright © 2025 TrackWW.</p>
         </div>
       </div>
     </div>

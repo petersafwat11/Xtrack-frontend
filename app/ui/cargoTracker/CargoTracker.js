@@ -11,10 +11,8 @@ export default function CargoTracker() {
   const [error, setError] = useState(null);
 
   const formatSearchNumber = (value) => {
-    // Remove any non-digit characters
     const numbers = value.replace(/[^\d]/g, '');
     
-    // Add hyphen after the third digit if there are more than 3 digits
     if (numbers.length > 3) {
       return numbers.slice(0, 3) + '-' + numbers.slice(3);
     }
