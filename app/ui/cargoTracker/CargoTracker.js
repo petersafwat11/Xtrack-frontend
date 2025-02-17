@@ -60,17 +60,8 @@ export default function CargoTracker() {
       setData(responseData);
       setMetadata(generateMetaData(responseData));
     } catch (error) {
-      if (error.code === "ERR_NETWORK") {
-        setError("Network Error: The tracking service is currently unavailable. Please try again later.");
-      } else if (error.code === "ERR_BAD_REQUEST") {
-        setError("Unable to connect to the tracking service. Please try again later.");
-      } else if (error.response?.status === 404) {
-        setError("Tracking service not found. Please try again later.");
-      } else if (error.response?.status === 403) {
-        setError("Access to tracking service is forbidden. Please contact support.");
-      } else {
-        setError("An error occurred while fetching tracking information. Please try again.");
-      }
+          setError("An error occurred while fetching tracking information. Please try again.");
+      
       console.error("Tracking Error:", error);
     } finally {
       setLoading(false);
