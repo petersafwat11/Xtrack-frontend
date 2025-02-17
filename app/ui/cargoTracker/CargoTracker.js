@@ -2,8 +2,6 @@
 import { useState } from "react";
 import styles from "./CargoTracker.module.css";
 import axios from "axios";
-// import jsonData from "../../../json.json";
-//dfsfljdfjdkml
 export default function CargoTracker() {
   const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
@@ -37,7 +35,16 @@ export default function CargoTracker() {
 
     try {
       const response = await axios.get(
-        `https://178.128.210.208:8000/airrates/api/tracker/${searchNumber}`
+        `https://cors-anywhere.herokuapp.com/http://178.128.210.208:8000/airrates/api/tracker/${searchNumber}`,
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          // timeout: 10000,
+          // ssdds
+        }
       );
 
       if (response.status_code === "WRONG_NUMBER") {
@@ -52,8 +59,18 @@ export default function CargoTracker() {
       setData(response);
       setMetadata(generateMetaData(response));
     } catch (error) {
-      setError("An error occurred while fetching tracking information");
-      console.error(error);
+      if (error.code === "ERR_NETWORK") {
+        setError("Network Error: The tracking service is currently unavailable. This might be due to CORS restrictions. Please try again later or contact support.");
+      } else if (error.code === "ECONNABORTED") {
+        setError("Request timeout: The server took too long to respond. Please try again.");
+      } else if (error.response?.status === 404) {
+        setError("Tracking service not found. Please try again later.");
+      } else if (error.response?.status === 403) {
+        setError("Access to tracking service is forbidden. Please contact support.");
+      } else {
+        setError("An error occurred while fetching tracking information. Please try again.");
+      }
+      console.error("Tracking Error:", error);
     } finally {
       setLoading(false);
     }
