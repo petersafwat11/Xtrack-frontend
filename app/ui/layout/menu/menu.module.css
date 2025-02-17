@@ -26,14 +26,16 @@
   display: flex;
   align-items: center;
   transition: all 0.3s ease;
+  padding: 1rem 1.5rem;
 }
-
+.standalone-item.active{
+  background-color: #edf2f7;
+  color: #2196f3;
+}
 .standalone-item:hover {
   background-color: #edf2f7;
   color: #2196f3;
 }
-
-
 
 .menuToggle {
   background: none;
