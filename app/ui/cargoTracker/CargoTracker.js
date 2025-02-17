@@ -2,6 +2,7 @@
 import { useState } from "react";
 import styles from "./CargoTracker.module.css";
 import axios from "axios";
+
 export default function CargoTracker() {
   const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
@@ -35,34 +36,34 @@ export default function CargoTracker() {
 
     try {
       const response = await axios.get(
-        `https://cors-anywhere.herokuapp.com/http://178.128.210.208:8000/airrates/api/tracker/${searchNumber}`,
+        `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/airrates/api/tracker/${searchNumber}`)}`,
         {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-          },
-          // timeout: 10000,
-          // ssdds
+          }
         }
       );
 
-      if (response.status_code === "WRONG_NUMBER") {
+      // allorigins returns the data in a nested 'contents' property as a string
+      const responseData = JSON.parse(response.data.contents);
+
+      if (responseData.status_code === "WRONG_NUMBER") {
         setError("Wrong Number");
         return;
       }
-      if (response.status_code === "no data received") {
+      if (responseData.status_code === "no data received") {
         setError("No Tracking Info Found");
         return;
       }
 
-      setData(response);
-      setMetadata(generateMetaData(response));
+      setData(responseData);
+      setMetadata(generateMetaData(responseData));
     } catch (error) {
       if (error.code === "ERR_NETWORK") {
-        setError("Network Error: The tracking service is currently unavailable. This might be due to CORS restrictions. Please try again later or contact support.");
-      } else if (error.code === "ECONNABORTED") {
-        setError("Request timeout: The server took too long to respond. Please try again.");
+        setError("Network Error: The tracking service is currently unavailable. Please try again later.");
+      } else if (error.code === "ERR_BAD_REQUEST") {
+        setError("Unable to connect to the tracking service. Please try again later.");
       } else if (error.response?.status === 404) {
         setError("Tracking service not found. Please try again later.");
       } else if (error.response?.status === 403) {
