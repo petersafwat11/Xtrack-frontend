@@ -22,6 +22,18 @@
   align-items: center;
   justify-content: space-between;
 }
+.standalone-item{
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.standalone-item:hover {
+  background-color: #edf2f7;
+  color: #2196f3;
+}
+
+
 
 .menuToggle {
   background: none;
@@ -127,6 +139,7 @@
   color: #718096;
   text-decoration: none;
   transition: all 0.3s ease;
+  flex-grow: 1;
 }
 
 .submenuItem:hover {
@@ -144,13 +157,30 @@
   color: #2196f3;
 }
 
-@media (max-width: 800px) {
+.sidebar.collapsed .submenuItem {
+  font-size: 0;
+  padding: 0;
+}
+
+.sidebar.collapsed .standalone-item {
+  justify-content: center;
+}
+
+.sidebar.collapsed .menuIcon {
+  margin-right: 0;
+}
+
+@media (max-width: 900px) {
   .sidebar {
-    transform: translateX(-100%);
+    /* transform: translateX(-100%); */
     width: 200px;
   }
 
   .sidebar.open {
     transform: translateX(0);
   }
+  .sidebar.collapsed {
+    width: 3.5rem;
+  }
+  
 }

@@ -1,5 +1,4 @@
 "use client";
-import { Geist } from "next/font/google";
 import "./globals.css";
 import Menu from "./ui/layout/menu/Menu";
 import styles from "./layout.module.css";
@@ -7,9 +6,10 @@ import { useState } from "react";
 import { DMSans } from "./fonts";
 import { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
+import SignOutButton from "./ui/signout/SignOutButton";
 // export const metadata = {
-//   title: "Dashboard",
-//   description: "Dashboard application",
+//   title: "Xtrack",
+//   description: "renders data from many sources",
 // };
 
 export default function RootLayout({ children }) {
@@ -24,12 +24,21 @@ export default function RootLayout({ children }) {
       <body className={DMSans.className}>
         <Toaster position="top-right" />
         <div className={styles.layout}>
-          {!isLoginPage && <Menu isOpen={isMenuOpen} />}
+          {
+          !isLoginPage && 
+          <Menu 
+          toggleMenu={toggleMenu} 
+          isMenuOpen={isMenuOpen}
+           />
+           }
           <main
             className={`${styles.main} ${
               !isMenuOpen || isLoginPage ? styles.expanded : ""
             }`}
           >
+            {
+            !isLoginPage && 
+            <SignOutButton />}
             {children}
           </main>
         </div>

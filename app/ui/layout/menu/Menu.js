@@ -12,43 +12,51 @@ import {
   FiMenu,
 } from "react-icons/fi";
 
-const Menu = ({ isOpen }) => {
-  const [expandedItems, setExpandedItems] = useState({});
-  const [isCollapsed, setIsCollapsed] = useState(false);
+const Menu = ({toggleMenu, isMenuOpen}) => {
+  console.log('')
   const pathname = usePathname();
-  const menuItems = [
+
+  const navPathName = {
+    Schedule: ["/air", "/ocean"],
+    Settings: ["/profile", "/api-endpoints", "/logs", "/feedback", "/support"],
+  };
+
+  const isPathInSection = (path, sectionPaths) => {
+    return sectionPaths.includes(path);
+  };
+
+  const [expandedItems, setExpandedItems] = useState({
+    Schedule: isPathInSection(pathname, navPathName.Schedule),
+    Settings: isPathInSection(pathname, navPathName.Settings)
+  });
+  // const [isCollapsed, setIsCollapsed] = useState(false);
+  const dashboardItems = [
     {
-      title: "Dashboard",
-      icon: (
-        <FiHome
-          onClick={() => {
-            setIsCollapsed(false);
-          }}
-        />
-      ),
+      title: "dashboard",
       path: "/dashboard",
-      children: [
-        { title: "Ocean (AF)", path: "/dashboard/ocean-af" },
-        { title: "Ocean (SR)", path: "/dashboard/ocean-sr" },
-        { title: "Air Cargo", path: "/dashboard/air-cargo" },
-        { title: "Vessel", path: "/dashboard/vessel" },
-        { title: "Port Congestion", path: "/dashboard/port-congestion" },
-        { title: "Ocean Traffic", path: "/dashboard/ocean-traffic" },
-      ],
     },
+    { title: "Ocean (AF)", path: "/ocean-af" },
+    { title: "Ocean (SR)", path: "/ocean-sr" },
+    { title: "Air Cargo", path: "/air-cargo" },
+    { title: "Vessel", path: "/vessel" },
+    { title: "Port Congestion", path: "/port-congestion" },
+    { title: "Ocean Traffic", path: "/ocean-traffic" },
+  ];
+  const menuItems = [
     {
       title: "Schedule",
       icon: (
         <FiCalendar
           onClick={() => {
-            setIsCollapsed(false);
+            toggleMenu();
+            // setIsCollapsed(false);
           }}
         />
       ),
       path: "/schedule",
       children: [
-        { title: "Ocean", path: "/schedule/ocean" },
-        { title: "Air", path: "/schedule/air" },
+        { title: "Ocean", path: "/ocean" },
+        { title: "Air", path: "/air" },
       ],
     },
     {
@@ -56,27 +64,28 @@ const Menu = ({ isOpen }) => {
       icon: (
         <FiSettings
           onClick={() => {
-            setIsCollapsed(false);
+            toggleMenu();
+            // setIsCollapsed(false);
           }}
         />
       ),
       path: "/settings",
       children: [
-        { title: "Profile", path: "/settings/profile" },
-        { title: "API Endpoints", path: "/settings/api-endpoints" },
-        { title: "Logs", path: "/settings/logs" },
-        { title: "Feedback", path: "/settings/feedback" },
-        { title: "Support", path: "/settings/support" },
+        { title: "Profile", path: "/profile" },
+        { title: "API Endpoints", path: "/api-endpoints" },
+        { title: "Logs", path: "/logs" },
+        { title: "Feedback", path: "/feedback" },
+        { title: "Support", path: "/support" },
       ],
     },
   ];
 
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  // const toggleCollapse = () => {
+  //   setIsCollapsed(!isCollapsed);
+  // };
 
   const toggleSubmenu = (title) => {
-    if (!isCollapsed) {
+    if (isMenuOpen) {
       setExpandedItems((prev) => ({
         ...prev,
         [title]: !prev[title],
@@ -90,28 +99,50 @@ const Menu = ({ isOpen }) => {
 
   return (
     <nav
-      className={`${styles.sidebar} ${isOpen ? styles.open : ""} ${
-        isCollapsed ? styles.collapsed : ""
+      className={`${styles.sidebar} ${isMenuOpen ? styles.open : ""} ${
+        !isMenuOpen ? styles.collapsed : ""
       }`}
     >
       <div className={styles.menuHeader}>
         <h1 className={styles.title}>Xtrack</h1>
-        <button className={styles.menuToggle} onClick={toggleCollapse}>
+        <button className={styles.menuToggle} onClick={toggleMenu}>
           <FiMenu size={20} />
         </button>
       </div>
 
       <ul className={styles.menu}>
+        {dashboardItems.map((page, index) => (
+          <li style={{ padding:index===0&& !isMenuOpen ?"1rem 1.5rem" :index===0&& isMenuOpen?" .75rem 1.5rem .75rem 1.25rem":""}} className={styles["standalone-item"]} key={page.path}>
+            {index === 0 && (
+              <span className={styles.menuIcon} style={{ marginRight: !isMenuOpen ? 0 : '0.75rem' }}>
+              <FiHome
+                onClick={() => {
+                  // setIsCollapsed(false);
+                  toggleMenu();
+                }}
+              />
+              </span>
+            )}
+
+              <Link
+              style={{    padding:index===0? "0":""}}
+                href={page.path}
+                className={`
+                  ${styles.submenuItem}
+                  ${isActive(page.path) ? styles.active : ""}
+                `}
+
+              >
+                {page.title}
+              </Link>
+          </li>
+        ))}
+
         {menuItems.map((item) => (
           <li
             key={item.path}
             className={`
             ${styles.menuItem}
-            ${
-              isActive(item.path) || isParentActive(item.children)
-                ? styles.active
-                : ""
-            }
           `}
           >
             <div
@@ -128,7 +159,6 @@ const Menu = ({ isOpen }) => {
                 )}
               </span>
             </div>
-
             {item.children && (
               <ul
                 className={`
