@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import styles from "./oceanSRTracker.module.css";
+import styles from "../cargoTracker/CargoTracker.module.css";
 import axios from "axios";
 
  const OceanSRTracker = () => {

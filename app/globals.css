@@ -44,11 +44,16 @@ a {
   font-size: 3rem;
   margin-left: 1rem;
 }
+
 @media (max-width: 900px) {
   .title{
     font-size: 2rem;
   }
     
+}
+body .react-date-picker{
+  flex-grow: 1;
+  height: 2.2rem;
 }
 @media (prefers-color-scheme: dark) {
   html {
