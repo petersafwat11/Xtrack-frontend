@@ -92,12 +92,12 @@ import axios from "axios";
 
       // allorigins returns the data in a nested 'contents' property as a string
       const responseData = JSON.parse(response.data.contents);
-console.log("response", response, responseData)
-      if (responseData.status_code === "WRONG_NUMBER") {
+      console.log("response", response, responseData)
+      if (responseData?.message === "WRONG_NUMBER") {
         setError("Wrong Number");
         return;
       }
-      if (responseData.status_code === "no data received") {
+      if (responseData?.message === "no data received") {
         setError("No Tracking Info Found");
         return;
       }
