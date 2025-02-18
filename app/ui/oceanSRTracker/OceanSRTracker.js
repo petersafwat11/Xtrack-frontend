@@ -30,7 +30,7 @@ import axios from "axios";
   const generateMetaData = (data) => {
     const metadata = {
       number: data?.metadata?.number || null,
-      sealine: data?.metadata?.sealine || null,
+      sealine: data?.metadata?.sealine_name || null,
       updated_at: data?.metadata?.updated_at || null,
       status: data?.metadata?.status || null,
       arrival: data?.route?.pod?.date || null,
@@ -221,7 +221,7 @@ console.log("response", response, responseData)
                   <td className={styles["row-item"]}>{getFacilityString(event?.facility, data)}</td>
                   <td className={styles["row-item"]}>{event?.event_type}, {event?.event_code}</td>
                   <td className={styles["row-item"]}>{event?.description}</td>
-                  <td className={styles["row-item"]}>{data?.metadata?.sealine_name.toLocaleUpperCase}</td>
+                  <td className={styles["row-item"]}>{event?.type.toLocaleUpperCase()}</td>
                   <td className={styles["row-item"]}>{event?.transport_type}</td>
                   <td className={styles["row-item"]}>{getVesselInfo(event?.vessel, event?.voyage, data).vesselVoyage}</td>
                   <td className={styles["row-item"]}>{getVesselInfo(event?.vessel, event?.voyage, data).vesselImo}</td>
