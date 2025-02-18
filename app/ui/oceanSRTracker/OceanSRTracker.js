@@ -117,7 +117,7 @@ console.log("response", response, responseData)
       <div className={styles.searchSection}>
         <div className={styles.searchForm}>
           <div className={styles.searchInputContainer}>
-          <p className={styles.searchLabel}>AIRWAY BILL</p>
+          <p className={styles.searchLabel}>CONTAINER NO</p>
 
           <input
             type="text"
@@ -221,7 +221,7 @@ console.log("response", response, responseData)
                   <td className={styles["row-item"]}>{getFacilityString(event?.facility, data)}</td>
                   <td className={styles["row-item"]}>{event?.event_type}, {event?.event_code}</td>
                   <td className={styles["row-item"]}>{event?.description}</td>
-                  <td className={styles["row-item"]}>{event?.type}</td>
+                  <td className={styles["row-item"]}>{data?.metadata?.sealine_name.toLocaleUpperCase}</td>
                   <td className={styles["row-item"]}>{event?.transport_type}</td>
                   <td className={styles["row-item"]}>{getVesselInfo(event?.vessel, event?.voyage, data).vesselVoyage}</td>
                   <td className={styles["row-item"]}>{getVesselInfo(event?.vessel, event?.voyage, data).vesselImo}</td>
