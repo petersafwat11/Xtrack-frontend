@@ -105,7 +105,7 @@ import axios from "axios";
       setData(responseData?.data);
       setMetadata(generateMetaData(responseData?.data));
     } catch (error) {
-      setError("An error occurred while fetching tracking information. Please try again.");
+      setError("No tracking info found, try again later.");
       console.error("Tracking Error:", error);
     } finally {
       setLoading(false);
