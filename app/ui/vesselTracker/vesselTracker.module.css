@@ -1,0 +1,134 @@
+.container {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.searchContainer {
+  margin-bottom: 2rem;
+}
+
+.searchBox {
+  display: flex;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #00aeef;
+}
+
+.searchButton {
+  padding: 0.75rem 2rem;
+  background-color: #00aeef;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.searchButton:hover {
+  background-color: #0386b6;
+}
+
+.searchButton:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.loadingState,
+.errorState,
+.emptyState {
+  text-align: center;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.errorState {
+  color: #ef4444;
+}
+
+.resultContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.vesselInfo {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.vesselInfo h3 {
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.infoItem {
+  padding: 0.75rem;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.value {
+  font-size: 1rem;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.mapContainer {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mapContainer h3 {
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.locationDetails {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Leaflet map container styles */
+.mapContainer :global(.leaflet-container) {
+  border-radius: 0.5rem;
+  border: 2px solid #e2e8f0;
+}
