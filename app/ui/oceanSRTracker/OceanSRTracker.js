@@ -213,7 +213,7 @@ console.log("response", response, responseData)
               </tr>
             </thead>
             <tbody>
-              {data?.containers[0]?.events?.map((event, index) => (
+               {data?.containers && data?.containers?.length>0 &&data?.containers[0]?.events?.map((event, index) => (
                 <tr className={styles["table-row"]} key={index}>
                   <td className={styles["row-item"]}>{event?.order_id}</td>
                   <td className={styles["row-item"]}>{event?.date}</td>
