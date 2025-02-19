@@ -11,7 +11,7 @@
 .searchBox {
   display: flex;
   gap: 1rem;
-  max-width: 600px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -65,8 +65,9 @@
 
 .resultContainer {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 2rem;
+
 }
 
 .vesselInfo {
@@ -113,8 +114,9 @@
   padding: 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
 }
-
+/* 
 .mapContainer h3 {
   margin-bottom: 1rem;
   color: #1e293b;
@@ -125,10 +127,14 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-}
+} */
 
 /* Leaflet map container styles */
-.mapContainer :global(.leaflet-container) {
+/* .mapContainer :global(.leaflet-container) {
   border-radius: 0.5rem;
   border: 2px solid #e2e8f0;
+} */
+@media (max-width: 900px) {
+  .resultContainer {
+flex-direction: column;  }  
 }

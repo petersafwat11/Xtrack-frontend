@@ -84,20 +84,33 @@ const VesselTracker = () => {
           <div className={styles.vesselInfo}>
             <h3>Vessel Information</h3>
             <div className={styles.infoGrid}>
+            <div className={styles.infoItem}>
+                <span className={styles.label}>UPDATED AT:</span>
+                <span className={styles.value}>{data.results[0].updated_at}</span>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.label}>VESSEL ID:</span>
+                <span className={styles.value}>{data.results[0].id}</span>
+              </div>
               <div className={styles.infoItem}>
                 <span className={styles.label}>Name:</span>
                 <span className={styles.value}>{data.results[0].name}</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>IMO:</span>
-                <span className={styles.value}>{data.results[0].imo}</span>
               </div>
               <div className={styles.infoItem}>
                 <span className={styles.label}>MMSI:</span>
                 <span className={styles.value}>{data.results[0].mmsi}</span>
               </div>
               <div className={styles.infoItem}>
-                <span className={styles.label}>Type:</span>
+                <span className={styles.label}>IMO:</span>
+                <span className={styles.value}>{data.results[0].imo}</span>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.label}>CALL SIGN:</span>
+                <span className={styles.value}>{data.results[0].call_sign}</span>
+              </div>
+
+              <div className={styles.infoItem}>
+                <span className={styles.label}>SHIP TYPE:</span>
                 <span className={styles.value}>{data.results[0].ship_type}</span>
               </div>
               <div className={styles.infoItem}>
@@ -108,12 +121,16 @@ const VesselTracker = () => {
                 <span className={styles.label}>Length:</span>
                 <span className={styles.value}>{data.results[0].length}m</span>
               </div>
+              <div className={styles.infoItem}>
+                <span className={styles.label}>Width:</span>
+                <span className={styles.value}>{data.results[0].width}m</span>
+              </div>
             </div>
           </div>
 
           {data.results[0].last_position && (
             <div className={styles.mapContainer}>
-              <h3>Current Location</h3>
+              {/* <h3>Current Location</h3> */}
               <MapComponent
                 position={[
                   data.results[0].last_position.position.coordinates[1],
@@ -121,7 +138,7 @@ const VesselTracker = () => {
                 ]}
                 vesselName={data.results[0].name}
               />
-              <div className={styles.locationDetails}>
+              {/* <div className={styles.locationDetails}>
                 <div className={styles.infoItem}>
                   <span className={styles.label}>Speed:</span>
                   <span className={styles.value}>
@@ -142,7 +159,7 @@ const VesselTracker = () => {
                     ).toLocaleString()}
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
           )}
         </div>
