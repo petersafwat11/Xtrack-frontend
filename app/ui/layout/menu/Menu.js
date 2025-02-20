@@ -123,7 +123,7 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
     >
       <div className={styles.menuHeader}>
         {/* <h1 className={styles.title}>Xtrack</h1> */}
-        <Image style={{cursor:"pointer"}} src="/svg/logo.jpg" alt="logo" width={80} height={39} />
+        <Image style={{cursor:"pointer"}} src="/svg/logo.svg" alt="logo" width={80} height={39} />
         <button className={styles.menuToggle} onClick={toggleMenu}>
           <FiMenu size={20} />
         </button>

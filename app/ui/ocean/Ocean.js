@@ -152,8 +152,8 @@ const Ocean = () => {
         </table>
 
         {oceanData?.routing_details?.length > 0 && (
-          <div className={styles.tableContainer}>
-            <table className={styles.table}>
+          <div style={{ width: "92%", margin: "0 auto" }} className={styles.tableContainer}>
+            <table className={styles.secondTable}>
               <thead>
                 <tr className={styles["table-header"]}>
                   <th className={styles["header-item"]}>From</th>

@@ -85,15 +85,15 @@
   gap: 1.5rem;
   margin-bottom: 1rem;}
 
-.table {
+.table , .secondTable{
   width: 100%;
   border-collapse: collapse;
   min-width: 700px;
 }
-.tableContainer:last-child {
+/* .secondTable {
   width: 92%;
   margin: 0 auto;
-}
+} */
 /* .tableContainer:not(:first-child) .table-header {
     background-color: hsl(196, 100%, 47%);
   }
@@ -105,6 +105,8 @@
   background-color: rgb(160 168 186);  color: black;
   font-weight: 600;
   text-align: left;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }
 .first-table-header {
   background-color: hsl(196, 100%, 47%);
