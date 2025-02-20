@@ -92,44 +92,44 @@ const VesselTracker = () => {
             <div className={styles.infoGrid}>
             <div className={styles.infoItem}>
                 <span className={styles.label}>UPDATED AT:</span>
-                <span className={styles.value}>{data.results[0].updated_at}</span>
+                <span className={styles.value}>{data?.results&&data?.results.length>0&& data?.results[0].updated_at}</span>
               </div>
               <div className={styles.infoItem}>
                 <span className={styles.label}>VESSEL ID:</span>
-                <span className={styles.value}>{data.results[0].id}</span>
+                <span className={styles.value}>{data?.results&&data?.results.length>0&&  data.results[0].id}</span>
               </div>
               <div className={styles.infoItem}>
                 <span className={styles.label}>Name:</span>
-                <span className={styles.value}>{data.results[0].name}</span>
+                <span className={styles.value}>{data?.results&&data?.results.length>0&& data.results[0].name}</span>
               </div>
               <div className={styles.infoItem}>
                 <span className={styles.label}>MMSI:</span>
-                <span className={styles.value}>{data.results[0].mmsi}</span>
+                <span className={styles.value}>{data?.results&&data?.results.length>0&& data.results[0].mmsi}</span>
               </div>
               <div className={styles.infoItem}>
                 <span className={styles.label}>IMO:</span>
-                <span className={styles.value}>{data.results[0].imo}</span>
+                <span className={styles.value}>{data?.results&&data?.results.length>0&& data.results[0].imo}</span>
               </div>
               <div className={styles.infoItem}>
                 <span className={styles.label}>CALL SIGN:</span>
-                <span className={styles.value}>{data.results[0].call_sign}</span>
+                <span className={styles.value}>{data?.results&&data?.results.length>0&& data.results[0].call_sign}</span>
               </div>
 
               <div className={styles.infoItem}>
                 <span className={styles.label}>SHIP TYPE:</span>
-                <span className={styles.value}>{data.results[0].ship_type}</span>
+                <span className={styles.value}>{data?.results&&data?.results.length>0&& data.results[0].ship_type}</span>
               </div>
               <div className={styles.infoItem}>
                 <span className={styles.label}>Flag:</span>
-                <span className={styles.value}>{data.results[0].flag}</span>
+                <span className={styles.value}>{data?.results&&data?.results.length>0&& data.results[0].flag}</span>
               </div>
               <div className={styles.infoItem}>
                 <span className={styles.label}>Length:</span>
-                <span className={styles.value}>{data.results[0].length}m</span>
+                <span className={styles.value}>{data?.results&&data?.results.length>0&& data.results[0].length}m</span>
               </div>
               <div className={styles.infoItem}>
                 <span className={styles.label}>Width:</span>
-                <span className={styles.value}>{data.results[0].width}m</span>
+                <span className={styles.value}>{data?.results&&data?.results.length>0&& data.results[0].width}m</span>
               </div>
             </div>
           </div>
