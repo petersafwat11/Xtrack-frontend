@@ -39,15 +39,17 @@ a {
   background-color: #f9fafb;
 }
 .title{
-  color: #24af4b;
+  /* color: #787878; */
   font-weight: 800;
-  font-size: 3rem;
-  margin-left: 1rem;
+  font-size: 2rem;
+  margin-left: 2rem;
 }
 
 @media (max-width: 900px) {
   .title{
     font-size: 2rem;
+    margin-left: 0rem;
+
   }
     
 }

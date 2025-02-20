@@ -157,7 +157,7 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
                 `}
 
               >
-                {page.title}
+                Dashboard
               </Link>
           </li>
         ))}
@@ -174,7 +174,7 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
               onClick={() => toggleSubmenu(item.title)}
             >
               <span className={styles.menuIcon}>{item.icon}</span>
-              <span className={styles.menuTitle}>{item.title}</span>
+              <span className={styles.menuTitle}>{item.title==="Tracker"? "Live Tracking":item.title}</span>
               <span className={styles.menuArrow}>
                 {expandedItems[item.title] ? (
                   <FiChevronDown />

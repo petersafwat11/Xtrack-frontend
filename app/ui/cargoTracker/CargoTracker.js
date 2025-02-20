@@ -58,8 +58,10 @@ export default function CargoTracker() {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-          }
+          },
+          timeout: 90000, 
         }
+        
       );
 
       // allorigins returns the data in a nested 'contents' property as a string

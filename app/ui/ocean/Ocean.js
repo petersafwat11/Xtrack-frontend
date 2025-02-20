@@ -5,7 +5,7 @@ import axios from "axios";
 import DateInput from "../inputs/dateInput/DateInput";
 
 const Ocean = () => {
-  const [inputsData, setInputsData] = useState({ fromLocation: "", toLocation: "", date: "" });
+  const [inputsData, setInputsData] = useState({ fromLocation: "", toLocation: "", date: new Date() });
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -30,9 +30,11 @@ const Ocean = () => {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-          }
+          },
+          timeout: 90000, 
         }
       );
+
       // allorigins returns the data in a nested 'contents' property as a string
       const responseData = JSON.parse(response.data.contents);
       console.log("response", response, responseData)

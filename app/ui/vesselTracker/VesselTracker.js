@@ -54,21 +54,27 @@ const VesselTracker = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.searchContainer}>
-        <div className={styles.searchBox}>
+      <div className={styles.searchSection}>
+        <div className={styles.searchForm}>
+          <div className={styles.searchInputContainer}>
+          <p className={styles.searchLabel}>Vessel IMO</p>
+
           <input
             type="text"
             value={searchNumber}
             onChange={(e) => setSearchNumber(e.target.value)}
             placeholder="Enter Vessel IMO"
             className={styles.searchInput}
+            maxLength={12}
           />
+
+          </div>
           <button
             onClick={fetchData}
             className={styles.searchButton}
             disabled={loading}
           >
-            {loading ? "Searching..." : "Track"}
+            {loading ? "Tracking..." : "Track"}
           </button>
         </div>
       </div>

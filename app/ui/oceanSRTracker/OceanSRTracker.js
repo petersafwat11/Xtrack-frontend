@@ -81,12 +81,16 @@ import axios from "axios";
 
     try {
       const response = await axios.get(
-        `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/searates/api/tracker/${searchNumber}`)}`,
+        `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/searates/api/tracker/${searchNumber}`)}&timestamp=${new Date().getTime()}`,
         {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-          }
+            // 'Cache-Control': 'no-cache, no-store, must-revalidate',
+            // 'Pragma': 'no-cache',
+            // 'Expires': '0'
+          },
+          timeout: 90000, 
         }
       );
 

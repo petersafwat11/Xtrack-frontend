@@ -6,16 +6,14 @@ import classes from "./dateInput.module.css";
 
 const DateInput = ({ data, setData, dataKey, label, required, noLabel }) => {
   return (
-      <DatePicker
-        onChange={(date) =>
-          setData({ ...data, [dataKey]: date })
-        }
-        format="yyyy-MM-dd"
-        dayPlaceholder="dd"
-        monthPlaceholder="mm"
-        yearPlaceholder="yyyy"
-        value={data[dataKey]}
-      />
+    <DatePicker
+      onChange={(date) => setData({ ...data, [dataKey]: date })}
+      format="dd-MM-yyyy"
+      dayPlaceholder="dd"
+      monthPlaceholder="mm"
+      yearPlaceholder="yyyy"
+      value={data[dataKey]}
+    />
   );
 };
 

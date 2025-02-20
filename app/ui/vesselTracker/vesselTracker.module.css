@@ -1,53 +1,78 @@
-.container {
+/* .container {
   padding: 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
-}
-
-.searchContainer {
-  margin-bottom: 2rem;
-}
-
-.searchBox {
-  display: flex;
-  gap: 1rem;
-  max-width: 100%;
+} */
+.container {
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 1rem 2rem 2rem;
+  /* padding: 2rem; */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: #f8fafc;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.searchForm {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 1rem;
+  /* max-width: 600px; */
+  margin: 0 auto;
+  width: 100%;
+  padding:  1rem 1rem 1rem 0rem;
+}
+.searchInputContainer{
+ display: flex;
+ gap: 1rem; 
+ flex-grow: 1;
+ align-items: center;
+ max-width: 35rem;
+ width: 100%;
+}
+.searchLabel{
+  font-size: 1rem;
+  color: #64748b;
+  /* margin-bottom: 0.5rem; */
+  font-weight: 600;
+}
 .searchInput {
   flex: 1;
-  padding: 0.75rem 1rem;
-  border: 2px solid #e2e8f0;
+  padding: 0.6rem 1rem;
+  border: 1px solid #e2e8f0;
   border-radius: 0.5rem;
   font-size: 1rem;
-  transition: border-color 0.2s;
+  background-color: white;
+  transition: all 0.2s ease;
+  flex-grow: 1;
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: #00aeef;
+  border-color: #00AEEF;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .searchButton {
-  padding: 0.75rem 2rem;
-  background-color: #00aeef;
+  padding: 0.7rem 2.25rem;
+  background-color: #00AEEF;
   color: white;
   border: none;
   border-radius: 0.5rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .searchButton:hover {
   background-color: #0386b6;
 }
 
-.searchButton:disabled {
-  background-color: #cbd5e1;
-  cursor: not-allowed;
-}
 
 .loadingState,
 .errorState,
@@ -134,7 +159,20 @@
   border-radius: 0.5rem;
   border: 2px solid #e2e8f0;
 } */
+
 @media (max-width: 900px) {
+  .container {
+    padding: 1rem;
+  }
+
   .resultContainer {
 flex-direction: column;  }  
+.searchForm {
+  flex-direction: column;
+}
+
+.searchButton {
+  width: 100%;
+}
+
 }
