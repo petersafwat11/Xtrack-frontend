@@ -83,6 +83,9 @@
   background-color: #f8fafc;
   border-radius: 0.5rem;
   transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
 }
 
 .metadataItem:hover {
