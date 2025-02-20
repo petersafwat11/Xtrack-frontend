@@ -22,7 +22,7 @@ export default function CargoTracker() {
   const handleSearchChange = (e) => {
     const formattedValue = formatSearchNumber(e.target.value);
     // Limit the total length (including hyphen) to 12 characters
-    if (formattedValue.length <= 12) {
+    if (formattedValue.length <= 20) {
       setSearchNumber(formattedValue);
     }
   };

@@ -2,39 +2,19 @@
 import { useState } from "react";
 import styles from "../cargoTracker/CargoTracker.module.css";
 import axios from "axios";
+import initialJsonData from "../../../json.json";
 
- const OceanSRTracker = () => {
-  const [searchNumber, setSearchNumber] = useState("");
-  const [data, setData] = useState(null);
-  const [metadata, setMetadata] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const formatSearchNumber = (value) => {
-    // const numbers = value.replace(/[^\d]/g, '');
-    
-    // if (numbers.length > 3) {
-    //   return numbers.slice(0, 3) + '-' + numbers.slice(3);
-    // }
-    return value;
-  };
-
-  const handleSearchChange = (e) => {
-    const formattedValue = formatSearchNumber(e.target.value);
-    // Limit the total length (including hyphen) to 12 characters
-    if (formattedValue.length <= 20) {
-      setSearchNumber(formattedValue);
-    }
-  };
-
+const OceanAFTracker = () => {
   const generateMetaData = (data) => {
     const metadata = {
+      type: data?.metadata?.type || null,
       number: data?.metadata?.number || null,
-      sealine: data?.metadata?.sealine_name || null,
+      sealine: data?.metadata?.sealine || null,
+      sealine_name: data?.metadata?.sealine_name || null,
       updated_at: data?.metadata?.updated_at || null,
       status: data?.metadata?.status || null,
-      arrival: data?.route?.pod?.date || null,
-      departure: data?.route?.pol?.date || null,
+      // arrival: data?.route?.pod?.date || null,
+      // departure: data?.route?.pol?.date || null,
       from: (() => {
         const polLocationId = data?.route?.pol?.location;
         const location = data?.locations?.find((location) => location.id === polLocationId);
@@ -47,6 +27,24 @@ import axios from "axios";
       })(),
     };
     return metadata;
+  };
+
+  const [searchNumber, setSearchNumber] = useState("TRHU6744246");
+  const [data, setData] = useState(initialJsonData.containerPosition.data);
+  const [metadata, setMetadata] = useState(() => generateMetaData(initialJsonData.containerPosition.data));
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  console.log("data", data, "metadata", metadata)
+  const formatSearchNumber = (value) => {
+    return value;
+  };
+
+  const handleSearchChange = (e) => {
+    const formattedValue = formatSearchNumber(e.target.value);
+    // Limit the total length (including hyphen) to 12 characters
+    if (formattedValue.length <= 20) {
+      setSearchNumber(formattedValue);
+    }
   };
 
   // Helper functions for location, facility and vessel logic
@@ -81,7 +79,7 @@ import axios from "axios";
 
     try {
       const response = await axios.get(
-        `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/searates/api/tracker/${searchNumber}`)}&timestamp=${new Date().getTime()}`,
+        `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/allforward/api/tracker/${searchNumber}`)}&timestamp=${new Date().getTime()}`,
         {
           headers: {
             'Accept': 'application/json',
@@ -159,12 +157,20 @@ import axios from "axios";
       {metadata !== null && !loading && !error && (
         <div className={styles.metadata}>
           <div className={styles.metadataItem}>
+            <p className={styles.label}>TYPE</p>
+            <p className={styles.value}>{metadata?.type}</p>
+          </div>
+          <div className={styles.metadataItem}>
             <p className={styles.label}>CONTAINER</p>
             <p className={styles.value}>{metadata?.number}</p>
           </div>
           <div className={styles.metadataItem}>
-            <p className={styles.label}>SEALINE</p>
+            <p className={styles.label}>SEALINE </p>
             <p className={styles.value}>{metadata?.sealine}</p>
+          </div>
+          <div className={styles.metadataItem}>
+            <p className={styles.label}>SEALINE NAME</p>
+            <p className={styles.value}>{metadata?.sealine_name}</p>
           </div>
           <div className={styles.metadataItem}>
             <p className={styles.label}>UPDATED AT</p>
@@ -183,14 +189,14 @@ import axios from "axios";
             <p className={styles.label}>STATUS</p>
             <p className={styles.value}>{metadata?.status}</p>
           </div>
-          <div className={styles.metadataItem}>
+          {/* <div className={styles.metadataItem}>
             <p className={styles.label}>ETA DEPARTURE</p>
             <p className={styles.value}>{metadata?.departure}</p>
           </div>
           <div className={styles.metadataItem}>
             <p className={styles.label}>ETA ARRIVAL</p>
             <p className={styles.value}>{metadata?.arrival}</p>
-          </div>
+          </div> */}
         </div>
       )}
 
@@ -209,6 +215,9 @@ import axios from "axios";
                 <th className={styles["header-item"]}>FACILITY</th>
                 <th className={styles["header-item"]}>EVENT</th>
                 <th className={styles["header-item"]}>DESCRIPTION</th>
+                {/* <th className={styles["header-item"]}>STATUS</th>
+                <th className={styles["header-item"]}>ACTUAL</th>
+                <th className={styles["header-item"]}>IS ADDITIONAL EVENT</th> */}
                 <th className={styles["header-item"]}>TYPE</th>
                 <th className={styles["header-item"]}>TRANSPORT TYPE</th>
                 <th className={styles["header-item"]}>VESSEL VOYAGE</th>
@@ -225,6 +234,9 @@ import axios from "axios";
                   <td className={styles["row-item"]}>{getFacilityString(event?.facility, data)}</td>
                   <td className={styles["row-item"]}>{event?.event_type}, {event?.event_code}</td>
                   <td className={styles["row-item"]}>{event?.description}</td>
+                  {/* <td className={styles["row-item"]}>{event?.status}</td>
+                  <td className={styles["row-item"]}>{event?.actual}</td>
+                  <td className={styles["row-item"]}>{event?.is_additional_event}</td> */}
                   <td className={styles["row-item"]}>{event?.type.toLocaleUpperCase()}</td>
                   <td className={styles["row-item"]}>{event?.transport_type}</td>
                   <td className={styles["row-item"]}>{getVesselInfo(event?.vessel, event?.voyage, data).vesselVoyage}</td>
@@ -238,4 +250,4 @@ import axios from "axios";
     </div>
   );
 }
-export default OceanSRTracker
+export default OceanAFTracker
