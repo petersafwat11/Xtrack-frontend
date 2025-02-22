@@ -48,11 +48,10 @@ const LoginForm = () => {
 
         // Store auth data in both cookies and localStorage
         Cookies.set("token", token, { expires: 1 }); // Expires in 1 day
-        Cookies.set("user", data.user, { expires: 1 }); // Expires in 1 day
+        Cookies.set("user", JSON.stringify(data.user), { expires: 1 }); // Expires in 1 day
 
         // Update axios default headers
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
         toast.success("Login successful!");
         router.push("/");
       }
