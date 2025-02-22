@@ -166,7 +166,10 @@ const OceanFTTracker = () => {
               </tr>
             </thead>
             <tbody>
-               {data?.events && data?.events?.length>0 &&data?.events?.map((event, index) => (
+               {data?.events && data?.events?.length>0 && 
+                data?.events
+                  .filter(event => new Date(event?.date) < new Date())
+                  .map((event, index) => (
                 <tr className={styles["table-row"]} key={index}>
                   <td className={styles["row-item"]}>{event?.date}</td>
                   <td className={styles["row-item"]}>{event?.location}</td>
