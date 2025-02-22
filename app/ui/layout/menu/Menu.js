@@ -21,7 +21,7 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
   const navPathName = {
     Schedule: ["/air", "/ocean"],
     Settings: ["/profile", "/api-endpoints", "/logs", "/feedback", "/support"],
-    Tracker: ["/ocean-af", "/ocean-sr", "/air-cargo", "/port-congestion", "/ocean-traffic"],
+    Tracker: ["/ocean-af", "/ocean-sr", "/air-cargo", "/vessel","/port-congestion", "/ocean-traffic", "/ocean-ft"],
   };
 
   const isPathInSection = (path, sectionPaths) => {
@@ -59,6 +59,7 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
         { title: "Vessel", path: "/vessel" },
         { title: "Port Congestion", path: "/port-congestion" },
         { title: "Ocean Traffic", path: "/ocean-traffic" },
+        { title: "Ocean (FT)", path: "/ocean-ft" },
           ],
     },
     {

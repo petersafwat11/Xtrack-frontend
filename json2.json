@@ -1,0 +1,69 @@
+{
+    "container": "NYKU3761722",
+    "container_type": " 20'DV",
+    "from": {
+      "port": "Singapore, Singapore",
+      "date": "2025-02-04"
+    },
+    "to": {
+      "port": "Le Havre, France",
+      "date": "2025-03-24"
+    },
+    "last": {
+      "port": "Singapore, Singapore",
+      "status": "Departed by Vessel",
+      "date": "2025-02-04"
+    },
+    "estimated_time_of_arrival": "2025-03-24",
+    "updated_at": "2025-02-22 03:17 UTC",
+    "events": [
+      {
+        "port": "RE-USE YARD",
+        "location": "Singapore,  Singapore",
+        "status": "Gate out empty by Truck",
+        "date": "2025-01-27"
+      },
+      {
+        "port": "PSA CORPORATION LIMITED",
+        "location": "Singapore,  Singapore",
+        "status": "Gate in full by Truck",
+        "date": "2025-02-01"
+      },
+      {
+        "port": "PSA CORPORATION LIMITED",
+        "location": "Singapore,  Singapore",
+        "status": "Loaded on Vessel ONE HOUSTON",
+        "date": "2025-02-03"
+      },
+      {
+        "port": "PSA CORPORATION LIMITED",
+        "location": "Singapore,  Singapore",
+        "status": "Departed by Vessel ONE HOUSTON",
+        "date": "2025-02-04"
+      },
+      {
+        "port": "GMP - TERMINAL DE FRANCE",
+        "location": "Le Havre,  France",
+        "status": "Arrived by Vessel ONE HOUSTON",
+        "date": "2025-03-24"
+      },
+      {
+        "port": "GMP - TERMINAL DE FRANCE",
+        "location": "Le Havre,  France",
+        "status": "Discharged from Vessel ONE HOUSTON",
+        "date": "2025-03-24"
+      },
+      {
+        "port": "GMP - TERMINAL DE FRANCE",
+        "location": "Le Havre,  France",
+        "status": "Delivered by Truck",
+        "date": "2025-03-24"
+      },
+      {
+        "port": "LE HAVRE ARNAL LE HAVRE",
+        "location": "Le Havre,  France",
+        "status": "Empty returned by Truck",
+        "date": "2025-03-24"
+      }
+    ]
+  }
