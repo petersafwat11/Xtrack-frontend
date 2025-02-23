@@ -10,17 +10,8 @@ import axios from "axios";
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const formatSearchNumber = (value) => {
-    // const numbers = value.replace(/[^\d]/g, '');
-    
-    // if (numbers.length > 3) {
-    //   return numbers.slice(0, 3) + '-' + numbers.slice(3);
-    // }
-    return value;
-  };
-
   const handleSearchChange = (e) => {
-    const formattedValue = formatSearchNumber(e.target.value);
+    const formattedValue = e.target.value;
     // Limit the total length (including hyphen) to 12 characters
     if (formattedValue.length <= 20) {
       setSearchNumber(formattedValue);
@@ -99,18 +90,44 @@ import axios from "axios";
       console.log("response", response, responseData)
       if (responseData?.message === "WRONG_NUMBER") {
         setError("Wrong Number");
+        // Log the error in tracking
+        await logTrackingSearch({
+          menu_id: 'Ocean SR',
+          api_request: searchNumber,
+          api_status: 'F',
+          api_error: "Wrong Number, No Tracking Info Found"
+        });
         return;
       }
       if (responseData?.message === "no data received") {
         setError("No Tracking Info Found");
+        // Log the error in tracking
+        await logTrackingSearch({
+          menu_id: 'Ocean SR',
+          api_request: searchNumber,
+          api_status: 'F',
+          api_error: "No Tracking Info Found"
+        });
         return;
       }
+      await logTrackingSearch({
+        menu_id: 'Ocean SR',
+        api_request: searchNumber,
+        api_status: 'S'
+      });
 
       setData(responseData?.data);
       setMetadata(generateMetaData(responseData?.data));
     } catch (error) {
       setError("No tracking info found, try again later.");
       console.error("Tracking Error:", error);
+      // Log the error in tracking
+      await logTrackingSearch({
+        menu_id: 'Ocean SR',
+        api_request: searchNumber,
+        api_status: 'F',
+        api_error: error.message || "An error occurred while fetching the data"
+      });
     } finally {
       setLoading(false);
     }

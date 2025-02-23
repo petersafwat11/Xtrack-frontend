@@ -59,13 +59,33 @@ const OceanFTTracker = () => {
       console.log("response", response, responseData)
       if (responseData?.error === "We couldn't find any data available on public track for this container") {
         setError("Wrong Number, Enter a valid container number");
+        // Log the error in tracking
+        await logTrackingSearch({
+          menu_id: 'Ocean FT',
+          api_request: searchNumber,
+          api_status: 'F',
+          api_error: "Wrong Number, No Tracking Info Found"
+        });
         return;
       }
+      await logTrackingSearch({
+        menu_id: 'Ocean FT',
+        api_request: searchNumber,
+        api_status: 'S'
+      });
+
       setData(responseData);
       setMetadata(generateMetaData(responseData));
     } catch (error) {
       setError("No tracking info found, try again later.");
       console.error("Tracking Error:", error);
+      // Log the error in tracking
+      await logTrackingSearch({
+        menu_id: 'Ocean FT',
+        api_request: searchNumber,
+        api_status: 'F',
+        api_error: error.message || "An error occurred while fetching the data"
+      });
     } finally {
       setLoading(false);
     }

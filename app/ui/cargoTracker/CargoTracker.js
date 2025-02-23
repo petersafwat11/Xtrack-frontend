@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import styles from "./CargoTracker.module.css";
+import { logTrackingSearch } from "@/app/lib/trackingLogger";
 import axios from "axios";
 
 export default function CargoTracker() {
@@ -52,6 +53,7 @@ export default function CargoTracker() {
     setMetadata(null);
 
     try {
+
       const response = await axios.get(
         `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/airrates/api/tracker/${searchNumber}`)}`,
         {
@@ -69,18 +71,45 @@ export default function CargoTracker() {
 
       if (responseData.status_code === "WRONG_NUMBER") {
         setError("Wrong Number");
+        // Log the error in tracking
+        await logTrackingSearch({
+          menu_id: 'Cargo Tracker',
+          api_request: searchNumber,
+          api_status: 'F',
+          api_error: "Wrong Number, No Tracking Info Found"
+        });
         return;
       }
       if (responseData.status_code === "no data received") {
         setError("No Tracking Info Found");
+        // Log the error in tracking
+        await logTrackingSearch({
+          menu_id: 'Cargo Tracker',
+          api_request: searchNumber,
+          api_status: 'F',
+          api_error: "No Tracking Info Found"
+        });
         return;
       }
+      // Log the tracking request
+      await logTrackingSearch({
+        menu_id: 'Cargo Tracker',
+        api_request: searchNumber,
+        api_status: 'S'
+      });
 
       setData(responseData);
       setMetadata(generateMetaData(responseData));
     } catch (error) {
       setError("An error occurred while fetching tracking information. Please try again.");
       console.error("Tracking Error:", error);
+      // Log the error in tracking
+      await logTrackingSearch({
+        menu_id: 'Cargo Tracker',
+        api_request: searchNumber,
+        api_status: 'F',
+        api_error: error.message
+      });
     } finally {
       setLoading(false);
     }

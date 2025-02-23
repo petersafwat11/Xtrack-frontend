@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
-
+   
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (

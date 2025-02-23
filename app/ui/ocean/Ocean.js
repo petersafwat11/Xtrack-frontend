@@ -37,21 +37,43 @@ const Ocean = () => {
 
       // allorigins returns the data in a nested 'contents' property as a string
       const responseData = JSON.parse(response.data.contents);
-      console.log("response", response, responseData)
-      
       if (responseData?.error === "location data weren't found") {
         setError("No Tracking Info Found");
+        await logTrackingSearch({
+          menu_id: 'Ocean',
+          api_request: `From: ${inputsData.fromLocation}, To: ${inputsData.toLocation}, Date: ${inputsData.date}`,
+          api_status: 'F',
+          api_error: "No Tracking Info Found"
+        })
+
         return;
       }
       if (responseData?.error === "no data received") {
         setError("No Tracking Info Found");
+        await logTrackingSearch({
+          menu_id: 'Ocean',
+          api_request: `From: ${inputsData.fromLocation}, To: ${inputsData.toLocation}, Date: ${inputsData.date}`,
+          api_status: 'F',
+          api_error: "No Tracking Info Found"
+        })
         return;
       }
+      await logTrackingSearch({
+        menu_id: "Ocean",
+        api_request: `From: ${inputsData.fromLocation}, To: ${inputsData.toLocation}, Date: ${inputsData.date}`,
+        api_status: "S",
+      });
 
       setData(responseData);
     } catch (error) {
       setError("No tracking info found, try again later.");
       console.error("Tracking Error:", error);
+      await logTrackingSearch({
+        menu_id: 'Ocean',
+        api_request: `From: ${inputsData.fromLocation}, To: ${inputsData.toLocation}, Date: ${inputsData.date}`,
+        api_status: 'F',
+        api_error: error.message || "An error occurred while fetching the data"
+      });
     } finally {
       setLoading(false);
     }

@@ -35,18 +35,35 @@ const VesselTracker = () => {
         }
       );
 
+
       const responseData = JSON.parse(response.data.contents);
-      console.log("response", response);
 
       if (responseData?.error) {
         setError("No Vessel Info Found");
+        await logTrackingSearch({
+          menu_id: "Vessel Tracker",
+          api_request: searchNumber,
+          api_status: "F",
+          api_error: "No Tracking Info Found"
+        });
         return;
       }
+      await logTrackingSearch({
+        menu_id: "Vessel Tracker",
+        api_request: searchNumber,
+        api_status: "S",
+      });
 
       setData(responseData?.data);
     } catch (error) {
       setError("Error fetching vessel data");
       console.error("Tracking Error:", error);
+      await logTrackingSearch({
+        menu_id: "Vessel Tracker",
+        api_request: searchNumber,
+        api_status: "F",
+        api_error: error.message || "An error occurred while fetching the data"
+      });
     } finally {
       setLoading(false);
     }

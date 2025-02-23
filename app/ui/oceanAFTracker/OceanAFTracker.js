@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import styles from "../cargoTracker/CargoTracker.module.css";
+import { logTrackingSearch } from "@/app/lib/trackingLogger";
 import axios from "axios";
 import initialJsonData from "../../../json.json";
 
@@ -78,37 +79,52 @@ const OceanAFTracker = () => {
     setMetadata(null);
 
     try {
+      // Log the tracking request
       const response = await axios.get(
-        `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/allforward/api/tracker/${searchNumber}`)}&timestamp=${new Date().getTime()}`,
-        {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            // 'Cache-Control': 'no-cache, no-store, must-revalidate',
-            // 'Pragma': 'no-cache',
-            // 'Expires': '0'
-          },
-          timeout: 90000, 
-        }
+        `http://178.128.210.208:8000/oceanrates/api/tracker/${searchNumber}`
       );
-
-      // allorigins returns the data in a nested 'contents' property as a string
       const responseData = JSON.parse(response.data.contents);
-      console.log("response", response, responseData)
-      if (responseData?.message === "WRONG_NUMBER") {
-        setError("Wrong Number");
-        return;
-      }
-      if (responseData?.message === "no data received") {
-        setError("No Tracking Info Found");
-        return;
-      }
 
-      setData(responseData?.data);
-      setMetadata(generateMetaData(responseData?.data));
-    } catch (error) {
-      setError("No tracking info found, try again later.");
-      console.error("Tracking Error:", error);
+      if (responseData.status_code === "WRONG_NUMBER") {
+        setError("Wrong Number");
+        // Log the error in tracking
+        await logTrackingSearch({
+          menu_id: 'Ocean AF',
+          api_request: searchNumber,
+          api_status: 'F',
+          api_error: "Wrong Number, No Tracking Info Found"
+        });
+        return;
+      }
+      if (responseData.status_code === "no data received") {
+        setError("No Tracking Info Found");
+        // Log the error in tracking
+        await logTrackingSearch({
+          menu_id: 'Ocean AF',
+          api_request: searchNumber,
+          api_status: 'F',
+          api_error: "No Tracking Info Found"
+        });
+        return;
+      }
+      await logTrackingSearch({
+        menu_id: 'Ocean AF',
+        api_request: searchNumber,
+        api_status: 'S'
+      });
+
+        setData(responseData.data);
+        const meta = generateMetaData(responseData.data);
+        setMetadata(meta);
+    } catch (err) {
+      setError(err.message || "An error occurred while fetching the data");
+      // Log the error in tracking
+      await logTrackingSearch({
+        menu_id: 'Ocean AF',
+        api_request: searchNumber,
+        api_status: 'F',
+        api_error: err.message||"An error occurred while fetching the data"
+      });
     } finally {
       setLoading(false);
     }

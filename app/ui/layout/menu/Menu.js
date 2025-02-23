@@ -53,13 +53,12 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
       ),
       path: "/tracker",
       children: [
+        { title: "Ocean (FT)", path: "/ocean-ft" },
         { title: "Ocean (AF)", path: "/ocean-af" },
         { title: "Ocean (SR)", path: "/ocean-sr" },
         { title: "Air Cargo", path: "/air-cargo" },
         { title: "Vessel", path: "/vessel" },
-        { title: "Port Congestion", path: "/port-congestion" },
-        { title: "Ocean Traffic", path: "/ocean-traffic" },
-        { title: "Ocean (FT)", path: "/ocean-ft" },
+        { title: "Marine Traffic", path: "/marine-traffic" },
           ],
     },
     {
@@ -94,7 +93,7 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
         { title: "API Endpoints", path: "/api-endpoints" },
         { title: "Logs", path: "/logs" },
         { title: "Feedback", path: "/feedback" },
-        { title: "Support", path: "/support" },
+        { title: "Users", path: "/users" },
       ],
     },
   ];
