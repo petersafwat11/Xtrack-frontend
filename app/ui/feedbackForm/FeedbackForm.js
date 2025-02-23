@@ -4,12 +4,14 @@ import styles from './feedbackForm.module.css';
 // import { getCookie } from 'cookies-next';
 import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
-import axios from 'axios';
 import api from '@/app/lib/axios';
 
 const FeedbackForm = () => {
+  const userID= 
+  // JSON.parse(Cookies.get('user'))?.user_id || 
+  'petersafwat';
   const [formData, setFormData] = useState({
-    user_id: JSON.parse(Cookies.get('user')).user_id || '',
+    user_id: userID,
     feedback_date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace(',', '').replace(/ /g, "-"),
     feedback_subject: '',
     feedback_description: ''
