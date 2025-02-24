@@ -73,7 +73,7 @@ export default function CargoTracker() {
         setError("Wrong Number");
         // Log the error in tracking
         await logTrackingSearch({
-          menu_id: 'Cargo Tracker',
+          menu_id: 'Air Cargo',
           api_request: searchNumber,
           api_status: 'F',
           api_error: "Wrong Number, No Tracking Info Found"
@@ -84,7 +84,7 @@ export default function CargoTracker() {
         setError("No Tracking Info Found");
         // Log the error in tracking
         await logTrackingSearch({
-          menu_id: 'Cargo Tracker',
+          menu_id: 'Air Cargo',
           api_request: searchNumber,
           api_status: 'F',
           api_error: "No Tracking Info Found"
@@ -92,8 +92,8 @@ export default function CargoTracker() {
         return;
       }
       // Log the tracking request
-      await logTrackingSearch({
-        menu_id: 'Cargo Tracker',
+      await logTrackingSearch({ 
+        menu_id: 'Air Cargo',
         api_request: searchNumber,
         api_status: 'S'
       });
@@ -105,7 +105,7 @@ export default function CargoTracker() {
       console.error("Tracking Error:", error);
       // Log the error in tracking
       await logTrackingSearch({
-        menu_id: 'Cargo Tracker',
+        menu_id: 'Air Cargo',
         api_request: searchNumber,
         api_status: 'F',
         api_error: error.message

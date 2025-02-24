@@ -11,41 +11,22 @@
   border-radius: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-.filters {
+.actions {
   display: flex;
   gap: 2rem;  
   align-items: center;
 }
-.inputContainer {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-.searchButton {
-  padding: 0.6rem 2.25rem;
+.create, .edit, .delete {
   background-color: #00aeef;
-  color: white;
+  color: #fff;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: .5rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.searchButton:hover {
-  background-color: #0386b6;
-}
-
-.searchContainer{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-}
-.user-id, .searchLabel{
-  font-size: 1rem;
-  color: #64748b;
-  font-weight: 600;
+  transition: all .2s;
+  height: 2.25rem;
+  width: 9rem;
+  font-size: .9rem;
 }
 .searchInput {
   padding: 0.7rem 1rem;
@@ -61,6 +42,17 @@
   outline: none;
   border-color: #00aeef;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.searchButton:hover {
+  background-color: #0386b6;
+}
+
+.user-id, 
+.searchLabel{
+  font-size: 1rem;
+  color: #64748b;
+  font-weight: 600;
 }
 .tableContainer {
   background-color: #fff;
@@ -79,7 +71,6 @@
 }
 
 .table-header {
-  /* background-color: rgb(160 168 186);  color: black; */
   font-weight: 600;
   text-align: left;
   border-top-left-radius: 0.5rem;
@@ -106,6 +97,8 @@
   color: #1e293b;
   font-size: 0.875rem;
 }
+
+
 .success {
   color: #28a745;
 }
@@ -147,4 +140,66 @@
 
 .pageInfo {
   color: #666;
+}
+.delete-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: .5rem 1.5rem;
+  cursor: pointer;
+
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 90%;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.cancelButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+.deleteButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #dc3545;
+  color: white;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background: #c82333;
 }
