@@ -1,32 +1,32 @@
 import React from 'react';
 import Profile from '@/app/ui/users/profile/Profile';
 
-async function getCurrentUserData() {
-  try {
-    const response = await fetch(`${process.env.BACKEND_SERVER}/api/users/me`, {
-      cache: 'no-store'
-    });
+// async function getCurrentUserData() {
+//   try {
+//     const response = await fetch(`${process.env.BACKEND_SERVER}/api/users/me`, {
+//       cache: 'no-store'
+//     });
     
-    // if (!response.ok) {
-    //   throw new Error('Failed to fetch user data');
-    // }
+//     // if (!response.ok) {
+//     //   throw new Error('Failed to fetch user data');
+//     // }
 
-    const data = await response.json();
-    return data.data;
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-    throw error;
-  }
-}
+//     const data = await response.json();
+//     return data.data;
+//   } catch (error) {
+//     console.error('Error fetching user data:', error);
+//     throw error;
+//   }
+// }
 
 export default async function ProfilePage() {
-  let userData = null;
+//   let userData = null;
 
-  try {
-    userData = await getCurrentUserData();
-  } catch (error) {
-    console.error('Error:', error);
-  }
+//   try {
+//     userData = await getCurrentUserData();
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
 
   return (
     <div className="container">
@@ -53,7 +53,8 @@ export default async function ProfilePage() {
   - marine_traffic (character varying) NOT NULL
   - create_date (timestamp with time zone) NOT NULL
   - update_date (timestamp with time zone) NOT NULL */}
-      <Profile initialData={userData} isNewUser={false} />
+      {/* <Profile
+       initialData={userData} isNewUser={false} /> */}
     </div>
   );
 }
