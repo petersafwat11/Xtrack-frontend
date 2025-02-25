@@ -13,9 +13,11 @@ import {
   FiCrosshair,
 } from "react-icons/fi";
 import Image from "next/image";
+import Cookies from "js-cookie";
 
 const Menu = ({toggleMenu, isMenuOpen}) => {
-  console.log('')
+  const user = JSON.parse(Cookies.get('user'));
+  console.log('user menu', user)
   const pathname = usePathname();
 
   const navPathName = {
@@ -90,10 +92,14 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
       path: "/settings",
       children: [
         { title: "Profile", path: "/profile" },
-        { title: "API Endpoints", path: "/api-endpoints" },
+        user.menuPermissions.showSettingsAPI
+        ? { title: "API Endpoints", path: "/api-endpoints" }
+        : null,
         { title: "Logs", path: "/logs" },
         { title: "Feedback", path: "/feedback" },
-        { title: "Users", path: "/users" },
+        user.menuPermissions.showSettingsAPI
+        ? { title: "Users", path: "/users" }
+        : null,
       ],
     },
   ];

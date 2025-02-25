@@ -6,7 +6,7 @@ import DateInput from "../inputs/dateInput/DateInput";
 import Cookies from "js-cookie";
 
 const Logs = () => {
-  const userID = 'petersafwat';
+  const userID = JSON.parse(Cookies.get('user'))?.user_id|| 'petersafwat';
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
@@ -74,6 +74,12 @@ const Logs = () => {
     setSearch(e.target.value);
     setPage(1); // Reset to first page when searching
   };
+  const formatDate = (inputDate) => {
+    const date = new Date(inputDate);
+    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options).replace(',', '').replace(/ /g, "-");
+  }
+
 
   return (
     <div className={styles.container}>
@@ -107,7 +113,7 @@ const Logs = () => {
         </div>
 
       <div className={styles.searchContainer}>
-        <p className={styles['user-id']}>{userID}</p>
+        <p className={styles['user-id']}>User : {userID}</p>
         <input
           type="text"
           placeholder="Search..."
@@ -140,7 +146,7 @@ const Logs = () => {
               {logs.map((log) => (
                 <tr className={styles["table-row"]}  key={log.log_id}>
                   <td className={styles["row-item"]}>{log.user_id}</td>
-                  <td className={styles["row-item"]}>{new Date(log.api_date).toLocaleString()}</td>
+                  <td className={styles["row-item"]}>{formatDate(log.api_date)}</td>
                   <td className={styles["row-item"]}>{log.menu_id}</td>
                   <td className={styles["row-item"]}>{log.api_request}</td>
                   <td className={log.api_status === 'S' ? styles.success : styles.error}>

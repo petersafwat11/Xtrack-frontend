@@ -7,8 +7,7 @@ import { toast } from "react-hot-toast";
 import api from '@/app/lib/axios';
 
 const FeedbackForm = () => {
-  const userID= 
-  // JSON.parse(Cookies.get('user'))?.user_id || 
+  const userID= JSON.parse(Cookies.get('user'))?.user_id || 
   'petersafwat';
   const [formData, setFormData] = useState({
     user_id: userID,

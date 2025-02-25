@@ -38,7 +38,7 @@ async function Page({ params }) {
   return (
     <div className="container">
       <h2 className="title">Users</h2>
-      <Profile initialData={userData?.data || null} isNewUser={isNewUser} />
+      <Profile admin={true} initialData={userData?.data || null} isNewUser={isNewUser} />
     </div>
   );
 }
