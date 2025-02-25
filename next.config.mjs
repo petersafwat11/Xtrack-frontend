@@ -32,14 +32,14 @@
 // export default nextConfig;
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/proxy/:path*',
-        destination: 'http://178.128.210.208:8000/:path*', // Proxy to your backend
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/api/proxy/:path*',
+  //       destination: 'http://178.128.210.208:8000/:path*', // Proxy to your backend
+  //     },
+  //   ];
+  // },
   env: {
     BACKEND_SERVER: "https://xtrack-backenddd-production.up.railway.app",
   },
