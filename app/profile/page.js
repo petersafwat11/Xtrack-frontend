@@ -21,13 +21,13 @@ async function getCurrentUserData(id) {
 }
 
 export default async function ProfilePage() {
-  const cookieStore = await cookies()
-  const user = JSON.parse(cookieStore.get('user').value);
+  // const cookieStore = await cookies()
+  // const user = JSON.parse(cookieStore.get('user').value);
   console.log('user', user)
   let userData = null;
 
   try {
-    userData = await getCurrentUserData(user.user_id);
+    userData = await getCurrentUserData("petersafwat");
     console.log('user', user)
 
   } catch (error) {

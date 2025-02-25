@@ -9,27 +9,6 @@ import CustomCheckbox from '../../inputs/checkbox/CustomCheckbox';
 const Profile = ({ initialData, isNewUser = false , admin}) => {
     console.log('initialData', initialData)
   const router = useRouter();
-//   (user_id varchar(100) not null,
-// user_name varchar(100) not null,
-// user_email varchar(100) not null,
-// user_pwd varchar(20) not null,
-// user_company varchar(100) not null,
-// user_address varchar(300) null,
-// user_country varchar(100) null,
-// user_phone varchar(50) null,
-// admin_user char(1) not null default 'N',
-// dashboard char(1) not null default 'Y',
-// ocean_af char(1) not null default 'Y',
-// ocean_ar char(1) not null default 'Y',
-// ocean_ft char(1) not null default 'Y',
-// ocean_schedule char(1) not null default 'Y',
-// air_cargo char(1) not null default 'Y',
-// air_schedule char(1) not null default 'Y',
-// vessel_tracking char(1) not null default 'Y’,
-// marine_traffic char(1) not null default 'Y',
-// create_date timestamptz not null default current_timestamp,
-// update_date timestamptz not null default current_timestamp,
-// primary key(user_id));
 
   const [formData, setFormData] = useState(initialData || {
     user_id: '',
