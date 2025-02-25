@@ -86,7 +86,7 @@ import axios from "axios";
       );
 
       // allorigins returns the data in a nested 'contents' property as a string
-      const responseData = JSON.parse(response.data.contents);
+      const responseData = JSON.parse(response?.data?.contents);
       console.log("response", response, responseData)
       if (responseData?.message === "WRONG_NUMBER") {
         setError("Wrong Number");

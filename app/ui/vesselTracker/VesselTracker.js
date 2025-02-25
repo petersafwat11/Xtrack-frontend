@@ -35,26 +35,29 @@ const VesselTracker = () => {
         }
       );
 
-
-      const responseData = JSON.parse(response.data.contents);
-
-      if (responseData?.error) {
-        setError("No Vessel Info Found");
-        await logTrackingSearch({
-          menu_id: "Vessel Tracker",
-          api_request: searchNumber,
-          api_status: "F",
-          api_error: "No Tracking Info Found"
-        });
-        return;
+      if (!response?.data?.contents) {
+        throw new Error("Invalid response from proxy server");
       }
-      await logTrackingSearch({
-        menu_id: "Vessel Tracker",
-        api_request: searchNumber,
-        api_status: "S",
-      });
+  
+      // const responseData = JSON.parse(response?.data?.contents);
 
-      setData(responseData?.data);
+      // if (responseData?.error) {
+      //   setError("No Vessel Info Found");
+      //   await logTrackingSearch({
+      //     menu_id: "Vessel Tracker",
+      //     api_request: searchNumber,
+      //     api_status: "F",
+      //     api_error: "No Tracking Info Found"
+      //   });
+      //   return;
+      // }
+      // await logTrackingSearch({
+      //   menu_id: "Vessel Tracker",
+      //   api_request: searchNumber,
+      //   api_status: "S",
+      // });
+
+      // setData(responseData?.data);
     } catch (error) {
       setError("Error fetching vessel data");
       console.error("Tracking Error:", error);

@@ -83,7 +83,7 @@ const OceanAFTracker = () => {
       const response = await axios.get(
         `http://178.128.210.208:8000/oceanrates/api/tracker/${searchNumber}`
       );
-      const responseData = JSON.parse(response.data.contents);
+      const responseData = JSON.parse(response?.data?.contents);
 
       if (responseData.status_code === "WRONG_NUMBER") {
         setError("Wrong Number");

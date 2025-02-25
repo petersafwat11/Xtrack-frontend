@@ -16,8 +16,8 @@ import Image from "next/image";
 import Cookies from "js-cookie";
 
 const Menu = ({toggleMenu, isMenuOpen}) => {
-  const user = JSON.parse(Cookies.get('user'));
-  console.log('user menu', user)
+  // const user = JSON.parse(Cookies.get('user'));
+  // console.log('user menu', user)
   const pathname = usePathname();
 
   const navPathName = {
@@ -92,14 +92,16 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
       path: "/settings",
       children: [
         { title: "Profile", path: "/profile" },
-        user.menuPermissions.showSettingsAPI
-        ? { title: "API Endpoints", path: "/api-endpoints" }
-        : null,
+        // user.menuPermissions.showSettingsAPI
+        // ? 
+        { title: "API Endpoints", path: "/api-endpoints" },
+        // : null,
         { title: "Logs", path: "/logs" },
         { title: "Feedback", path: "/feedback" },
-        user.menuPermissions.showSettingsAPI
-        ? { title: "Users", path: "/users" }
-        : null,
+        // user.menuPermissions.showSettingsAPI
+        // ? 
+        { title: "Users", path: "/users" }
+        // : null,
       ],
     },
   ];

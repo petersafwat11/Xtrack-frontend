@@ -67,7 +67,7 @@ export default function CargoTracker() {
       );
 
       // allorigins returns the data in a nested 'contents' property as a string
-      const responseData = JSON.parse(response.data.contents);
+      const responseData = JSON.parse(response?.data?.contents);
 
       if (responseData.status_code === "WRONG_NUMBER") {
         setError("Wrong Number");

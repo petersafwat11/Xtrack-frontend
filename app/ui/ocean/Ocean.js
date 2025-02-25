@@ -36,7 +36,7 @@ const Ocean = () => {
       );
 
       // allorigins returns the data in a nested 'contents' property as a string
-      const responseData = JSON.parse(response.data.contents);
+      const responseData = JSON.parse(response?.data?.contents);
       if (responseData?.error === "location data weren't found") {
         setError("No Tracking Info Found");
         await logTrackingSearch({

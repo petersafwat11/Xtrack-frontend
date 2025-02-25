@@ -6,9 +6,6 @@ import DateInput from "../inputs/dateInput/DateInput";
 import Cookies from "js-cookie";
 
 const Logs = ({userID}) => {
-  // const userID = 
-  // JSON.parse(Cookies.get('user'))?.user_id|| 
-  // 'petersafwat';
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [totalPages, setTotalPages] = useState(0);

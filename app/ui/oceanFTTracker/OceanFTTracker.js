@@ -55,7 +55,7 @@ const OceanFTTracker = () => {
       );
 
       // allorigins returns the data in a nested 'contents' property as a string
-      const responseData = JSON.parse(response.data.contents);
+      const responseData = JSON.parse(response?.data?.contents);
       console.log("response", response, responseData)
       if (responseData?.error === "We couldn't find any data available on public track for this container") {
         setError("Wrong Number, Enter a valid container number");
