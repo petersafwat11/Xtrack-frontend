@@ -6,9 +6,9 @@ import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
 import api from '@/app/lib/axios';
 
-const FeedbackForm = () => {
-  const userID= JSON.parse(Cookies.get('user'))?.user_id || 
-  'petersafwat';
+const FeedbackForm = ({userID}) => {
+  // const userID= JSON.parse(Cookies.get('user'))?.user_id || 
+  // 'petersafwat';
   const [formData, setFormData] = useState({
     user_id: userID,
     feedback_date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace(',', '').replace(/ /g, "-"),
