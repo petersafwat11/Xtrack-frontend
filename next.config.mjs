@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    // BACKEND_SERVER: "https://xtrack-backenddd-production.up.railway.app",
+    BACKEND_SERVER: "https://xtrack-backenddd-production.up.railway.app",
     // BACKEND_SERVER: "https://web-production-6b66.up.railway.app",
-    BACKEND_SERVER: "http://localhost:5000",
+    // BACKEND_SERVER: "http://localhost:5000",
   },
   images: {
     remotePatterns: [
