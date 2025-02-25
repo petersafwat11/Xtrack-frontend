@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "./ocean.module.css";
 import axios from "axios";
 import DateInput from "../inputs/dateInput/DateInput";
+import { logTrackingSearch } from "@/app/lib/trackingLogger";
 
 const Ocean = () => {
   const [inputsData, setInputsData] = useState({ fromLocation: "", toLocation: "", date: new Date() });
@@ -22,7 +23,6 @@ const Ocean = () => {
     const date = inputsData.date ? 
       `${inputsData.date.getFullYear()}/${String(inputsData.date.getMonth() + 1).padStart(2, '0')}/${String(inputsData.date.getDate()).padStart(2, '0')}` 
       : "";
-    console.log('date', date)
     try {
       const response = await axios.get(
         `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/shipmentlink/api/tracker/from/${inputsData.fromLocation.toLocaleUpperCase()}/to/${inputsData.toLocation.toLocaleUpperCase()}/date/${date}`)}`,
@@ -37,7 +37,8 @@ const Ocean = () => {
 
       // allorigins returns the data in a nested 'contents' property as a string
       const responseData = JSON.parse(response?.data?.contents);
-      if (responseData?.error === "location data weren't found") {
+      console.log("responseData", responseData)
+      if (responseData?.error === "Data not found") {
         setError("No Tracking Info Found");
         await logTrackingSearch({
           menu_id: 'Ocean',

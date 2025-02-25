@@ -54,17 +54,7 @@ export default function CargoTracker() {
 
     try {
 
-      const response = await axios.get(
-        `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/airrates/api/tracker/${searchNumber}`)}`,
-        {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          timeout: 90000, 
-        }
-        
-      );
+      const response = await axios.get(`http://178.128.210.208:8000/airrates/api/tracker/${searchNumber}`);
 
       // allorigins returns the data in a nested 'contents' property as a string
       const responseData = JSON.parse(response?.data?.contents);

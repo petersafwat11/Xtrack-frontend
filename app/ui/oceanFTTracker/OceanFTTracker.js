@@ -2,6 +2,7 @@
 import { useState } from "react";
 import styles from "../cargoTracker/CargoTracker.module.css";
 import axios from "axios";
+import { logTrackingSearch } from "@/app/lib/trackingLogger";
 
 const OceanFTTracker = () => {
   const generateMetaData = (data) => {
@@ -46,9 +47,6 @@ const OceanFTTracker = () => {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            // 'Cache-Control': 'no-cache, no-store, must-revalidate',
-            // 'Pragma': 'no-cache',
-            // 'Expires': '0'
           },
           timeout: 90000, 
         }

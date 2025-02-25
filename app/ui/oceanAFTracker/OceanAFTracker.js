@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "../cargoTracker/CargoTracker.module.css";
 import { logTrackingSearch } from "@/app/lib/trackingLogger";
 import axios from "axios";
-import initialJsonData from "../../../json.json";
+// import initialJsonData from "../../../json.json";
 
 const OceanAFTracker = () => {
   const generateMetaData = (data) => {
@@ -31,8 +31,8 @@ const OceanAFTracker = () => {
   };
 
   const [searchNumber, setSearchNumber] = useState("TRHU6744246");
-  const [data, setData] = useState(initialJsonData.containerPosition.data);
-  const [metadata, setMetadata] = useState(() => generateMetaData(initialJsonData.containerPosition.data));
+  const [data, setData] = useState(null);
+  const [metadata, setMetadata] = useState(() => generateMetaData(null));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   console.log("data", data, "metadata", metadata)
@@ -81,7 +81,15 @@ const OceanAFTracker = () => {
     try {
       // Log the tracking request
       const response = await axios.get(
-        `http://178.128.210.208:8000/oceanrates/api/tracker/${searchNumber}`
+        `http://178.128.210.208:8000/oceanrates/api/tracker/${searchNumber}`,
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          timeout: 90000, 
+        }
+
       );
       const responseData = JSON.parse(response?.data?.contents);
 

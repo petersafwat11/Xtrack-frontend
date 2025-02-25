@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import styles from "./vesselTracker.module.css";
 import dynamic from "next/dynamic";
+import { logTrackingSearch } from "@/app/lib/trackingLogger";
 
 // Dynamically import the map component to avoid SSR issues
 const MapComponent = dynamic(() => import("./MapComponent"), {
