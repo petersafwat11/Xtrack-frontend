@@ -4,7 +4,7 @@ import styles from "../cargoTracker/CargoTracker.module.css";
 import axios from "axios";
 import { logTrackingSearch } from "@/app/lib/trackingLogger";
 
- const OceanSRTracker = () => {
+ const OceanSRTracker = ({APILink}) => {
   const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
@@ -73,7 +73,7 @@ import { logTrackingSearch } from "@/app/lib/trackingLogger";
 
     try {
       const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/${searchNumber}`, {
-        params: { externalApiUrl: `http://178.128.210.208:8000/searates/api/tracker/${searchNumber}` }
+        params: { externalApiUrl: `${APILink}${searchNumber}` }
     });
       const responseData = response?.data?.data;
 

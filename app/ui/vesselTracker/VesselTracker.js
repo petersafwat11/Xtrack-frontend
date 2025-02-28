@@ -11,7 +11,7 @@ const MapComponent = dynamic(() => import("./MapComponent"), {
   loading: () => <p>Loading Map...</p>,
 });
 
-const VesselTracker = () => {
+const VesselTracker = ({APILink}) => {
   const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -26,7 +26,7 @@ const VesselTracker = () => {
 
     try {
       const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/${searchNumber}`, {
-        params: { externalApiUrl: `http://178.128.210.208:8000/sinay/api/tracker/${searchNumber}` }
+        params: { externalApiUrl: `${APILink}${searchNumber}` }
     });
       const responseData = response?.data?.data;
       if (responseData?.error) {

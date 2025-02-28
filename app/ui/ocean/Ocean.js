@@ -5,7 +5,7 @@ import axios from "axios";
 import DateInput from "../inputs/dateInput/DateInput";
 import { logTrackingSearch } from "@/app/lib/trackingLogger";
 
-const Ocean = () => {
+const Ocean = ({APILink}) => {
   const [inputsData, setInputsData] = useState({ fromLocation: "", toLocation: "", date: new Date() });
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ const Ocean = () => {
       : "";
     try {
       const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/s`, {
-        params: { externalApiUrl: `http://178.128.210.208:8000/shipmentlink/api/tracker/from/${inputsData.fromLocation.toLocaleUpperCase()}/to/${inputsData.toLocation.toLocaleUpperCase()}/date/${date}` }
+        params: { externalApiUrl: `${APILink}from/${inputsData.fromLocation.toLocaleUpperCase()}/to/${inputsData.toLocation.toLocaleUpperCase()}/date/${date}` }
     });
     console.log('response', response?.data)
       const responseData = response?.data?.data;

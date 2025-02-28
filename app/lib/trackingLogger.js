@@ -16,3 +16,23 @@ export const logTrackingSearch = async ({ menu_id, api_request, api_status = 'S'
         console.error('Error logging tracking:', error);
     }
 };
+export const getExternalAPILink = async (menu_id) => {
+    try {
+      // Using node-fetch on server side
+      const response = await fetch(`${process.env.BACKEND_SERVER}/api/endpoints/${menu_id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store' // Disable caching for this request
+      });
+  
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching endpoint data:', error);
+      return null;
+    }
+  };
+  
+  

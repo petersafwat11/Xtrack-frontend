@@ -5,7 +5,7 @@ import { logTrackingSearch } from "@/app/lib/trackingLogger";
 import axios from "axios";
 // import initialJsonData from "../../../json.json";
 
-const OceanAFTracker = () => {
+const OceanAFTracker = ({APILink}) => {
   const generateMetaData = (data) => {
     const metadata = {
       type: data?.metadata?.type || null,
@@ -82,7 +82,7 @@ const OceanAFTracker = () => {
       // Log the tracking request
       // TRHU6744246
       const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/${searchNumber}`, {
-        params: { externalApiUrl: `http://178.128.210.208:8000/allforward/api/tracker/${searchNumber}` }
+        params: { externalApiUrl: `${APILink}${searchNumber}` }
     });
       const responseData = response?.data?.data?.containerPosition;
       console.log('data', response, responseData)

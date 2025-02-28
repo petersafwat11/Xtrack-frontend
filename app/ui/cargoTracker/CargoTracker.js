@@ -4,7 +4,7 @@ import styles from "./CargoTracker.module.css";
 import { logTrackingSearch } from "@/app/lib/trackingLogger";
 import axios from "axios";
 
-export default function CargoTracker() {
+export default function CargoTracker({APILink}) {
   const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
@@ -54,7 +54,7 @@ export default function CargoTracker() {
 
     try {
       const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/${searchNumber}`, {
-        params: { externalApiUrl: `http://178.128.210.208:8000/airrates/api/tracker/${searchNumber}` }
+        params: { externalApiUrl: `${APILink}${searchNumber}` }
     });
       const responseData = response?.data?.data;
       console.log('responseData', responseData)
