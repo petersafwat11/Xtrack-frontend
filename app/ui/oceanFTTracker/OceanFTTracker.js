@@ -41,20 +41,10 @@ const OceanFTTracker = () => {
     setMetadata(null);
 
     try {
-      const response = await axios.get(
-        `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/findteu/api/tracker/${searchNumber}`)}&timestamp=${new Date().getTime()}`,
-        {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          timeout: 90000, 
-        }
-      );
-
-      // allorigins returns the data in a nested 'contents' property as a string
-      const responseData = JSON.parse(response?.data?.contents);
-      console.log("response", response, responseData)
+      const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/${searchNumber}`, {
+        params: { externalApiUrl: `http://178.128.210.208:8000/findteu/api/tracker/${searchNumber}` }
+    });
+      const responseData = response?.data?.data;
       if (responseData?.error === "We couldn't find any data available on public track for this container") {
         setError("Wrong Number, Enter a valid container number");
         // Log the error in tracking

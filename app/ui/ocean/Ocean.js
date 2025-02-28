@@ -24,20 +24,11 @@ const Ocean = () => {
       `${inputsData.date.getFullYear()}/${String(inputsData.date.getMonth() + 1).padStart(2, '0')}/${String(inputsData.date.getDate()).padStart(2, '0')}` 
       : "";
     try {
-      const response = await axios.get(
-        `https://api.allorigins.win/get?url=${encodeURIComponent(`http://178.128.210.208:8000/shipmentlink/api/tracker/from/${inputsData.fromLocation.toLocaleUpperCase()}/to/${inputsData.toLocation.toLocaleUpperCase()}/date/${date}`)}`,
-        {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          timeout: 90000, 
-        }
-      );
-
-      // allorigins returns the data in a nested 'contents' property as a string
-      const responseData = JSON.parse(response?.data?.contents);
-      console.log("responseData", responseData)
+      const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/s`, {
+        params: { externalApiUrl: `http://178.128.210.208:8000/shipmentlink/api/tracker/from/${inputsData.fromLocation.toLocaleUpperCase()}/to/${inputsData.toLocation.toLocaleUpperCase()}/date/${date}` }
+    });
+    console.log('response', response?.data)
+      const responseData = response?.data?.data;
       if (responseData?.error === "Data not found") {
         setError("No Tracking Info Found");
         await logTrackingSearch({
@@ -66,16 +57,52 @@ const Ocean = () => {
       });
 
       setData(responseData);
-    } catch (error) {
+    } catch (error) {    
+        if(error.response.data?.data?.response_status === 'success'){
+          const responseData = error?.response?.data?.data;
+          if (responseData?.error === "Data not found") {
+            setError("No Tracking Info Found");
+            await logTrackingSearch({
+              menu_id: 'Ocean',
+              api_request: `From: ${inputsData.fromLocation}, To: ${inputsData.toLocation}, Date: ${inputsData.date}`,
+              api_status: 'F',
+              api_error: "No Tracking Info Found"
+            })
+    
+            return;
+          }
+          if (responseData?.error === "no data received") {
+            setError("No Tracking Info Found");
+            await logTrackingSearch({
+              menu_id: 'Ocean',
+              api_request: `From: ${inputsData.fromLocation}, To: ${inputsData.toLocation}, Date: ${inputsData.date}`,
+              api_status: 'F',
+              api_error: "No Tracking Info Found"
+            })
+            return;
+          }
+          await logTrackingSearch({
+            menu_id: "Ocean",
+            api_request: `From: ${inputsData.fromLocation}, To: ${inputsData.toLocation}, Date: ${inputsData.date}`,
+            api_status: "S",
+          });
+    
+          setData(responseData);
+        return;    
+        }
+          
+      console.log("error xxxxxxxxxxx", error?.response?.data)
       setError("No tracking info found, try again later.");
-      console.error("Tracking Error:", error);
+      const errorMessage = error?.response?.data?.error || error?.message || error;
       await logTrackingSearch({
         menu_id: 'Ocean',
         api_request: `From: ${inputsData.fromLocation}, To: ${inputsData.toLocation}, Date: ${inputsData.date}`,
         api_status: 'F',
-        api_error: error.message || "An error occurred while fetching the data"
+        api_error: errorMessage
       });
-    } finally {
+
+  
+  }finally {
       setLoading(false);
     }
   };

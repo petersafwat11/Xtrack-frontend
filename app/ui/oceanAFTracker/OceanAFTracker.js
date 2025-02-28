@@ -80,19 +80,12 @@ const OceanAFTracker = () => {
 
     try {
       // Log the tracking request
-      const response = await axios.get(
-        `http://178.128.210.208:8000/oceanrates/api/tracker/${searchNumber}`,
-        {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          timeout: 90000, 
-        }
-
-      );
-      const responseData = JSON.parse(response?.data?.contents);
-
+      // TRHU6744246
+      const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/${searchNumber}`, {
+        params: { externalApiUrl: `http://178.128.210.208:8000/allforward/api/tracker/${searchNumber}` }
+    });
+      const responseData = response?.data?.data?.containerPosition;
+      console.log('data', response, responseData)
       if (responseData.status_code === "WRONG_NUMBER") {
         setError("Wrong Number");
         // Log the error in tracking

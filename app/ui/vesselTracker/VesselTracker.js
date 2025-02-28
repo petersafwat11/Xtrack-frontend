@@ -25,40 +25,27 @@ const VesselTracker = () => {
     setData(null);
 
     try {
-      const response = await axios.get(
-        `https://api.allorigins.win/get?url=${encodeURIComponent(
-          `http://178.128.210.208:8000/sinay/api/tracker/${searchNumber}`
-        )}`,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      );
-
-      if (!response?.data?.contents) {
-        throw new Error("Invalid response from proxy server");
+      const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/${searchNumber}`, {
+        params: { externalApiUrl: `http://178.128.210.208:8000/sinay/api/tracker/${searchNumber}` }
+    });
+      const responseData = response?.data?.data;
+      if (responseData?.error) {
+        setError("No Vessel Info Found");
+        await logTrackingSearch({
+          menu_id: "Vessel Tracker",
+          api_request: searchNumber,
+          api_status: "F",
+          api_error: "No Tracking Info Found"
+        });
+        return;
       }
-  
-      // const responseData = JSON.parse(response?.data?.contents);
+      await logTrackingSearch({
+        menu_id: "Vessel Tracker",
+        api_request: searchNumber,
+        api_status: "S",
+      });
 
-      // if (responseData?.error) {
-      //   setError("No Vessel Info Found");
-      //   await logTrackingSearch({
-      //     menu_id: "Vessel Tracker",
-      //     api_request: searchNumber,
-      //     api_status: "F",
-      //     api_error: "No Tracking Info Found"
-      //   });
-      //   return;
-      // }
-      // await logTrackingSearch({
-      //   menu_id: "Vessel Tracker",
-      //   api_request: searchNumber,
-      //   api_status: "S",
-      // });
-
-      // setData(responseData?.data);
+      setData(responseData?.data);
     } catch (error) {
       setError("Error fetching vessel data");
       console.error("Tracking Error:", error);
