@@ -89,7 +89,7 @@ const Logs = ({userID}) => {
                 label="From"
                 data={dateRange}
                 dataKey="from"
-                onChange={setDateRange}
+                setData={setDateRange}
               />
             </div>
             <div className={styles.inputContainer}>
@@ -98,7 +98,7 @@ const Logs = ({userID}) => {
                 label="To"
                 data={dateRange}
                 dataKey="to"
-                onChange={setDateRange}
+                setData={setDateRange}
               />
             </div>
             <button

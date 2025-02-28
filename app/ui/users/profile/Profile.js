@@ -75,7 +75,7 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         <h2>{isNewUser ? 'Create New User' : 'Edit User'}</h2>
         
         <div className={styles.formGroup}>
-          <label htmlFor="user_id">User ID:</label>
+          <label htmlFor="user_id">User ID: <span className={styles.required}>*</span> </label>
           <input
             type="text"
             id="user_id"
@@ -88,7 +88,7 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="user_name">User Name:</label>
+          <label htmlFor="user_name">User Name: <span className={styles.required}>*</span></label>
           <input
             type="text"
             id="user_name"
@@ -100,7 +100,7 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="user_email">Email:</label>
+          <label htmlFor="user_email">Email: <span className={styles.required}>*</span></label>
           <input
             type="email"
             id="user_email"
@@ -112,7 +112,7 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="user_pwd">Password:</label>
+          <label htmlFor="user_pwd">Password: <span className={styles.required}>*</span></label>
           <input
             type="password"
             id="user_pwd"
@@ -125,7 +125,7 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="user_company">Company:</label>
+          <label htmlFor="user_company">Company: <span className={styles.required}>*</span></label>
           <input
             type="text"
             id="user_company"
@@ -135,7 +135,7 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
           />
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="user_address">Address:</label>
+          <label htmlFor="user_address">Address: <span className={styles.required}>*</span></label>
           <input
             type="text"
             id="user_address"
@@ -146,7 +146,7 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="user_country">Country:</label>
+          <label htmlFor="user_country">Country: <span className={styles.required}>*</span></label>
           <input
             type="text"
             id="user_country"
@@ -156,7 +156,7 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
           />
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="user_phone">Phone:</label>
+          <label htmlFor="user_phone">Phone: <span className={styles.required}>*</span></label>
           <input
             type="text"
             id="user_phone"
@@ -169,11 +169,11 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         {admin && (
           <>
             <div className={styles.formGroup}>
-              <label htmlFor="valid_till">Valid Till:</label>
+              <label htmlFor="valid_till">Valid Till: <span className={styles.required}>*</span></label>
               <DateInput
                 data={formData}
                 dataKey="valid_till"
-                onChange={setFormData}
+                setData={setFormData}
               />
             </div>
 

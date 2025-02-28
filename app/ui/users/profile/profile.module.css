@@ -29,7 +29,11 @@
   font-weight: 500;
   color: #555;
 }
-
+.required{
+  font-weight: 700;
+  color: red;
+  font-size: 1rem;
+}
 .formGroup input[type="text"],
 .formGroup input[type="email"],
 .formGroup input[type="password"],
