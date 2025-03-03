@@ -16,6 +16,14 @@ const FeedbackForm = ({userID}) => {
   const feedbackTypes = ['Error/Issue', 'Enhancement/Idea', 'Others'];
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!formData.feedback_subject){
+      toast.error('Please enter a subject');
+      return;
+    }
+    if(!formData.feedback_description){
+      toast.error('Please enter a description');
+      return;
+    }
     try {
       const response= await api.post('/api/feedback', formData);
       toast.success('Feedback submitted. Our support team will contact you');

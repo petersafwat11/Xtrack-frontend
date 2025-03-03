@@ -13,7 +13,7 @@ const APIEndPoint = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`${process.env.BACKEND_SERVER}/api/endpoints`);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/endpoints`);
       console.log("Response data:", response.data);
       if (response.data && response.data.data) {
         setData(response.data.data);
@@ -75,12 +75,12 @@ const APIEndPoint = () => {
       };
       
       if (record.isNew) {
-        const response = await axios.post(`${process.env.BACKEND_SERVER}/api/endpoints`, updatedData);
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/endpoints`, updatedData);
         if (!response.data || response.data.status !== 'success') {
           throw new Error('Failed to create endpoint');
         }
       } else {
-        const response = await axios.patch(`${process.env.BACKEND_SERVER}/api/endpoints/update`, {
+        const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/endpoints/update`, {
           old_menu_id: record.menu_id,
           old_endpoint: record.endpoint,
           ...updatedData

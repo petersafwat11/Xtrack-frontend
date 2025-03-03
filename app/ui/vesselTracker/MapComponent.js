@@ -15,7 +15,7 @@ const MapComponent = ({ position, vesselName }) => {
   return (
     <MapContainer
       center={position}
-      zoom={4}
+      zoom={6}
       style={{ height: '400px', width: '100%', borderRadius: '8px' }}
     >
       <TileLayer

@@ -16,13 +16,14 @@ import Image from "next/image";
 import Cookies from "js-cookie";
 
 const Menu = ({toggleMenu, isMenuOpen}) => {
-  // const user = JSON.parse(Cookies.get('user'));
-  // console.log('user menu', user)
+  const user = JSON.parse(Cookies.get('user'));
+  const isAdmin = user.menuPermissions.showSettingsAPI;
+  console.log('user menu', user, isAdmin)
   const pathname = usePathname();
 
   const navPathName = {
     Schedule: ["/air", "/ocean"],
-    Settings: ["/profile", "/api-endpoints", "/logs", "/feedback", "/support"],
+    Settings: ["/profile", "/endpoints", "/logs", "/feedback", "/support"],
     Tracker: ["/ocean-af", "/ocean-sr", "/air-cargo", "/vessel","/port-congestion", "/ocean-traffic", "/ocean-ft"],
   };
 
@@ -42,6 +43,13 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
       path: "/dashboard",
     },
   ];
+  const settingsItems = [
+    { title: "Profile", path: "/profile" },
+    isAdmin ? { title: "API Endpoints", path: "/endpoints" } : null,
+    { title: "Logs", path: "/logs" },
+    { title: "Feedback", path: "/feedback" },
+    isAdmin ? { title: "Users", path: "/users" } : null,
+  ].filter(Boolean);
   const menuItems = [
     {
       title: "Tracker",
@@ -90,19 +98,7 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
         />
       ),
       path: "/settings",
-      children: [
-        { title: "Profile", path: "/profile" },
-        // user.menuPermissions.showSettingsAPI
-        // ? 
-        { title: "API Endpoints", path: "/api-endpoints" },
-        // : null,
-        { title: "Logs", path: "/logs" },
-        { title: "Feedback", path: "/feedback" },
-        // user.menuPermissions.showSettingsAPI
-        // ? 
-        { title: "Users", path: "/users" }
-        // : null,
-      ],
+      children: settingsItems,
     },
   ];
 

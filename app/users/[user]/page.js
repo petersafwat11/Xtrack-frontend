@@ -4,7 +4,7 @@ import Profile from '@/app/ui/users/profile/Profile';
 const getUserData = async (userId) => {
   try {
     // Using node-fetch on server side
-    const response = await fetch(`${process.env.BACKEND_SERVER}/api/users/${userId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/users/${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -7,6 +7,8 @@ import { DMSans } from "./fonts";
 import { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
 import SignOutButton from "./ui/signout/SignOutButton";
+import UserName from "./ui/userName/UserName";
+
 // export const metadata = {
 //   title: "Xtrack",
 //   description: "renders data from many sources",
@@ -38,7 +40,11 @@ export default function RootLayout({ children }) {
           >
             {
             !isLoginPage && 
-            <SignOutButton />}
+            <div className={styles.user}>
+            <UserName />
+            <SignOutButton />
+            </div>
+            }
             {children}
           </main>
         </div>

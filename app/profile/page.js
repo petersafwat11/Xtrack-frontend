@@ -4,7 +4,7 @@ import { cookies } from 'next/headers'
 
 async function getCurrentUserData(id) {
   try {
-    const response = await fetch(`${process.env.BACKEND_SERVER}/api/users/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/users/${id}`, {
       cache: 'no-store'
     });
     
@@ -27,7 +27,7 @@ export default async function ProfilePage() {
 
   try {
     userData = await getCurrentUserData(user?.user_id);
-    console.log('user', user)
+    // console.log('user', user)
 
   } catch (error) {
     console.error('Error:', error);

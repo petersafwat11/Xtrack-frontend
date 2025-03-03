@@ -13,7 +13,17 @@ export function middleware(request) {
 
   // Get auth token from cookies
   const authToken = request.cookies.get("token")?.value;
+  const user = JSON.parse(request.cookies.get("user")?.value);
+  const isAdmin = user.menuPermissions.showSettingsAPI;
+  // Protect all other routes
+  if (!authToken) {
+    // If user is not authenticated, redirect to login
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
+  if( (pathname === "/endpoints"|| pathname === "/users") && !isAdmin){
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
   // Allow access to login page without authentication
   if (pathname === "/login") {
     if (authToken) {
@@ -22,13 +32,6 @@ export function middleware(request) {
     }
     return NextResponse.next();
   }
-
-  // Protect all other routes
-  if (!authToken) {
-    // If user is not authenticated, redirect to login
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-
   return NextResponse.next();
 }
 

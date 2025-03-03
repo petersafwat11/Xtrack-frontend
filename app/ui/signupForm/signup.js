@@ -77,7 +77,7 @@ const Signup = ({ isOpen, onClose }) => {
         <button className={styles.closeButton} onClick={onClose}>
           ×
         </button>
-        <h2 className={styles.title}>Create Account</h2>
+        <h2 className={styles.title}>Register Your Interest</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <input
@@ -153,7 +153,7 @@ const Signup = ({ isOpen, onClose }) => {
             />
           </div>
           <button type="submit" className={styles.submitButton}>
-            Sign Up
+            Submit Registration
           </button>
         </form>
       </div>

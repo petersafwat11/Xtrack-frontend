@@ -19,7 +19,7 @@ export const logTrackingSearch = async ({ menu_id, api_request, api_status = 'S'
 export const getExternalAPILink = async (menu_id) => {
     try {
       // Using node-fetch on server side
-      const response = await fetch(`${process.env.BACKEND_SERVER}/api/endpoints/${menu_id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/endpoints/${menu_id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

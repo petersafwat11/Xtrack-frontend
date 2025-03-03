@@ -16,6 +16,15 @@
 .main.expanded {
   margin-left: 4.5rem;
 }
+.user{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-end;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
 
 @media (max-width: 900px) {
   .main.expanded {

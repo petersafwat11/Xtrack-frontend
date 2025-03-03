@@ -72,7 +72,7 @@ import { logTrackingSearch } from "@/app/lib/trackingLogger";
     setMetadata(null);
 
     try {
-      const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/${searchNumber}`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/tracking/${searchNumber}`, {
         params: { externalApiUrl: `${APILink}${searchNumber}` }
     });
       const responseData = response?.data?.data;

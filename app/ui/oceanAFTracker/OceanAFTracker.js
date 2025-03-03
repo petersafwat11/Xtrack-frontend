@@ -30,9 +30,9 @@ const OceanAFTracker = ({APILink}) => {
     return metadata;
   };
 
-  const [searchNumber, setSearchNumber] = useState("TRHU6744246");
+  const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
-  const [metadata, setMetadata] = useState(() => generateMetaData(null));
+  const [metadata, setMetadata] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   console.log("data", data, "metadata", metadata)
@@ -81,7 +81,7 @@ const OceanAFTracker = ({APILink}) => {
     try {
       // Log the tracking request
       // TRHU6744246
-      const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/${searchNumber}`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/tracking/${searchNumber}`, {
         params: { externalApiUrl: `${APILink}${searchNumber}` }
     });
       const responseData = response?.data?.data?.containerPosition;

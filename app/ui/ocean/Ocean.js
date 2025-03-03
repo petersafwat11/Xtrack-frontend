@@ -24,7 +24,7 @@ const Ocean = ({APILink}) => {
       `${inputsData.date.getFullYear()}/${String(inputsData.date.getMonth() + 1).padStart(2, '0')}/${String(inputsData.date.getDate()).padStart(2, '0')}` 
       : "";
     try {
-      const response = await axios.get(`${process.env.BACKEND_SERVER}/api/tracking/s`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/tracking/s`, {
         params: { externalApiUrl: `${APILink}from/${inputsData.fromLocation.toLocaleUpperCase()}/to/${inputsData.toLocation.toLocaleUpperCase()}/date/${date}` }
     });
     console.log('response', response?.data)

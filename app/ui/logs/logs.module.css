@@ -42,6 +42,79 @@
   justify-content: space-between;
   gap: 2rem;
 }
+
+.searchControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.statusButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.statusButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background-color: #f8fafc;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.statusButton:hover {
+  background-color: #f1f5f9;
+}
+
+.statusActive {
+  background-color: #e2e8f0;
+  font-weight: 600;
+}
+
+.successButton {
+  border-color: #28a745;
+  color: #28a745;
+}
+
+.successButton.statusActive {
+  background-color: #28a745;
+  color: white;
+}
+
+.failureButton {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.failureButton.statusActive {
+  background-color: #dc3545;
+  color: white;
+}
+
+.exportButton {
+  padding: 0.5rem 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.exportButton:hover {
+  background-color: #388e3c;
+}
+
+.exportButton:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
 .user-id, .searchLabel{
   font-size: 1rem;
   color: #64748b;
@@ -92,6 +165,16 @@
   border-bottom: 2px solid #e2e8f0;
 }
 
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.sortable:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 .table-row {
   border-bottom: 1px solid #e2e8f0;
   transition: background-color 0.2s ease;
@@ -118,6 +201,19 @@
   text-align: center;
   padding: 20px;
   color: #666;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.totalRecords {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 600;
 }
 
 .pagination {
@@ -147,4 +243,21 @@
 
 .pageInfo {
   color: #666;
+}
+
+@media (max-width: 768px) {
+  .searchContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .searchControls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .paginationContainer {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
