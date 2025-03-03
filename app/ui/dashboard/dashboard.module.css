@@ -1,0 +1,207 @@
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: #f8fafc;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.headerRow {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.totalBox {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.totalBox h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.totalValue {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.yearSelector {
+  flex: 0 0 auto;
+  width: 150px;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #0d47a1;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.yearSelector h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.yearDropdown {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+}
+
+.chartsRow {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.chartBox {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.chartBox h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #1e293b;
+}
+
+.noData {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #94a3b8;
+  font-size: 0.875rem;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.recentTracksSection {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.recentTracksSection h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.tableContainer {
+  overflow-x: auto;
+  position: relative;
+  min-height: 100px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.tableHeader {
+  font-weight: 600;
+  text-align: left;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  background-color: hsl(196, 100%, 47%);
+}
+
+.headerItem {
+  padding: .7rem;
+  font-size: 0.875rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tableRow {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: #f8fafc;
+}
+
+.rowItem {
+  padding: .85rem;
+  color: #1e293b;
+  font-size: 0.875rem;
+}
+
+.success {
+  color: #28a745;
+  padding: .85rem;
+  font-size: 0.875rem;
+}
+
+.error {
+  color: #dc3545;
+  padding: .85rem;
+  font-size: 0.875rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #dc3545;
+  font-size: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .chartsRow {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerRow {
+    flex-direction: column;
+  }
+  
+  .container {
+    padding: 1rem;
+  }
+}

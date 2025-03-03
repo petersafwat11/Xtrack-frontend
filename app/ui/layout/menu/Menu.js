@@ -40,7 +40,7 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
   const dashboardItems = [
     {
       title: "dashboard",
-      path: "/dashboard",
+      path: "/",
     },
   ];
   const settingsItems = [

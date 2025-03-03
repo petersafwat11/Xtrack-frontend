@@ -3,7 +3,6 @@ import { useState } from "react";
 import styles from "./marineTrafficTracker.module.css";
 import { logTrackingSearch } from "@/app/lib/trackingLogger";
 import axios from "axios";
-
 export default function MarineTrafficTracker({APILink}) {
   const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
