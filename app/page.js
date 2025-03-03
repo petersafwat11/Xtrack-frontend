@@ -46,7 +46,7 @@ export default function Home() {
     <div className={styles.page}>
       {/* {userID && } */}
 
-      <Dashboard userID={userID} />
+      <Dashboard userID={"peter safwat"} />
     </div>
   );
 }

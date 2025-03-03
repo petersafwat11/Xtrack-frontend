@@ -24,7 +24,7 @@ export const getExternalAPILink = async (menu_id) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        cache: 'no-store' // Disable caching for this request
+        // cache: 'no-store' // Disable caching for this request
       });
   
       const data = await response.json();
