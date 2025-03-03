@@ -16,9 +16,9 @@ import Image from "next/image";
 import Cookies from "js-cookie";
 
 const Menu = ({toggleMenu, isMenuOpen}) => {
-  const user = JSON.parse(Cookies.get('user'));
-  const isAdmin = user.menuPermissions.showSettingsAPI;
-  console.log('user menu', user, isAdmin)
+  // const user = JSON.parse(Cookies.get('user'));
+  // const isAdmin = user.menuPermissions.showSettingsAPI;
+  // console.log('user menu', user, isAdmin)
   const pathname = usePathname();
 
   const navPathName = {
@@ -45,10 +45,10 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
   ];
   const settingsItems = [
     { title: "Profile", path: "/profile" },
-    isAdmin ? { title: "API Endpoints", path: "/endpoints" } : null,
+    true ? { title: "API Endpoints", path: "/endpoints" } : null,
     { title: "Logs", path: "/logs" },
     { title: "Feedback", path: "/feedback" },
-    isAdmin ? { title: "Users", path: "/users" } : null,
+    true ? { title: "Users", path: "/users" } : null,
   ].filter(Boolean);
   const menuItems = [
     {
