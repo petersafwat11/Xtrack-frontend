@@ -22,13 +22,8 @@ export default async function Home() {
     const userData = JSON.parse(userCookie);
     userId = userData?.user_id;
     const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/tracking/dashboard?user_id=${userId}&year=2025`, {
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   Authorization: `Bearer ${token}`,
-      // }
     })
       data = res.data;
-    console.log('response', res.data);
   } catch (error) {
     console.error("Error parsing user data:", error);
   }
@@ -40,7 +35,7 @@ export default async function Home() {
           <div className={styles.loading}>Loading dashboard data...</div>
         </div>
       }>
-        <Dashboard data={data} />
+        <Dashboard data={data} userId={userId} />
         {/* <DashboardContainer userId={userId} /> */}
       </Suspense>
     </div>

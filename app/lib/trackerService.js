@@ -67,20 +67,22 @@ export const fetchTrackerData = async (options) => {
     const responseData = processResponseData(response);
     
     // Handle common error cases
-    if (responseData?.status_code === "WRONG_NUMBER" || responseData?.error === "Data wasn't received") {
-      setState.setError(errorMessages.wrongNumber);
-      await logTrackingSearch({
-        menu_id: menuId,
-        api_request: searchQuery,
-        api_status: 'F',
-        api_error: `${errorMessages.wrongNumber}, No Tracking Info Found`
-      });
-      return;
-    }
+    // if (responseData?.status_code === "WRONG_NUMBER" || responseData?.error === "Data wasn't received") {
+    //   setState.setError(errorMessages.wrongNumber);
+    //   await logTrackingSearch({
+    //     menu_id: menuId,
+    //     api_request: searchQuery,
+    //     api_status: 'F',
+    //     api_error: `${errorMessages.wrongNumber}, No Tracking Info Found`
+    //   });
+    //   return;
+    // }
     
-    if (responseData?.status_code === "no data received" || 
-        responseData?.error === "no data received" || 
-        responseData?.error === "Data not found") {
+    if (responseData?.status_code === "no data received" ||
+      responseData?.status === "error" || responseData?.success === false ||
+        responseData?.error === "no data received" || responseData?.error==="Data wasn't received"||
+        responseData?.data?.results.length === 0 ||
+        responseData?.error === "Data not found"|| responseData?.error=== "We couldn't find any data available on public track for this container") {
       setState.setError(errorMessages.noData);
       await logTrackingSearch({
         menu_id: menuId,

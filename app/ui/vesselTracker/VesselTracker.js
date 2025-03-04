@@ -30,8 +30,8 @@ const VesselTracker = ({APILink}) => {
       },
       errorMessages: {
         wrongNumber: "Invalid Vessel IMO",
-        noData: "No Vessel Info Found",
-        genericError: "Error fetching vessel data"
+        noData: "No Tracking Info Found, please try again later",
+        genericError: "No Tracking Info Found. Please try again"
       }
     });
   };

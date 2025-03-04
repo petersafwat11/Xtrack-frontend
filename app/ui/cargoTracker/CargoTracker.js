@@ -59,8 +59,8 @@ export default function CargoTracker({APILink}) {
       },
       errorMessages: {
         wrongNumber: "Wrong Number",
-        noData: "No Tracking Info Found",
-        genericError: "An error occurred while fetching tracking information. Please try again."
+        noData: "No Tracking Info Found, please try again later",
+        genericError: "No Tracking Info Found, please try again later."
       }
     });
   };

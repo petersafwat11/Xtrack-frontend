@@ -30,8 +30,8 @@ export default function MarineTrafficTracker({APILink}) {
       },
       errorMessages: {
         wrongNumber: "Wrong Number",
-        noData: "No Tracking Info Found",
-        genericError: "An error occurred while fetching tracking information. Please try again."
+        noData: "No Tracking Info Found, please try again later",
+        genericError: "No Tracking Info Found. Please try again."
       }
     });
   };
@@ -115,7 +115,7 @@ export default function MarineTrafficTracker({APILink}) {
             <div className={styles.vesselItem}>
             
             <p className={styles.vesselLabel}>Name</p>
-            <p className={styles.vesselValue}>{data?.general.name}</p>
+            <p className={styles.vesselValue}>{data?.general?.name}</p>
 
             </div>
             <div className={styles.vesselItem}>

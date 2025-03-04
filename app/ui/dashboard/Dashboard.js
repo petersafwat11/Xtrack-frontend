@@ -9,20 +9,30 @@ import TrackRatioChart from "./components/TrackRatioChart";
 import SuccessRatioChart from "./components/SuccessRatioChart";
 import RecentTracksTable from "./components/RecentTracksTable";
 import { useState } from "react";
+import axios from "axios";
 
  const Dashboard=({ 
-  data
+  data, userId
 })=> {
   const currentMonth = new Date().toLocaleString('default', { month: 'long' });
   const currentYear = new Date().getFullYear();
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
+  const years = Array.from({ length: 10 }, (_, i) => currentYear + i);
   console.log("years", years)
-  const onYearChange= (year)=> {
-    console.log("year", year)
+  const [pieChartsData, setPieChartsData] = useState({trackRatio: data?.trackRatio, successRatio: data?.successRatio});
+  const onYearChange=async (year)=> {
     setSelectedYear(year);
-  }
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/tracking/dashboard?user_id=${userId}&year=${year}`, {
+      })
+     const data = response.data;
+     console.log('data', data)
+      setPieChartsData({trackRatio: data?.trackRatio, successRatio: data?.successRatio});
+    } catch (error) {
+      console.log("error", error)
+    }
+}
   // loading 
   return (
     <div className={styles.container}>
@@ -47,20 +57,13 @@ import { useState } from "react";
         )}
       </div>
 
-      {/* {loading ? (
-        <div className={styles.loading}>Loading dashboard data...</div>
-      ) : error ? (
-        <div className={styles.error}>{error}</div>
-      ) : ( */}
-        <>
           <div className={styles.chartsRow}>
             <TrackingUsageChart last7Days={data?.last7Days} />
-            <TrackRatioChart trackRatio={data?.trackRatio} />
-            <SuccessRatioChart successRatio={data?.successRatio} />
+            <TrackRatioChart trackRatio={pieChartsData.trackRatio} />
+            <SuccessRatioChart successRatio={pieChartsData.successRatio} />
           </div>
 
           <RecentTracksTable data={data?.dataGrid} />
-        </>
     </div>
   );
 }

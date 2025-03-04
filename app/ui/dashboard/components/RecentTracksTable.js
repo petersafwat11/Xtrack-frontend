@@ -4,7 +4,6 @@ import styles from "../../logs/logs.module.css";
 
 export default function RecentTracksTable({ data }) {
   // Format date for display
-  console.log('data', data)
   const formatDate = (inputDate) => {
     const date = new Date(inputDate);
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
@@ -83,7 +82,7 @@ export default function RecentTracksTable({ data }) {
               </tr>
             </thead>
             <tbody>
-              {data.map((log) => (
+              {data&&data.length>0 && data.map((log) => (
                 <tr className={styles["table-row"]} key={log.log_id}>
                   <td className={styles["row-item"]}>{log.user_id}</td>
                   <td className={styles["row-item"]}>{formatDate(log.api_date)}</td>

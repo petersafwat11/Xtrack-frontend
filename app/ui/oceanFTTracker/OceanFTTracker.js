@@ -48,8 +48,8 @@ const OceanFTTracker = ({APILink}) => {
       },
       errorMessages: {
         wrongNumber: "Wrong Number, Enter a valid container number",
-        noData: "No Tracking Info Found",
-        genericError: "No tracking info found, try again later."
+        noData: "No Tracking Info Found, please try again later",
+        genericError: "No Tracking Info Found. Please try again."
       }
     });
   };

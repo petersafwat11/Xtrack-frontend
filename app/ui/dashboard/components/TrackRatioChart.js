@@ -8,6 +8,7 @@ const RADIAN = Math.PI / 180;
 
 export default function TrackRatioChart({ trackRatio }) {
   // Transform the trackRatio object into an array format for the PieChart
+
   const transformedData = trackRatio ? Object.entries(trackRatio)
     .filter(([key, value]) => parseInt(value) > 0)
     .map(([key, value]) => ({
