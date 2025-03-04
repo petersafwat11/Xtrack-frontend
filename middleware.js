@@ -75,12 +75,12 @@ export function middleware(request) {
   }
 
   if (authToken && pathname === "/login") {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   // ✅ Ensure non-admin users don't get stuck in a loop when accessing restricted pages
   if ((pathname === "/endpoints" || pathname === "/users") && !isAdmin) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();
