@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
 import styles from "../cargoTracker/CargoTracker.module.css";
-import { logTrackingSearch } from "@/app/lib/trackingLogger";
+import { fetchTrackerData } from "@/app/lib/trackerService";
 import axios from "axios";
-// import initialJsonData from "../../../json.json";
 
 const OceanAFTracker = ({APILink}) => {
   const generateMetaData = (data) => {
@@ -14,8 +13,6 @@ const OceanAFTracker = ({APILink}) => {
       sealine_name: data?.metadata?.sealine_name || null,
       updated_at: data?.metadata?.updated_at || null,
       status: data?.metadata?.status || null,
-      // arrival: data?.route?.pod?.date || null,
-      // departure: data?.route?.pol?.date || null,
       from: (() => {
         const polLocationId = data?.route?.pol?.location;
         const location = data?.locations?.find((location) => location.id === polLocationId);
@@ -35,7 +32,7 @@ const OceanAFTracker = ({APILink}) => {
   const [metadata, setMetadata] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  console.log("data", data, "metadata", metadata)
+
   const formatSearchNumber = (value) => {
     return value;
   };
@@ -63,7 +60,6 @@ const OceanAFTracker = ({APILink}) => {
     if (!vesselId) return { vesselVoyage: '', vesselImo: '' };
     
     const vessel = data?.vessels?.find(v => v.id === vesselId);
-    console.log("vessel", vessel);
     return {
       vesselVoyage: vessel ? `${vessel.name}, ${voyageNumber || ''}` : '',
       vesselImo: vessel?.imo || ''
@@ -71,64 +67,24 @@ const OceanAFTracker = ({APILink}) => {
   };
 
   const fetchData = async () => {
-    if (!searchNumber.trim()) return;
-
-    setLoading(true);
-    setError(null);
-    setData(null);
-    setMetadata(null);
-
-    try {
-      // Log the tracking request
-      // TRHU6744246
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/tracking/${searchNumber}`, {
-        params: { externalApiUrl: `${APILink}${searchNumber}` }
+    await fetchTrackerData({
+      searchQuery: searchNumber,
+      menuId: 'Ocean AF',
+      apiLink: APILink,
+      processResponseData: (response) => response?.data?.data?.containerPosition,
+      generateMetadata: (responseData) => generateMetaData(responseData.data),
+      setState: {
+        setLoading,
+        setError,
+        setData: (responseData) => setData(responseData?.data),
+        setMetadata
+      },
+      errorMessages: {
+        wrongNumber: "Wrong Number",
+        noData: "No Tracking Info Found",
+        genericError: "An error occurred while fetching the data"
+      }
     });
-      const responseData = response?.data?.data?.containerPosition;
-      console.log('data', response, responseData)
-      if (responseData.status_code === "WRONG_NUMBER") {
-        setError("Wrong Number");
-        // Log the error in tracking
-        await logTrackingSearch({
-          menu_id: 'Ocean AF',
-          api_request: searchNumber,
-          api_status: 'F',
-          api_error: "Wrong Number, No Tracking Info Found"
-        });
-        return;
-      }
-      if (responseData.status_code === "no data received") {
-        setError("No Tracking Info Found");
-        // Log the error in tracking
-        await logTrackingSearch({
-          menu_id: 'Ocean AF',
-          api_request: searchNumber,
-          api_status: 'F',
-          api_error: "No Tracking Info Found"
-        });
-        return;
-      }
-      await logTrackingSearch({
-        menu_id: 'Ocean AF',
-        api_request: searchNumber,
-        api_status: 'S'
-      });
-
-        setData(responseData.data);
-        const meta = generateMetaData(responseData.data);
-        setMetadata(meta);
-    } catch (err) {
-      setError(err.message || "An error occurred while fetching the data");
-      // Log the error in tracking
-      await logTrackingSearch({
-        menu_id: 'Ocean AF',
-        api_request: searchNumber,
-        api_status: 'F',
-        api_error: err.message||"An error occurred while fetching the data"
-      });
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
@@ -266,5 +222,6 @@ const OceanAFTracker = ({APILink}) => {
       </div>
     </div>
   );
-}
-export default OceanAFTracker
+};
+
+export default OceanAFTracker;

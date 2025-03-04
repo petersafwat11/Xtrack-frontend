@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
 import styles from "./marineTrafficTracker.module.css";
-import { logTrackingSearch } from "@/app/lib/trackingLogger";
+import { fetchTrackerData } from "@/app/lib/trackerService";
 import axios from "axios";
+
 export default function MarineTrafficTracker({APILink}) {
   const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
@@ -15,64 +16,24 @@ export default function MarineTrafficTracker({APILink}) {
       setSearchNumber(formattedValue);
     }
   };
+  
   const fetchData = async () => {
-    if (!searchNumber.trim()) return;
-
-    setLoading(true);
-    setError(null);
-    setData(null);
-
-    try {
-
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/tracking/${searchNumber}`, {
-        params: { externalApiUrl: `${APILink}${searchNumber}` }
+    await fetchTrackerData({
+      searchQuery: searchNumber,
+      menuId: 'Marine Traffic',
+      apiLink: APILink,
+      processResponseData: (response) => response?.data?.data,
+      setState: {
+        setLoading,
+        setError,
+        setData
+      },
+      errorMessages: {
+        wrongNumber: "Wrong Number",
+        noData: "No Tracking Info Found",
+        genericError: "An error occurred while fetching tracking information. Please try again."
+      }
     });
-      const responseData = response?.data?.data;
-      console.log('responseData', responseData)
-
-      if (responseData.error === "Data wasn't received") {
-        setError("Wrong Number");
-        // Log the error in tracking
-        await logTrackingSearch({
-          menu_id: 'Marine Traffic',
-          api_request: searchNumber,
-          api_status: 'F',
-          api_error: "Wrong Number, No Tracking Info Found"
-        });
-        return;
-      }
-      if (responseData.error === "no data received") {
-        setError("No Tracking Info Found");
-        // Log the error in tracking
-        await logTrackingSearch({
-          menu_id: 'Marine Traffic',
-          api_request: searchNumber,
-          api_status: 'F',
-          api_error: "No Tracking Info Found"
-        });
-        return;
-      }
-      // Log the tracking request
-      await logTrackingSearch({ 
-        menu_id: 'Marine Traffic',
-        api_request: searchNumber,
-        api_status: 'S'
-      });
-
-      setData(responseData);
-    } catch (error) {
-      setError("An error occurred while fetching tracking information. Please try again.");
-      console.error("Tracking Error:", error);
-      // Log the error in tracking
-      await logTrackingSearch({
-        menu_id: 'Marine Traffic',
-        api_request: searchNumber,
-        api_status: 'F',
-        api_error: error.message
-      });
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (

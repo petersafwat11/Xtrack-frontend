@@ -3,26 +3,13 @@ import { useState } from "react";
 import axios from "axios";
 import styles from "./vesselTracker.module.css";
 import dynamic from "next/dynamic";
-import { logTrackingSearch } from "@/app/lib/trackingLogger";
+import { fetchTrackerData, formatTimestamp } from "@/app/lib/trackerService";
 
 // Dynamically import the map component to avoid SSR issues
 const MapComponent = dynamic(() => import("./MapComponent"), {
   ssr: false,
   loading: () => <p>Loading Map...</p>,
 });
-function formatTimestamp(timestamp) {
-  const date = new Date(timestamp);
-
-  // Extract date part
-  const datePart = date.toISOString().split("T")[0]; // "2024-12-02"
-
-  // Extract time part (HH:MM)
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-  const timePart = `${hours}:${minutes}`; // "02:56"
-
-  return `${datePart}, ${timePart}`;
-}
 
 const VesselTracker = ({APILink}) => {
   const [searchNumber, setSearchNumber] = useState("");
@@ -31,46 +18,22 @@ const VesselTracker = ({APILink}) => {
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
-    if (!searchNumber.trim()) return;
-
-    setLoading(true);
-    setError(null);
-    setData(null);
-
-    try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/tracking/${searchNumber}`, {
-        params: { externalApiUrl: `${APILink}${searchNumber}` }
-    });
-      const responseData = response?.data?.data;
-      if (responseData?.error) {
-        setError("No Vessel Info Found");
-        await logTrackingSearch({
-          menu_id: "Vessel Tracker",
-          api_request: searchNumber,
-          api_status: "F",
-          api_error: "No Tracking Info Found"
-        });
-        return;
+    await fetchTrackerData({
+      searchQuery: searchNumber,
+      menuId: 'Vessel Tracker',
+      apiLink: APILink,
+      processResponseData: (response) => response?.data?.data,
+      setState: {
+        setLoading,
+        setError,
+        setData: (responseData) => setData(responseData?.data)
+      },
+      errorMessages: {
+        wrongNumber: "Invalid Vessel IMO",
+        noData: "No Vessel Info Found",
+        genericError: "Error fetching vessel data"
       }
-      await logTrackingSearch({
-        menu_id: "Vessel Tracker",
-        api_request: searchNumber,
-        api_status: "S",
-      });
-
-      setData(responseData?.data);
-    } catch (error) {
-      setError("Error fetching vessel data");
-      console.error("Tracking Error:", error);
-      await logTrackingSearch({
-        menu_id: "Vessel Tracker",
-        api_request: searchNumber,
-        api_status: "F",
-        api_error: error.message || "An error occurred while fetching the data"
-      });
-    } finally {
-      setLoading(false);
-    }
+    });
   };
 
   return (
@@ -157,7 +120,6 @@ const VesselTracker = ({APILink}) => {
 
           {data.results[0].last_position && (
             <div className={styles.mapContainer}>
-              {/* <h3>Current Location</h3> */}
               <MapComponent
                 position={[
                   data.results[0].last_position.position.coordinates[1],
@@ -165,28 +127,6 @@ const VesselTracker = ({APILink}) => {
                 ]}
                 vesselName={data.results[0].name}
               />
-              {/* <div className={styles.locationDetails}>
-                <div className={styles.infoItem}>
-                  <span className={styles.label}>Speed:</span>
-                  <span className={styles.value}>
-                    {data.results[0].last_position.speed} knots
-                  </span>
-                </div>
-                <div className={styles.infoItem}>
-                  <span className={styles.label}>Course:</span>
-                  <span className={styles.value}>
-                    {data.results[0].last_position.course}°
-                  </span>
-                </div>
-                <div className={styles.infoItem}>
-                  <span className={styles.label}>Last Update:</span>
-                  <span className={styles.value}>
-                    {new Date(
-                      data.results[0].last_position.timestamp
-                    ).toLocaleString()}
-                  </span>
-                </div>
-              </div> */}
             </div>
           )}
         </div>

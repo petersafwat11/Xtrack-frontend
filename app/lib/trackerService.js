@@ -1,0 +1,148 @@
+"use client";
+
+import axios from "axios";
+import { logTrackingSearch } from "./trackingLogger";
+
+/**
+ * Universal tracking data fetcher for all tracker components
+ * 
+ * @param {Object} options - Configuration options for the tracker
+ * @param {string} options.searchQuery - The search query (tracking number, vessel ID, etc.)
+ * @param {string} options.menuId - The menu ID for logging (e.g., 'Air Cargo', 'Ocean', 'Vessel Tracker')
+ * @param {string} options.apiLink - The external API base URL
+ * @param {Function} options.formatApiUrl - Function to format the API URL (receives searchQuery and apiLink)
+ * @param {Function} options.processResponseData - Function to process the response data
+ * @param {Function} options.generateMetadata - Optional function to generate metadata from response data
+ * @param {Object} options.setState - Object containing state setter functions
+ * @param {Function} options.setState.setLoading - Function to set loading state
+ * @param {Function} options.setState.setError - Function to set error state
+ * @param {Function} options.setState.setData - Function to set data state
+ * @param {Function} options.setState.setMetadata - Optional function to set metadata state
+ * @param {Object} options.errorMessages - Custom error messages
+ * @param {string} options.errorMessages.wrongNumber - Message for wrong number errors
+ * @param {string} options.errorMessages.noData - Message for no data errors
+ * @param {string} options.errorMessages.genericError - Generic error message
+ * @returns {Promise<void>}
+ */
+export const fetchTrackerData = async (options) => {
+  const {
+    searchQuery,
+    menuId,
+    apiLink,
+    formatApiUrl = (query, link) => `${link}${query}`,
+    processResponseData = (response) => response?.data?.data,
+    generateMetadata,
+    setState,
+    errorMessages = {
+      wrongNumber: "Wrong Number, please check your input",
+      noData: "No Tracking Info Found, please try again later",
+      genericError: "No Tracking Info Found. Please try again."
+    }
+  } = options;
+
+  // Validate required parameters
+  if (!searchQuery?.trim()) return;
+  if (!setState?.setLoading || !setState?.setError || !setState?.setData) {
+    console.error("Required state setters are missing");
+    return;
+  }
+
+  // Set initial states
+  setState.setLoading(true);
+  setState.setError(null);
+  setState.setData(null);
+  if (setState.setMetadata) setState.setMetadata(null);
+
+  try {
+    // Format the external API URL
+    const externalApiUrl = formatApiUrl(searchQuery, apiLink);
+    
+    // Make the API request
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/tracking/${searchQuery}`, 
+      { params: { externalApiUrl } }
+    );
+    console.log('response', response)
+    // Process the response data
+    const responseData = processResponseData(response);
+    
+    // Handle common error cases
+    if (responseData?.status_code === "WRONG_NUMBER" || responseData?.error === "Data wasn't received") {
+      setState.setError(errorMessages.wrongNumber);
+      await logTrackingSearch({
+        menu_id: menuId,
+        api_request: searchQuery,
+        api_status: 'F',
+        api_error: `${errorMessages.wrongNumber}, No Tracking Info Found`
+      });
+      return;
+    }
+    
+    if (responseData?.status_code === "no data received" || 
+        responseData?.error === "no data received" || 
+        responseData?.error === "Data not found") {
+      setState.setError(errorMessages.noData);
+      await logTrackingSearch({
+        menu_id: menuId,
+        api_request: searchQuery,
+        api_status: 'F',
+        api_error: errorMessages.noData
+      });
+      return;
+    }
+    
+    // Log successful tracking
+    await logTrackingSearch({
+      menu_id: menuId,
+      api_request: searchQuery,
+      api_status: 'S'
+    });
+    
+    // Set the data in state
+    setState.setData(responseData);
+    
+    // Generate and set metadata if applicable
+    if (generateMetadata && setState.setMetadata) {
+      const metadata = generateMetadata(responseData);
+      setState.setMetadata(metadata);
+    }
+  } catch (error) {
+    // Handle errors
+    setState.setError(errorMessages.genericError);
+    console.error(`${menuId} Tracking Error:`, error);
+    
+    // Log the error
+    await logTrackingSearch({
+      menu_id: menuId,
+      api_request: searchQuery,
+      api_status: 'F',
+      api_error: error.message || errorMessages.genericError
+    });
+  } finally {
+    setState.setLoading(false);
+  }
+};
+
+/**
+ * Format date for Ocean tracker
+ * @param {Date} date - Date object to format
+ * @returns {string} - Formatted date string (YYYY/MM/DD)
+ */
+export const formatDate = (date) => {
+  if (!date) return "";
+  return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
+};
+
+/**
+ * Format timestamp for display
+ * @param {string} timestamp - ISO timestamp
+ * @returns {string} - Formatted date and time string
+ */
+export const formatTimestamp = (timestamp) => {
+  if (!timestamp) return "";
+  const date = new Date(timestamp);
+  const datePart = date.toISOString().split("T")[0];
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  return `${datePart}, ${hours}:${minutes}`;
+};

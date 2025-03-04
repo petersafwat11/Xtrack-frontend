@@ -26,23 +26,22 @@ const Logs = ({userID}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [exportLoading, setExportLoading] = useState(false);
-
   const fetchLogs = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
 
-      console.log('Fetching logs with params:', {
-        page,
-        limit,
-        search,
-        from: dateRange.from.toISOString(),
-        to: dateRange.to.toISOString(),
-        user_id: userID,
-        status,
-        sortField,
-        sortOrder
-      });
+      // console.log('Fetching logs with params:', {
+      //   page,
+      //   limit,
+      //   search,
+      //   from: dateRange.from.toISOString(),
+      //   to: dateRange.to.toISOString(),
+      //   user_id: userID,
+      //   status,
+      //   sortField,
+      //   sortOrder
+      // });
 
       const response = await api.get('/api/tracking', {
         params: {
@@ -77,21 +76,19 @@ const Logs = ({userID}) => {
       setLoading(false);
     }
   }, [page, limit, search, dateRange, userID, status, sortField, sortOrder]);
-
+  
   useEffect(() => {
     fetchLogs();
   }, [fetchLogs]);
-
+  
   const handleSearch = (e) => {
     setSearch(e.target.value);
     setPage(1); // Reset to first page when searching
   };
-
   const handleStatusFilter = (newStatus) => {
     setStatus(newStatus);
     setPage(1); // Reset to first page when filtering
   };
-
   const handleSort = (field) => {
     // If clicking the same field, toggle sort order
     if (field === sortField) {

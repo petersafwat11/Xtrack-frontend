@@ -2,7 +2,7 @@
 import { useState } from "react";
 import styles from "../cargoTracker/CargoTracker.module.css";
 import axios from "axios";
-import { logTrackingSearch } from "@/app/lib/trackingLogger";
+import { fetchTrackerData } from "@/app/lib/trackerService";
 
 const OceanFTTracker = ({APILink}) => {
   const generateMetaData = (data) => {
@@ -24,7 +24,7 @@ const OceanFTTracker = ({APILink}) => {
   const [metadata, setMetadata] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  console.log("data", data, "metadata", metadata)
+
   const handleSearchChange = (e) => {
     const formattedValue = e.target.value;
     // Limit the total length (including hyphen) to 12 characters
@@ -32,51 +32,26 @@ const OceanFTTracker = ({APILink}) => {
       setSearchNumber(formattedValue);
     }
   };
+  
   const fetchData = async () => {
-    if (!searchNumber.trim()) return;
-
-    setLoading(true);
-    setError(null);
-    setData(null);
-    setMetadata(null);
-
-    try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/tracking/${searchNumber}`, {
-        params: { externalApiUrl: `${APILink}${searchNumber}` }
-    });
-      const responseData = response?.data?.data;
-      if (responseData?.error === "We couldn't find any data available on public track for this container") {
-        setError("Wrong Number, Enter a valid container number");
-        // Log the error in tracking
-        await logTrackingSearch({
-          menu_id: 'Ocean FT',
-          api_request: searchNumber,
-          api_status: 'F',
-          api_error: "Wrong Number, No Tracking Info Found"
-        });
-        return;
+    await fetchTrackerData({
+      searchQuery: searchNumber,
+      menuId: 'Ocean FT',
+      apiLink: APILink,
+      processResponseData: (response) => response?.data?.data,
+      generateMetadata: generateMetaData,
+      setState: {
+        setLoading,
+        setError,
+        setData,
+        setMetadata
+      },
+      errorMessages: {
+        wrongNumber: "Wrong Number, Enter a valid container number",
+        noData: "No Tracking Info Found",
+        genericError: "No tracking info found, try again later."
       }
-      await logTrackingSearch({
-        menu_id: 'Ocean FT',
-        api_request: searchNumber,
-        api_status: 'S'
-      });
-
-      setData(responseData);
-      setMetadata(generateMetaData(responseData));
-    } catch (error) {
-      setError("No tracking info found, try again later.");
-      console.error("Tracking Error:", error);
-      // Log the error in tracking
-      await logTrackingSearch({
-        menu_id: 'Ocean FT',
-        api_request: searchNumber,
-        api_status: 'F',
-        api_error: error.message || "An error occurred while fetching the data"
-      });
-    } finally {
-      setLoading(false);
-    }
+    });
   };
 
   return (

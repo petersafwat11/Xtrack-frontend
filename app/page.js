@@ -1,52 +1,53 @@
-"use client";
-import { useState, useEffect } from "react";
+import { Suspense } from "react";
 import styles from "./page.module.css";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import axios from "axios";
 import Dashboard from "./ui/dashboard/Dashboard";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
 
-export default function Home() {
-  const [userID, setUserID] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+export default async function Home() {
+  // Check if user is logged in on the server
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  const userCookie = cookieStore.get("user")?.value;
+  
+  if (!token || !userCookie) {
+    redirect("/login");
+  }
+  
+  let userId = null;
+  let data = null
+  try {
+    // Parse user data from cookie
+    const userData = JSON.parse(userCookie);
+    userId = userData?.user_id;
+    const res = await axios.get(`http://localhost:5000/api/tracking/dashboard?user_id=${userId}&year=2025`, {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   Authorization: `Bearer ${token}`,
+      // }
+    })
+      data = res.data;
+    console.log('response', res.data);
+  } catch (error) {
+    console.error("Error parsing user data:", error);
+    redirect("/login");
+  }
 
-  useEffect(() => {
-    // Check if user is logged in
-    const token = Cookies.get("token");
-    const user = Cookies.get("user");
-    
-    if (!token || !user) {
-      // Redirect to login if not logged in
-      router.push("/login");
-      return;
-    }
-    
-    try {
-      // Parse user data from cookie
-      const userData = user? JSON.parse(user):null;
-      setUserID(userData?.user_id);
-    } catch (error) {
-      console.error("Error parsing user data:", error);
-      // Redirect to login if user data is invalid
-      router.push("/login");
-    } finally {
-      setLoading(false);
-    }
-  }, [router]);
-
-  if (loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.loading}>Loading...</div>
-      </div>
-    );
+  if (!userId) {
+    redirect("/login");
   }
 
   return (
     <div className={styles.page}>
-      {userID &&  <Dashboard userID={userID} />}
-
-     
+      <Suspense fallback={
+        <div className={styles.loadingContainer}>
+          <div className={styles.loading}>Loading dashboard data...</div>
+        </div>
+      }>
+        <Dashboard data={data} />
+        {/* <DashboardContainer userId={userId} /> */}
+      </Suspense>
     </div>
   );
 }
