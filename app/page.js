@@ -21,7 +21,7 @@ export default async function Home() {
     // Parse user data from cookie
     const userData = JSON.parse(userCookie);
     userId = userData?.user_id;
-    const res = await axios.get(`http://localhost:5000/api/tracking/dashboard?user_id=${userId}&year=2025`, {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/tracking/dashboard?user_id=${userId}&year=2025`, {
       // headers: {
       //   "Content-Type": "application/json",
       //   Authorization: `Bearer ${token}`,
@@ -31,11 +31,6 @@ export default async function Home() {
     console.log('response', res.data);
   } catch (error) {
     console.error("Error parsing user data:", error);
-    redirect("/login");
-  }
-
-  if (!userId) {
-    redirect("/login");
   }
 
   return (
