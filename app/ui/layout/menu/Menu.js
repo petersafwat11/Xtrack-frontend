@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./menu.module.css";
@@ -16,10 +16,23 @@ import Image from "next/image";
 import Cookies from "js-cookie";
 
 const Menu = ({toggleMenu, isMenuOpen}) => {
-  // const user = JSON.parse(Cookies.get('user'));
-  // const isAdmin = user.menuPermissions.showSettingsAPI;
-  // console.log('user menu', user, isAdmin)
+  const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const pathname = usePathname();
+
+  // Safely access cookies only on the client side
+  useEffect(() => {
+    try {
+      const userCookie = Cookies.get('user');
+      if (userCookie) {
+        const userData = JSON.parse(userCookie);
+        setUser(userData);
+        setIsAdmin(userData?.menuPermissions?.showSettingsAPI || false);
+      }
+    } catch (error) {
+      console.error("Error parsing user cookie:", error);
+    }
+  }, []);
 
   const navPathName = {
     Schedule: ["/air", "/ocean"],
@@ -45,10 +58,10 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
   ];
   const settingsItems = [
     { title: "Profile", path: "/profile" },
-    true ? { title: "API Endpoints", path: "/endpoints" } : null,
+    isAdmin ? { title: "API Endpoints", path: "/endpoints" } : null,
     { title: "Logs", path: "/logs" },
     { title: "Feedback", path: "/feedback" },
-    true ? { title: "Users", path: "/users" } : null,
+    isAdmin ? { title: "Users", path: "/users" } : null,
   ].filter(Boolean);
   const menuItems = [
     {
