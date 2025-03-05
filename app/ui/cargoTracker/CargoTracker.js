@@ -46,7 +46,7 @@ export default function CargoTracker({APILink}) {
 
   const fetchData = async () => {
     await fetchTrackerData({
-      searchQuery: searchNumber,
+      searchQuery: searchNumber.trim(),
       menuId: 'Air Cargo',
       apiLink: APILink,
       processResponseData: (response) => response?.data?.data,

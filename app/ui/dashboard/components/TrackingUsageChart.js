@@ -15,7 +15,7 @@ export default function TrackingUsageChart({ last7Days }) {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="value" fill="#078fff" name="API Calls" />
+          <Bar dataKey="value" fill="#078fff" name="Tracks" />
         </BarChart>
       </ResponsiveContainer>
       {(!last7Days || last7Days.length === 0) && (

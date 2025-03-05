@@ -127,7 +127,7 @@ const Users = () => {
                   <td className={styles["row-item"]}>{user.user_id}</td>
                   <td className={styles["row-item"]}>{user.user_name}</td>
                   <td className={styles["row-item"]}>{user.user_email}</td>
-                  <td className={styles["row-item"]}>{user.is_active ? "Yes" : "No"}</td>
+                  <td className={styles["row-item"]}>{user.user_active==='Y' ? "Yes" : "No"}</td>
                   <td className={styles["row-item"]}>{formatDate(user.valid_till)}</td>
                   <td className={styles["row-item"]}>{user.user_company}</td>
                   <td className={styles["row-item"]}>{user.user_country}</td>

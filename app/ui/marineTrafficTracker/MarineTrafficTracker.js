@@ -19,7 +19,7 @@ export default function MarineTrafficTracker({APILink}) {
   
   const fetchData = async () => {
     await fetchTrackerData({
-      searchQuery: searchNumber,
+      searchQuery: searchNumber.trim(),
       menuId: 'Marine Traffic',
       apiLink: APILink,
       processResponseData: (response) => response?.data?.data,
@@ -35,7 +35,9 @@ export default function MarineTrafficTracker({APILink}) {
       }
     });
   };
-
+const getPortData = (data) => {
+ return {name:data?.port_name, code:data?.port_code} 
+}
   return (
     <div className={styles.container}>
       <div className={styles.searchSection}>
@@ -81,7 +83,7 @@ export default function MarineTrafficTracker({APILink}) {
     <div className={styles.datesContainer}>
         <div className={styles.datesItem}>
             <p className={styles.label}>From</p>
-            <p className={styles.value}>{`${data?.current_voyage?.from?.Port_name}, ${data?.current_voyage?.from?.Port_code}`}</p>
+            <p  className={styles.value}>{`${getPortData(data?.current_voyage?.from)?.name}, ${getPortData(data?.current_voyage?.from)?.code}`}</p>
         </div>
         <div className={styles.datesItem}>
             <p className={styles.label}>Date</p>
@@ -91,7 +93,7 @@ export default function MarineTrafficTracker({APILink}) {
         <div className={styles.datesContainer}>
         <div className={styles.datesItem}>
             <p className={styles.label}>To</p>
-            <p className={styles.value}>{`${data?.current_voyage?.to?.Port_name}, ${data?.current_voyage?.to?.Port_code}`}</p>
+            <p className={styles.value}>{`${getPortData(data?.current_voyage?.to)?.name}, ${getPortData(data?.current_voyage?.to)?.code}`}</p>
         </div>
         <div className={styles.datesItem}>
             <p className={styles.label}>Date</p>

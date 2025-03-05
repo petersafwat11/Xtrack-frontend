@@ -63,7 +63,7 @@ const OceanSRTracker = ({ APILink }) => {
 
   const fetchData = async () => {
     await fetchTrackerData({
-      searchQuery: searchNumber,
+      searchQuery: searchNumber.trim(),
       menuId: 'Ocean SR',
       apiLink: APILink,
       processResponseData: (response) => response?.data?.data,

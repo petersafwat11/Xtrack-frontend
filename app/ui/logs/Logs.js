@@ -12,7 +12,7 @@ const Logs = ({userID}) => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState(""); // "" for all, "S" for success, "F" for failure
-  const [sortField, setSortField] = useState("api_date");
+  // Always sort by api_date
   const [sortOrder, setSortOrder] = useState("desc");
 
   let prevDate = new Date();
@@ -31,18 +31,6 @@ const Logs = ({userID}) => {
       setLoading(true);
       setError(null);
 
-      // console.log('Fetching logs with params:', {
-      //   page,
-      //   limit,
-      //   search,
-      //   from: dateRange.from.toISOString(),
-      //   to: dateRange.to.toISOString(),
-      //   user_id: userID,
-      //   status,
-      //   sortField,
-      //   sortOrder
-      // });
-
       const response = await api.get('/api/tracking', {
         params: {
           page,
@@ -52,7 +40,7 @@ const Logs = ({userID}) => {
           to: dateRange.to.toISOString(),
           user_id: userID,
           status,
-          sortField,
+          sortField: 'api_date',
           sortOrder
         }
       });
@@ -75,7 +63,7 @@ const Logs = ({userID}) => {
     } finally {
       setLoading(false);
     }
-  }, [page, limit, search, dateRange, userID, status, sortField, sortOrder]);
+  }, [page, limit, search, dateRange, userID, status, sortOrder]);
   
   useEffect(() => {
     fetchLogs();
@@ -89,21 +77,16 @@ const Logs = ({userID}) => {
     setStatus(newStatus);
     setPage(1); // Reset to first page when filtering
   };
-  const handleSort = (field) => {
-    // If clicking the same field, toggle sort order
-    if (field === sortField) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      // If clicking a new field, set it as sort field with default desc order
-      setSortField(field);
-      setSortOrder('desc');
-    }
+  
+  // Toggle sort order when clicking on the Date column
+  const handleSort = () => {
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     setPage(1); // Reset to first page when sorting
   };
 
-  const getSortIcon = (field) => {
-    if (field !== sortField) return '↕️';
-    return sortOrder === 'asc' ? '↑' : '↓';
+  // Get sort icon for the Date column
+  const getSortIcon = () => {
+    return sortOrder === 'desc' ? '↑' : '↓';
   };
 
   const exportToExcel = async () => {
@@ -117,7 +100,7 @@ const Logs = ({userID}) => {
         to: dateRange.to.toISOString(),
         user_id: userID,
         status,
-        sortField,
+        sortField: 'api_date',
         sortOrder
       });
       
@@ -215,30 +198,23 @@ const Logs = ({userID}) => {
         <div className={styles.tableContainer}>
           <table className={styles.table}>
             <thead>
-              <tr onClick={() => handleSort('user_id')} className={styles["table-header"]}>
-                <th 
-                  className={`${styles["header-item"]} ${styles.sortable}`}
-                >
-                  User ID {getSortIcon('user_id')}
+              <tr className={styles["table-header"]}>
+                <th className={styles["header-item"]}>
+                  User ID
                 </th>
                 <th 
                   className={`${styles["header-item"]} ${styles.sortable}`}
+                  onClick={handleSort}
                 >
-                  Date 
+                  Date {getSortIcon()}
                 </th>
-                <th 
-                  className={`${styles["header-item"]} ${styles.sortable}`}
-                >
+                <th className={styles["header-item"]}>
                   Menu 
                 </th>
-                <th 
-                  className={`${styles["header-item"]} ${styles.sortable}`}
-                >
+                <th className={styles["header-item"]}>
                   Request 
                 </th>
-                <th 
-                  className={`${styles["header-item"]} ${styles.sortable}`}
-                >
+                <th className={styles["header-item"]}>
                   Status 
                 </th>
                 <th className={styles["header-item"]}>Error Description</th>

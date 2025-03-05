@@ -19,7 +19,7 @@ const VesselTracker = ({APILink}) => {
 
   const fetchData = async () => {
     await fetchTrackerData({
-      searchQuery: searchNumber,
+      searchQuery: searchNumber.trim(),
       menuId: 'Vessel Tracker',
       apiLink: APILink,
       processResponseData: (response) => response?.data?.data,

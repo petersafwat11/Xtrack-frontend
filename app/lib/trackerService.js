@@ -81,7 +81,7 @@ export const fetchTrackerData = async (options) => {
     if (responseData?.status_code === "no data received" ||
       responseData?.status === "error" || responseData?.success === false ||
         responseData?.error === "no data received" || responseData?.error==="Data wasn't received"||
-        responseData?.data?.results.length === 0 ||
+        responseData?.data?.results?.length === 0 ||
         responseData?.error === "Data not found"|| responseData?.error=== "We couldn't find any data available on public track for this container") {
       setState.setError(errorMessages.noData);
       await logTrackingSearch({

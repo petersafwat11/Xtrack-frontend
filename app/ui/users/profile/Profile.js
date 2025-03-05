@@ -1,10 +1,20 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/app/lib/axios';
 import styles from './profile.module.css';
 import DateInput from '../../inputs/dateInput/DateInput';
 import CustomCheckbox from '../../inputs/checkbox/CustomCheckbox';
+
+// Function to generate a random password
+const generateRandomPassword = () => {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+  let password = '';
+  for (let i = 0; i < 10; i++) {
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return password;
+};
 
 const Profile = ({ initialData, isNewUser = false , admin}) => {
     console.log('initialData', initialData)
@@ -14,7 +24,7 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
     user_id: '',
     user_name: '',
     user_email: '',
-    user_pwd: '',
+    user_pwd: isNewUser ? generateRandomPassword() : '',
     user_company: '',
     user_address:"",
     user_country: '',
@@ -34,6 +44,16 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
       admin_user: 'N'
     } : {})
   });
+
+  // Generate a random password when creating a new user
+  useEffect(() => {
+    if (isNewUser && !formData.user_pwd) {
+      setFormData(prev => ({
+        ...prev,
+        user_pwd: generateRandomPassword()
+      }));
+    }
+  }, [isNewUser,formData.user_pwd]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -121,7 +141,12 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
             onChange={handleChange}
             required={isNewUser}
             placeholder={!isNewUser ? "Leave empty to keep current password" : ""}
+            disabled={isNewUser}
+            readOnly={isNewUser}
           />
+          {isNewUser && (
+            <p className={styles.passwordNote}>Password will be auto-generated and sent to the user's email</p>
+          )}
         </div>
 
         <div className={styles.formGroup}>

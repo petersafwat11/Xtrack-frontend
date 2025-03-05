@@ -35,7 +35,7 @@ const OceanFTTracker = ({APILink}) => {
   
   const fetchData = async () => {
     await fetchTrackerData({
-      searchQuery: searchNumber,
+      searchQuery: searchNumber.trim(),
       menuId: 'Ocean FT',
       apiLink: APILink,
       processResponseData: (response) => response?.data?.data,

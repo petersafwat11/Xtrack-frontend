@@ -33,7 +33,7 @@
 .label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: white;
   margin-left: 0.25rem;
   letter-spacing: 0.02em;
 }
@@ -167,7 +167,8 @@
 .forgotPasswordButton {
   background: none;
   border: none;
-  color: #2196f3;
+  /* color: #2196f3; */
+  color: #d0dae1;
   font-weight: 600;
   cursor: pointer;
   padding: 0.5rem 1rem;
