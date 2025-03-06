@@ -15,8 +15,8 @@ const MapComponent = ({ position, vesselName }) => {
   return (
     <MapContainer
       center={position}
-      zoom={6}
-      style={{ height: '400px', width: '100%', borderRadius: '8px' }}
+      zoom={7}
+      style={{ height: '530px', width: '100%', borderRadius: '8px' }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -23,14 +23,13 @@ const Login = () => {
             <h3 className={classes['title']}>ABOUT US   </h3>
             <div className={classes['text']}>
               <p className={classes['text-item']}>
-              Track WW provides the tracking of your Ocean, Air and Land cargo. You can also get sailing schedule, spot pricing, vessel tracking and port congestion information in this portal.
-
+              Track WW provides the real-time tracking of your Ocean, Air and Land cargo. You can also get the sailing schedule, vessel tracking and port details via this portal.
               </p>
               <p className={classes['text-item']}>
-              Track WW aims to provide any tracking required for the shipping community as well as your specific data needs. 
+              We aim to provide tracking data to benefit the shipping community across the world. We can also directly deliver data to your email via our AI tools. Our AI tools can cater your business specific data needs in regard to tracking, rates, schedules, rates, co2 emissions and more.              
               </p>
               <p className={classes['text-item']}>
-              Interested to know more?  Kindly signup using the signup link below. We will reach out to you soon.
+              Interested to know more? Signup using the Signup link below and we will reach out to you.              
               </p>
             </div>
           </div>
