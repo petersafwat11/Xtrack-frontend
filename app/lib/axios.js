@@ -5,8 +5,7 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  // withCredentials: true,
-  timeout: 10000, // 10 seconds
+  timeout: 60000, // 10 seconds
 });
 
 // Add request interceptor to add token
@@ -22,7 +21,5 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
-// Add response interceptor to handle auth errors
 
 export default api;

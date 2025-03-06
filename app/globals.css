@@ -38,7 +38,7 @@ a {
   min-height: 100vh;
   background-color: #f9fafb;
 }
-.title{
+.title {
   /* color: #787878; */
   font-weight: 800;
   font-size: 2rem;
@@ -46,14 +46,12 @@ a {
 }
 
 @media (max-width: 900px) {
-  .title{
+  .title {
     font-size: 2rem;
     margin-left: 0rem;
-
   }
-    
 }
-body .react-date-picker{
+body .react-date-picker {
   flex-grow: 1;
   height: 2.2rem;
 }

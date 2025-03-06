@@ -29,7 +29,7 @@
   font-weight: 500;
   color: #555;
 }
-.required{
+.required {
   font-weight: 700;
   color: red;
   font-size: 1rem;
@@ -98,7 +98,7 @@
 }
 
 .saveButton {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 

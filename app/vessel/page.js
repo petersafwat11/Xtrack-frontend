@@ -1,13 +1,10 @@
-import React from 'react'
+import React from "react";
 import VesselTracker from "../ui/vesselTracker/VesselTracker";
-import { getExternalAPILink } from '../lib/trackingLogger';
+import { getExternalAPILink } from "../lib/trackingLogger";
 
-const page = async() => {
+const page = async () => {
   let APILink = await getExternalAPILink("vessel");
-  APILink=APILink
-  ?.data
-  ?.endpoint
-
+  APILink = APILink?.data?.endpoint;
 
   return (
     <div className={"container"}>

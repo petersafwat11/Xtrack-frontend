@@ -12,12 +12,12 @@ export default function SignOutButton() {
     try {
       // Call backend logout endpoint
       await api.get("/api/users/logout");
-      
+
       // Clear frontend auth data
       Cookies.remove("token");
       Cookies.remove("user");
       localStorage.removeItem("user");
-      
+
       // Redirect to login page
       router.push("/login");
       toast.success("Logged out successfully");
@@ -28,10 +28,7 @@ export default function SignOutButton() {
   };
 
   return (
-    <button
-      onClick={handleSignOut}
-      className={styles.signOutButton}
-    >
+    <button onClick={handleSignOut} className={styles.signOutButton}>
       Sign Out
     </button>
   );

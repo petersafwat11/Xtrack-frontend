@@ -4,13 +4,15 @@ import styles from "../cargoTracker/CargoTracker.module.css";
 import axios from "axios";
 import { fetchTrackerData } from "@/app/lib/trackerService";
 
-const OceanFTTracker = ({APILink}) => {
+const OceanFTTracker = ({ APILink }) => {
   const generateMetaData = (data) => {
     const metadata = {
       type: data?.container_type || null,
       number: data?.container || null,
       updated_at: data?.updated_at || null,
-      status: `${data?.last?.status}, ${data?.last?.port}, ${data?.last?.date}` || null,
+      status:
+        `${data?.last?.status}, ${data?.last?.port}, ${data?.last?.date}` ||
+        null,
       from: data?.from?.port || null,
       to: data?.to?.port || null,
       arrival: data?.estimated_time_of_arrival || null,
@@ -27,16 +29,15 @@ const OceanFTTracker = ({APILink}) => {
 
   const handleSearchChange = (e) => {
     const formattedValue = e.target.value;
-    // Limit the total length (including hyphen) to 12 characters
     if (formattedValue.length <= 20) {
       setSearchNumber(formattedValue);
     }
   };
-  
+
   const fetchData = async () => {
     await fetchTrackerData({
       searchQuery: searchNumber.trim(),
-      menuId: 'Ocean FT',
+      menuId: "Ocean FT",
       apiLink: APILink,
       processResponseData: (response) => response?.data?.data,
       generateMetadata: generateMetaData,
@@ -44,13 +45,13 @@ const OceanFTTracker = ({APILink}) => {
         setLoading,
         setError,
         setData,
-        setMetadata
+        setMetadata,
       },
       errorMessages: {
         wrongNumber: "Wrong Number, Enter a valid container number",
         noData: "No Tracking Info Found, please try again later",
-        genericError: "No Tracking Info Found. Please try again."
-      }
+        genericError: "No Tracking Info Found. Please try again.",
+      },
     });
   };
 
@@ -59,17 +60,16 @@ const OceanFTTracker = ({APILink}) => {
       <div className={styles.searchSection}>
         <div className={styles.searchForm}>
           <div className={styles.searchInputContainer}>
-          <p className={styles.searchLabel}>CONTAINER NO</p>
+            <p className={styles.searchLabel}>CONTAINER NO</p>
 
-          <input
-            type="text"
-            value={searchNumber}
-            onChange={handleSearchChange}
-            placeholder="Enter tracking number"
-            className={styles.searchInput}
-            maxLength={12}
-          />
-
+            <input
+              type="text"
+              value={searchNumber}
+              onChange={handleSearchChange}
+              placeholder="Enter tracking number"
+              className={styles.searchInput}
+              maxLength={12}
+            />
           </div>
           <button
             onClick={fetchData}
@@ -88,11 +88,7 @@ const OceanFTTracker = ({APILink}) => {
         </div>
       )}
 
-      {error && (
-        <div className={styles.errorMessage}>
-          {error}
-        </div>
-      )}
+      {error && <div className={styles.errorMessage}>{error}</div>}
 
       {metadata !== null && !loading && !error && (
         <div className={styles.metadata}>
@@ -149,22 +145,23 @@ const OceanFTTracker = ({APILink}) => {
               </tr>
             </thead>
             <tbody>
-               {data?.events && data?.events?.length>0 && 
+              {data?.events &&
+                data?.events?.length > 0 &&
                 data?.events
-                  .filter(event => new Date(event?.date) < new Date())
+                  .filter((event) => new Date(event?.date) < new Date())
                   .map((event, index) => (
-                <tr className={styles["table-row"]} key={index}>
-                  <td className={styles["row-item"]}>{event?.date}</td>
-                  <td className={styles["row-item"]}>{event?.location}</td>
-                  <td className={styles["row-item"]}>{event?.port}</td>
-                  <td className={styles["row-item"]}>{event?.status}</td>
-                </tr>
-              ))}
+                    <tr className={styles["table-row"]} key={index}>
+                      <td className={styles["row-item"]}>{event?.date}</td>
+                      <td className={styles["row-item"]}>{event?.location}</td>
+                      <td className={styles["row-item"]}>{event?.port}</td>
+                      <td className={styles["row-item"]}>{event?.status}</td>
+                    </tr>
+                  ))}
             </tbody>
           </table>
         ) : null}
       </div>
     </div>
   );
-}
-export default OceanFTTracker
+};
+export default OceanFTTracker;

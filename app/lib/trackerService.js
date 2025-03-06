@@ -5,7 +5,7 @@ import { logTrackingSearch } from "./trackingLogger";
 
 /**
  * Universal tracking data fetcher for all tracker components
- * 
+ *
  * @param {Object} options - Configuration options for the tracker
  * @param {string} options.searchQuery - The search query (tracking number, vessel ID, etc.)
  * @param {string} options.menuId - The menu ID for logging (e.g., 'Air Cargo', 'Ocean', 'Vessel Tracker')
@@ -36,8 +36,8 @@ export const fetchTrackerData = async (options) => {
     errorMessages = {
       wrongNumber: "Wrong Number, please check your input",
       noData: "No Tracking Info Found, please try again later",
-      genericError: "No Tracking Info Found. Please try again."
-    }
+      genericError: "No Tracking Info Found. Please try again.",
+    },
   } = options;
 
   // Validate required parameters
@@ -56,53 +56,45 @@ export const fetchTrackerData = async (options) => {
   try {
     // Format the external API URL
     const externalApiUrl = formatApiUrl(searchQuery, apiLink);
-    
+
     // Make the API request
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/tracking/${searchQuery}`, 
+      `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/tracking/${searchQuery}`,
       { params: { externalApiUrl } }
     );
-    console.log('response', response)
     // Process the response data
     const responseData = processResponseData(response);
-    
-    // Handle common error cases
-    // if (responseData?.status_code === "WRONG_NUMBER" || responseData?.error === "Data wasn't received") {
-    //   setState.setError(errorMessages.wrongNumber);
-    //   await logTrackingSearch({
-    //     menu_id: menuId,
-    //     api_request: searchQuery,
-    //     api_status: 'F',
-    //     api_error: `${errorMessages.wrongNumber}, No Tracking Info Found`
-    //   });
-    //   return;
-    // }
-    
-    if (responseData?.status_code === "no data received" ||
-      responseData?.status === "error" || responseData?.success === false ||
-        responseData?.error === "no data received" || responseData?.error==="Data wasn't received"||
-        responseData?.data?.results?.length === 0 ||
-        responseData?.error === "Data not found"|| responseData?.error=== "We couldn't find any data available on public track for this container") {
+    if (
+      responseData?.status_code === "no data received" ||
+      responseData?.status === "error" ||
+      responseData?.success === false ||
+      responseData?.error === "no data received" ||
+      responseData?.error === "Data wasn't received" ||
+      responseData?.data?.results?.length === 0 ||
+      responseData?.error === "Data not found" ||
+      responseData?.error ===
+        "We couldn't find any data available on public track for this container"
+    ) {
       setState.setError(errorMessages.noData);
       await logTrackingSearch({
         menu_id: menuId,
         api_request: searchQuery,
-        api_status: 'F',
-        api_error: errorMessages.noData
+        api_status: "F",
+        api_error: errorMessages.noData,
       });
       return;
     }
-    
+
     // Log successful tracking
     await logTrackingSearch({
       menu_id: menuId,
       api_request: searchQuery,
-      api_status: 'S'
+      api_status: "S",
     });
-    
+
     // Set the data in state
     setState.setData(responseData);
-    
+
     // Generate and set metadata if applicable
     if (generateMetadata && setState.setMetadata) {
       const metadata = generateMetadata(responseData);
@@ -112,13 +104,13 @@ export const fetchTrackerData = async (options) => {
     // Handle errors
     setState.setError(errorMessages.genericError);
     console.error(`${menuId} Tracking Error:`, error);
-    
+
     // Log the error
     await logTrackingSearch({
       menu_id: menuId,
       api_request: searchQuery,
-      api_status: 'F',
-      api_error: error.message || errorMessages.genericError
+      api_status: "F",
+      api_error: error.message || errorMessages.genericError,
     });
   } finally {
     setState.setLoading(false);
@@ -132,7 +124,10 @@ export const fetchTrackerData = async (options) => {
  */
 export const formatDate = (date) => {
   if (!date) return "";
-  return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
+  return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}/${String(date.getDate()).padStart(2, "0")}`;
 };
 
 /**

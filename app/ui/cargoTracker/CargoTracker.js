@@ -4,7 +4,7 @@ import styles from "./CargoTracker.module.css";
 import { fetchTrackerData } from "@/app/lib/trackerService";
 import axios from "axios";
 
-export default function CargoTracker({APILink}) {
+export default function CargoTracker({ APILink }) {
   const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
@@ -12,10 +12,10 @@ export default function CargoTracker({APILink}) {
   const [error, setError] = useState(null);
 
   const formatSearchNumber = (value) => {
-    const numbers = value.replace(/[^\d]/g, '');
-    
+    const numbers = value.replace(/[^\d]/g, "");
+
     if (numbers.length > 3) {
-      return numbers.slice(0, 3) + '-' + numbers.slice(3);
+      return numbers.slice(0, 3) + "-" + numbers.slice(3);
     }
     return numbers;
   };
@@ -47,7 +47,7 @@ export default function CargoTracker({APILink}) {
   const fetchData = async () => {
     await fetchTrackerData({
       searchQuery: searchNumber.trim(),
-      menuId: 'Air Cargo',
+      menuId: "Air Cargo",
       apiLink: APILink,
       processResponseData: (response) => response?.data?.data,
       generateMetadata: generateMetaData,
@@ -55,13 +55,13 @@ export default function CargoTracker({APILink}) {
         setLoading,
         setError,
         setData,
-        setMetadata
+        setMetadata,
       },
       errorMessages: {
         wrongNumber: "Wrong Number",
         noData: "No Tracking Info Found, please try again later",
-        genericError: "No Tracking Info Found, please try again later."
-      }
+        genericError: "No Tracking Info Found, please try again later.",
+      },
     });
   };
 
@@ -70,17 +70,16 @@ export default function CargoTracker({APILink}) {
       <div className={styles.searchSection}>
         <div className={styles.searchForm}>
           <div className={styles.searchInputContainer}>
-          <p className={styles.searchLabel}>AIRWAY BILL</p>
+            <p className={styles.searchLabel}>AIRWAY BILL</p>
 
-          <input
-            type="text"
-            value={searchNumber}
-            onChange={handleSearchChange}
-            placeholder="Enter tracking number"
-            className={styles.searchInput}
-            maxLength={12}
-          />
-
+            <input
+              type="text"
+              value={searchNumber}
+              onChange={handleSearchChange}
+              placeholder="Enter tracking number"
+              className={styles.searchInput}
+              maxLength={12}
+            />
           </div>
           <button
             onClick={fetchData}
@@ -99,11 +98,7 @@ export default function CargoTracker({APILink}) {
         </div>
       )}
 
-      {error && (
-        <div className={styles.errorMessage}>
-          {error}
-        </div>
-      )}
+      {error && <div className={styles.errorMessage}>{error}</div>}
 
       {metadata !== null && !loading && !error && (
         <div className={styles.metadata}>
@@ -122,11 +117,16 @@ export default function CargoTracker({APILink}) {
 
           <div className={styles.metadataItem}>
             <p className={styles.label}>FROM </p>
-            <p className={styles.value}> {metadata?.from_name}, {metadata?.from_country}</p>
+            <p className={styles.value}>
+              {" "}
+              {metadata?.from_name}, {metadata?.from_country}
+            </p>
           </div>
           <div className={styles.metadataItem}>
             <p className={styles.label}>TO </p>
-            <p className={styles.value}>{metadata?.to_name}, {metadata?.to_country}</p>
+            <p className={styles.value}>
+              {metadata?.to_name}, {metadata?.to_country}
+            </p>
           </div>
           <div className={styles.metadataItem}>
             <p className={styles.label}>STATUS</p>
@@ -164,11 +164,17 @@ export default function CargoTracker({APILink}) {
               {data?.data?.events?.map((event, index) => (
                 <tr className={styles["table-row"]} key={index}>
                   <td className={styles["row-item"]}>{event.order_id}</td>
-                  <td className={styles["row-item"]}>{event.datetime_local.actual}</td>
+                  <td className={styles["row-item"]}>
+                    {event.datetime_local.actual}
+                  </td>
                   <td className={styles["row-item"]}>{event.event_code}</td>
                   <td className={styles["row-item"]}>{event.description}</td>
-                  <td className={styles["row-item"]}>{event.location?.name}, {event.location?.country}</td>
-                  <td className={styles["row-item"]}>{event.location?.iata_code}/{event.location?.icao_code} </td>
+                  <td className={styles["row-item"]}>
+                    {event.location?.name}, {event.location?.country}
+                  </td>
+                  <td className={styles["row-item"]}>
+                    {event.location?.iata_code}/{event.location?.icao_code}{" "}
+                  </td>
                 </tr>
               ))}
             </tbody>

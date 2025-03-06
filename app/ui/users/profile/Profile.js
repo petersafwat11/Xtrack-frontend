@@ -1,72 +1,79 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import api from '@/app/lib/axios';
-import styles from './profile.module.css';
-import DateInput from '../../inputs/dateInput/DateInput';
-import CustomCheckbox from '../../inputs/checkbox/CustomCheckbox';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import api from "@/app/lib/axios";
+import styles from "./profile.module.css";
+import DateInput from "../../inputs/dateInput/DateInput";
+import CustomCheckbox from "../../inputs/checkbox/CustomCheckbox";
 
 // Function to generate a random password
 const generateRandomPassword = () => {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-  let password = '';
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+  let password = "";
   for (let i = 0; i < 10; i++) {
     password += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return password;
 };
 
-const Profile = ({ initialData, isNewUser = false , admin}) => {
-    console.log('initialData', initialData)
+const Profile = ({ initialData, isNewUser = false, admin }) => {
+  console.log("initialData", initialData);
   const router = useRouter();
 
-  const [formData, setFormData] = useState(initialData || {
-    user_id: '',
-    user_name: '',
-    user_email: '',
-    user_pwd: isNewUser ? generateRandomPassword() : '',
-    user_company: '',
-    user_address:"",
-    user_country: '',
-    user_phone:"",
-    ...(admin ? {
-      dashboard: 'Y',
-      ocean_af: 'Y',
-      ocean_ar: 'Y',
-      ocean_ft: 'Y',
-      ocean_schedule: 'Y',
-      air_cargo: 'Y',
-      air_schedule: 'Y',
-      vessel_tracking: 'Y',
-      marine_traffic: 'Y',
-      user_active: 'Y',
-      valid_till: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0],
-      admin_user: 'N'
-    } : {})
-  });
+  const [formData, setFormData] = useState(
+    initialData || {
+      user_id: "",
+      user_name: "",
+      user_email: "",
+      user_pwd: isNewUser ? generateRandomPassword() : "",
+      user_company: "",
+      user_address: "",
+      user_country: "",
+      user_phone: "",
+      ...(admin
+        ? {
+            dashboard: "Y",
+            ocean_af: "Y",
+            ocean_ar: "Y",
+            ocean_ft: "Y",
+            ocean_schedule: "Y",
+            air_cargo: "Y",
+            air_schedule: "Y",
+            vessel_tracking: "Y",
+            marine_traffic: "Y",
+            user_active: "Y",
+            valid_till: new Date(new Date().setDate(new Date().getDate() + 1))
+              .toISOString()
+              .split("T")[0],
+            admin_user: "N",
+          }
+        : {}),
+    }
+  );
 
   // Generate a random password when creating a new user
   useEffect(() => {
     if (isNewUser && !formData.user_pwd) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        user_pwd: generateRandomPassword()
+        user_pwd: generateRandomPassword(),
       }));
     }
-  }, [isNewUser,formData.user_pwd]);
+  }, [isNewUser, formData.user_pwd]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleCheckboxChange = (name, checked) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: checked
+      [name]: checked,
     }));
   };
 
@@ -74,28 +81,30 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
     e.preventDefault();
     try {
       if (isNewUser) {
-        await api.post('/api/users', formData);
+        await api.post("/api/users", formData);
       } else {
         await api.patch(`/api/users/${formData.user_id}`, formData);
       }
-      router.push('/users');
+      router.push("/users");
     } catch (error) {
-      console.error('Error saving user:', error);
-    //   alert(error.response?.data?.message || 'Error saving user data');
+      console.error("Error saving user:", error);
+      //   alert(error.response?.data?.message || 'Error saving user data');
     }
   };
 
   const handleCancel = () => {
-    router.push('/users');
+    router.push("/users");
   };
 
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h2>{isNewUser ? 'Create New User' : 'Edit User'}</h2>
-        
+        <h2>{isNewUser ? "Create New User" : "Edit User"}</h2>
+
         <div className={styles.formGroup}>
-          <label htmlFor="user_id">User ID: <span className={styles.required}>*</span> </label>
+          <label htmlFor="user_id">
+            User ID: <span className={styles.required}>*</span>{" "}
+          </label>
           <input
             type="text"
             id="user_id"
@@ -108,7 +117,9 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="user_name">User Name: <span className={styles.required}>*</span></label>
+          <label htmlFor="user_name">
+            User Name: <span className={styles.required}>*</span>
+          </label>
           <input
             type="text"
             id="user_name"
@@ -120,7 +131,9 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="user_email">Email: <span className={styles.required}>*</span></label>
+          <label htmlFor="user_email">
+            Email: <span className={styles.required}>*</span>
+          </label>
           <input
             type="email"
             id="user_email"
@@ -132,7 +145,9 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="user_pwd">Password: <span className={styles.required}>*</span></label>
+          <label htmlFor="user_pwd">
+            Password: <span className={styles.required}>*</span>
+          </label>
           <input
             type="password"
             id="user_pwd"
@@ -140,17 +155,23 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
             value={formData.user_pwd}
             onChange={handleChange}
             required={isNewUser}
-            placeholder={!isNewUser ? "Leave empty to keep current password" : ""}
+            placeholder={
+              !isNewUser ? "Leave empty to keep current password" : ""
+            }
             disabled={isNewUser}
             readOnly={isNewUser}
           />
           {isNewUser && (
-            <p className={styles.passwordNote}>Password will be auto-generated and sent to the user's email</p>
+            <p className={styles.passwordNote}>
+              Password will be auto-generated and sent to the user's email
+            </p>
           )}
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="user_company">Company: <span className={styles.required}>*</span></label>
+          <label htmlFor="user_company">
+            Company: <span className={styles.required}>*</span>
+          </label>
           <input
             type="text"
             id="user_company"
@@ -160,7 +181,9 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
           />
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="user_address">Address: <span className={styles.required}>*</span></label>
+          <label htmlFor="user_address">
+            Address: <span className={styles.required}>*</span>
+          </label>
           <input
             type="text"
             id="user_address"
@@ -171,7 +194,9 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="user_country">Country: <span className={styles.required}>*</span></label>
+          <label htmlFor="user_country">
+            Country: <span className={styles.required}>*</span>
+          </label>
           <input
             type="text"
             id="user_country"
@@ -181,7 +206,9 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
           />
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="user_phone">Phone: <span className={styles.required}>*</span></label>
+          <label htmlFor="user_phone">
+            Phone: <span className={styles.required}>*</span>
+          </label>
           <input
             type="text"
             id="user_phone"
@@ -194,7 +221,9 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
         {admin && (
           <>
             <div className={styles.formGroup}>
-              <label htmlFor="valid_till">Valid Till: <span className={styles.required}>*</span></label>
+              <label htmlFor="valid_till">
+                Valid Till: <span className={styles.required}>*</span>
+              </label>
               <DateInput
                 data={formData}
                 dataKey="valid_till"
@@ -286,12 +315,15 @@ const Profile = ({ initialData, isNewUser = false , admin}) => {
                 <option value="N">No</option>
               </select>
             </div> */}
-
           </>
         )}
 
         <div className={styles.buttonGroup}>
-          <button type="button" onClick={handleCancel} className={styles.cancelButton}>
+          <button
+            type="button"
+            onClick={handleCancel}
+            className={styles.cancelButton}
+          >
             Cancel
           </button>
           <button type="submit" className={styles.saveButton}>

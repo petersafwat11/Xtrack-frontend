@@ -14,31 +14,35 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [deleteModal, setDeleteModal] = useState({ isOpen: false, userId: null, userName: "" });
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    userId: null,
+    userName: "",
+  });
 
   const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await api.get('/api/users', {
+      const response = await api.get("/api/users", {
         params: {
           page,
           limit,
           search,
-        }
+        },
       });
 
-      console.log('Response:', response.data);
+      console.log("Response:", response.data);
 
-      if (response.data.status === 'success') {
+      if (response.data.status === "success") {
         setUsers(response.data.data);
         setTotalPages(Math.ceil(response.data.results / limit));
       } else {
-        setError('Failed to fetch users: Invalid response format');
+        setError("Failed to fetch users: Invalid response format");
       }
     } catch (err) {
-      console.error('Error fetching Users:', err);
-      setError(err.response?.data?.message || 'Failed to fetch users');
+      console.error("Error fetching Users:", err);
+      setError(err.response?.data?.message || "Failed to fetch users");
       setUsers([]);
       setTotalPages(0);
     } finally {
@@ -57,9 +61,12 @@ const Users = () => {
 
   const formatDate = (inputDate) => {
     const date = new Date(inputDate);
-    const options = { day: '2-digit', month: 'short', year: 'numeric' };
-    return date.toLocaleDateString('en-GB', options).replace(',', '').replace(/ /g, "-");
-  }
+    const options = { day: "2-digit", month: "short", year: "numeric" };
+    return date
+      .toLocaleDateString("en-GB", options)
+      .replace(",", "")
+      .replace(/ /g, "-");
+  };
 
   const handleDelete = async (userId) => {
     try {
@@ -67,17 +74,17 @@ const Users = () => {
       fetchUsers(); // Refresh the users list
       setDeleteModal({ isOpen: false, userId: null, userName: "" });
     } catch (err) {
-      console.error('Error deleting user:', err);
-      setError(err.response?.data?.message || 'Failed to delete user');
+      console.error("Error deleting user:", err);
+      setError(err.response?.data?.message || "Failed to delete user");
     }
   };
 
   const openDeleteModal = (e, user) => {
     e.stopPropagation(); // Prevent row click event
-    setDeleteModal({ 
-      isOpen: true, 
+    setDeleteModal({
+      isOpen: true,
       userId: user.user_id,
-      userName: user.user_name 
+      userName: user.user_name,
     });
   };
 
@@ -88,8 +95,13 @@ const Users = () => {
   return (
     <div className={styles.container}>
       <div className={styles.actions}>
-        <button onClick={()=>{router.push('/users/create-user')}} className={styles.create}>
-          Create New User 
+        <button
+          onClick={() => {
+            router.push("/users/create-user");
+          }}
+          className={styles.create}
+        >
+          Create New User
         </button>
 
         <input
@@ -99,7 +111,6 @@ const Users = () => {
           onChange={handleSearch}
           className={styles.searchInput}
         />
-
       </div>
 
       {loading ? (
@@ -122,17 +133,27 @@ const Users = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (              
-                <tr onClick={() => {router.push(`/users/${user.user_id}`)}} className={styles["table-row"]} key={user.user_id}>
+              {users.map((user, index) => (
+                <tr
+                  onClick={() => {
+                    router.push(`/users/${user.user_id}`);
+                  }}
+                  className={styles["table-row"]}
+                  key={user.user_id}
+                >
                   <td className={styles["row-item"]}>{user.user_id}</td>
                   <td className={styles["row-item"]}>{user.user_name}</td>
                   <td className={styles["row-item"]}>{user.user_email}</td>
-                  <td className={styles["row-item"]}>{user.user_active==='Y' ? "Yes" : "No"}</td>
-                  <td className={styles["row-item"]}>{formatDate(user.valid_till)}</td>
+                  <td className={styles["row-item"]}>
+                    {user.user_active === "Y" ? "Yes" : "No"}
+                  </td>
+                  <td className={styles["row-item"]}>
+                    {formatDate(user.valid_till)}
+                  </td>
                   <td className={styles["row-item"]}>{user.user_company}</td>
                   <td className={styles["row-item"]}>{user.user_country}</td>
                   <td className={styles["row-item"]}>
-                    <button 
+                    <button
                       onClick={(e) => openDeleteModal(e, user)}
                       className={styles.deleteButton}
                     >
@@ -146,7 +167,7 @@ const Users = () => {
 
           <div className={styles.pagination}>
             <button
-              onClick={() => setPage(p => Math.max(1, p - 1))}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
               className={styles.pageButton}
             >
@@ -156,7 +177,7 @@ const Users = () => {
               Page {page} of {totalPages}
             </span>
             <button
-              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
               className={styles.pageButton}
             >
@@ -165,7 +186,7 @@ const Users = () => {
           </div>
         </div>
       )}
-      <DeleteConfirmation 
+      <DeleteConfirmation
         isOpen={deleteModal.isOpen}
         onClose={closeDeleteModal}
         onConfirm={() => handleDelete(deleteModal.userId)}

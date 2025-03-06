@@ -1,16 +1,18 @@
-import React from 'react';
-import Profile from '@/app/ui/users/profile/Profile';
+import React from "react";
+import Profile from "@/app/ui/users/profile/Profile";
 
 const getUserData = async (userId) => {
   try {
-    // Using node-fetch on server side
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER }/api/users/${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      cache: 'no-store' // Disable caching for this request
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/users/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -19,16 +21,14 @@ const getUserData = async (userId) => {
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    console.error("Error fetching user data:", error);
     return null;
   }
 };
 
 async function Page({ params }) {
   const { user } = await params;
-  console.log('user ', user);
-
-  const isNewUser = user === 'create-user';
+  const isNewUser = user === "create-user";
   let userData = null;
 
   if (!isNewUser) {
@@ -38,7 +38,11 @@ async function Page({ params }) {
   return (
     <div className="container">
       <h2 className="title">Users</h2>
-      <Profile admin={true} initialData={userData?.data || null} isNewUser={isNewUser} />
+      <Profile
+        admin={true}
+        initialData={userData?.data || null}
+        isNewUser={isNewUser}
+      />
     </div>
   );
 }

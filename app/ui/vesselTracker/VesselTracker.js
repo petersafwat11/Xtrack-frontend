@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState } from "react";
 import axios from "axios";
 import styles from "./vesselTracker.module.css";
@@ -11,7 +11,7 @@ const MapComponent = dynamic(() => import("./MapComponent"), {
   loading: () => <p>Loading Map...</p>,
 });
 
-const VesselTracker = ({APILink}) => {
+const VesselTracker = ({ APILink }) => {
   const [searchNumber, setSearchNumber] = useState("");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -20,19 +20,19 @@ const VesselTracker = ({APILink}) => {
   const fetchData = async () => {
     await fetchTrackerData({
       searchQuery: searchNumber.trim(),
-      menuId: 'Vessel Tracker',
+      menuId: "Vessel Tracker",
       apiLink: APILink,
       processResponseData: (response) => response?.data?.data,
       setState: {
         setLoading,
         setError,
-        setData: (responseData) => setData(responseData?.data)
+        setData: (responseData) => setData(responseData?.data),
       },
       errorMessages: {
         wrongNumber: "Invalid Vessel IMO",
         noData: "No Tracking Info Found, please try again later",
-        genericError: "No Tracking Info Found. Please try again"
-      }
+        genericError: "No Tracking Info Found. Please try again",
+      },
     });
   };
 
@@ -41,17 +41,16 @@ const VesselTracker = ({APILink}) => {
       <div className={styles.searchSection}>
         <div className={styles.searchForm}>
           <div className={styles.searchInputContainer}>
-          <p className={styles.searchLabel}>Vessel IMO</p>
+            <p className={styles.searchLabel}>Vessel IMO</p>
 
-          <input
-            type="text"
-            value={searchNumber}
-            onChange={(e) => setSearchNumber(e.target.value)}
-            placeholder="Enter Vessel IMO"
-            className={styles.searchInput}
-            maxLength={12}
-          />
-
+            <input
+              type="text"
+              value={searchNumber}
+              onChange={(e) => setSearchNumber(e.target.value)}
+              placeholder="Enter Vessel IMO"
+              className={styles.searchInput}
+              maxLength={12}
+            />
           </div>
           <button
             onClick={fetchData}
@@ -69,68 +68,82 @@ const VesselTracker = ({APILink}) => {
 
       {error && <div className={styles.errorState}>{error}</div>}
 
-      {data && !loading && !error && data?.results&&data?.results.length>0&& (
-        <div className={styles.resultContainer}>
-          <div className={styles.vesselInfo}>
-            <h3>Vessel Information</h3>
-            <div className={styles.infoGrid}>
-            <div className={styles.infoItem}>
-                <span className={styles.label}>UPDATED AT:</span>
-                <span className={styles.value}>{ formatTimestamp(data?.results[0].updated_at)}</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>VESSEL ID:</span>
-                <span className={styles.value}>{ data?.results[0].id}</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>Name:</span>
-                <span className={styles.value}>{ data?.results[0].name}</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>MMSI:</span>
-                <span className={styles.value}>{data?.results[0].mmsi}</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>IMO:</span>
-                <span className={styles.value}>{data?.results[0].imo}</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>CALL SIGN:</span>
-                <span className={styles.value}>{data?.results[0].call_sign}</span>
-              </div>
+      {data &&
+        !loading &&
+        !error &&
+        data?.results &&
+        data?.results.length > 0 && (
+          <div className={styles.resultContainer}>
+            <div className={styles.vesselInfo}>
+              <h3>Vessel Information</h3>
+              <div className={styles.infoGrid}>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>UPDATED AT:</span>
+                  <span className={styles.value}>
+                    {formatTimestamp(data?.results[0].updated_at)}
+                  </span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>VESSEL ID:</span>
+                  <span className={styles.value}>{data?.results[0].id}</span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>Name:</span>
+                  <span className={styles.value}>{data?.results[0].name}</span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>MMSI:</span>
+                  <span className={styles.value}>{data?.results[0].mmsi}</span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>IMO:</span>
+                  <span className={styles.value}>{data?.results[0].imo}</span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>CALL SIGN:</span>
+                  <span className={styles.value}>
+                    {data?.results[0].call_sign}
+                  </span>
+                </div>
 
-              <div className={styles.infoItem}>
-                <span className={styles.label}>SHIP TYPE:</span>
-                <span className={styles.value}>{data?.results[0].ship_type}</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>Flag:</span>
-                <span className={styles.value}>{data?.results[0].flag}</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>Length:</span>
-                <span className={styles.value}>{data?.results[0].length}m</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>Width:</span>
-                <span className={styles.value}>{data?.results[0].width}m</span>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>SHIP TYPE:</span>
+                  <span className={styles.value}>
+                    {data?.results[0].ship_type}
+                  </span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>Flag:</span>
+                  <span className={styles.value}>{data?.results[0].flag}</span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>Length:</span>
+                  <span className={styles.value}>
+                    {data?.results[0].length}m
+                  </span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>Width:</span>
+                  <span className={styles.value}>
+                    {data?.results[0].width}m
+                  </span>
+                </div>
               </div>
             </div>
+
+            {data.results[0].last_position && (
+              <div className={styles.mapContainer}>
+                <MapComponent
+                  position={[
+                    data.results[0].last_position.position.coordinates[1],
+                    data.results[0].last_position.position.coordinates[0],
+                  ]}
+                  vesselName={data.results[0].name}
+                />
+              </div>
+            )}
           </div>
-
-          {data.results[0].last_position && (
-            <div className={styles.mapContainer}>
-              <MapComponent
-                position={[
-                  data.results[0].last_position.position.coordinates[1],
-                  data.results[0].last_position.position.coordinates[0],
-                ]}
-                vesselName={data.results[0].name}
-              />
-            </div>
-          )}
-        </div>
-      )}
+        )}
     </div>
   );
 };

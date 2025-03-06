@@ -15,7 +15,7 @@ import {
 import Image from "next/image";
 import Cookies from "js-cookie";
 
-const Menu = ({toggleMenu, isMenuOpen}) => {
+const Menu = ({ toggleMenu, isMenuOpen }) => {
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const pathname = usePathname();
@@ -23,7 +23,7 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
   // Safely access cookies only on the client side
   useEffect(() => {
     try {
-      const userCookie = Cookies.get('user');
+      const userCookie = Cookies.get("user");
       if (userCookie) {
         const userData = JSON.parse(userCookie);
         setUser(userData);
@@ -37,7 +37,15 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
   const navPathName = {
     Schedule: ["/air", "/ocean"],
     Settings: ["/profile", "/endpoints", "/logs", "/feedback", "/support"],
-    Tracker: ["/ocean-af", "/ocean-sr", "/air-cargo", "/vessel","/port-congestion", "/ocean-traffic", "/ocean-ft"],
+    Tracker: [
+      "/ocean-af",
+      "/ocean-sr",
+      "/air-cargo",
+      "/vessel",
+      "/port-congestion",
+      "/ocean-traffic",
+      "/ocean-ft",
+    ],
   };
 
   const isPathInSection = (path, sectionPaths) => {
@@ -82,7 +90,7 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
         { title: "Air Cargo", path: "/air-cargo" },
         { title: "Vessel", path: "/vessel" },
         { title: "Marine Traffic", path: "/marine-traffic" },
-          ],
+      ],
     },
     {
       title: "Schedule",
@@ -140,7 +148,13 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
     >
       <div className={styles.menuHeader}>
         {/* <h1 className={styles.title}>Xtrack</h1> */}
-        <Image style={{cursor:"pointer"}} src="/svg/logo.png" alt="logo" width={80} height={39} />
+        <Image
+          style={{ cursor: "pointer" }}
+          src="/svg/logo.png"
+          alt="logo"
+          width={80}
+          height={39}
+        />
         <button className={styles.menuToggle} onClick={toggleMenu}>
           <FiMenu size={20} />
         </button>
@@ -155,27 +169,29 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
             key={page.path}
           >
             {index === 0 && (
-              <span className={styles.menuIcon} style={{ marginRight: !isMenuOpen ? 0 : "0.75rem" }}>
-              <FiHome
-                onClick={() => {
-                  // setIsCollapsed(false);
-                  toggleMenu();
-                }}
-              />
+              <span
+                className={styles.menuIcon}
+                style={{ marginRight: !isMenuOpen ? 0 : "0.75rem" }}
+              >
+                <FiHome
+                  onClick={() => {
+                    // setIsCollapsed(false);
+                    toggleMenu();
+                  }}
+                />
               </span>
             )}
 
-              <Link
-              style={{    padding:index===0? "0":""}}
-                href={page.path}
-                className={`
+            <Link
+              style={{ padding: index === 0 ? "0" : "" }}
+              href={page.path}
+              className={`
                   ${styles.submenuItem}
                   ${isActive(page.path) ? styles.active : ""}
                 `}
-
-              >
-                Dashboard
-              </Link>
+            >
+              Dashboard
+            </Link>
           </li>
         ))}
 
@@ -191,7 +207,9 @@ const Menu = ({toggleMenu, isMenuOpen}) => {
               onClick={() => toggleSubmenu(item.title)}
             >
               <span className={styles.menuIcon}>{item.icon}</span>
-              <span className={styles.menuTitle}>{item.title==="Tracker"? "Live Tracking":item.title}</span>
+              <span className={styles.menuTitle}>
+                {item.title === "Tracker" ? "Live Tracking" : item.title}
+              </span>
               <span className={styles.menuArrow}>
                 {expandedItems[item.title] ? (
                   <FiChevronDown />

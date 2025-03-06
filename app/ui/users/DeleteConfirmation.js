@@ -9,16 +9,10 @@ const DeleteConfirmation = ({ isOpen, onClose, onConfirm, userName }) => {
       <div className={styles.modalContent}>
         <p>Are you sure you want to delete user {userName}?</p>
         <div className={styles.modalActions}>
-          <button 
-            className={styles.cancelButton}
-            onClick={onClose}
-          >
+          <button className={styles.cancelButton} onClick={onClose}>
             Cancel
           </button>
-          <button 
-            className={styles.deleteButton}
-            onClick={onConfirm}
-          >
+          <button className={styles.deleteButton} onClick={onConfirm}>
             Delete
           </button>
         </div>

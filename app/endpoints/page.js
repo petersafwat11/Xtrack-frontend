@@ -1,4 +1,4 @@
-import APIEndPoint from '../ui/APIEndPoint/APIEndPoint';
+import APIEndPoint from "../ui/APIEndPoint/APIEndPoint";
 
 export default async function page() {
   return (

@@ -43,13 +43,13 @@ const getPortData = (data) => {
       <div className={styles.searchSection}>
         <div className={styles.searchForm}>
           <div className={styles.searchInputContainer}>
-          <p className={styles.searchLabel}>VESSEL</p>
+          <p className={styles.searchLabel}>VESSEL IMO</p>
 
           <input
             type="text"
             value={searchNumber}
             onChange={handleSearchChange}
-            placeholder="Enter tracking number"
+            placeholder="Enter Vessel IMO"
             className={styles.searchInput}
             maxLength={12}
           />
@@ -102,7 +102,7 @@ const getPortData = (data) => {
         </div>
      </div>
      <div className={styles.summery}>
-        <h2 className={styles.summert_title}>SUMMERY</h2>
+        <h2 className={styles.summert_title}>SUMMARY</h2>
         <div className={styles.summert_content}>
         <p className={styles.content_item}>{data?.summary?.ship_location}</p>
         <p className={styles.content_item}>{data?.summary?.ship_kind}</p>

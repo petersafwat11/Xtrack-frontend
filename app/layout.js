@@ -2,7 +2,7 @@
 import "./globals.css";
 import Menu from "./ui/layout/menu/Menu";
 import styles from "./layout.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DMSans } from "./fonts";
 import { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
@@ -18,38 +18,26 @@ export default function RootLayout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
-   const [iframeCall, setIframeCall]=useState(false)
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  useEffect(() => {
-    if (window.self !== window.top) {
-      setIframeCall(true);
-    }
-  }, []);
-  
   return (
     <html lang="en">
       <body className={DMSans.className}>
         <Toaster position="top-right" />
         <div className={styles.layout}>
-          {
-          !isLoginPage && !iframeCall  &&
-          <Menu 
-          toggleMenu={toggleMenu} 
-          isMenuOpen={isMenuOpen}
-           />
-           }
+          {!isLoginPage && (
+            <Menu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
+          )}
           <main
-            className={`${isLoginPage? styles.login : styles.main} ${
+            className={`${isLoginPage ? styles.login : styles.main} ${
               !isMenuOpen || isLoginPage ? styles.expanded : ""
             }`}
           >
-            {
-            !isLoginPage && 
-            <div className={styles.user}>
-            <UserName />
-          {!iframeCall  &&<SignOutButton />}
-            </div>
-            }
+            {!isLoginPage && (
+              <div className={styles.user}>
+                <UserName />
+                <SignOutButton />
+              </div>
+            )}
             {children}
           </main>
         </div>

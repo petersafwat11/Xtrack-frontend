@@ -15,10 +15,13 @@ const ResetForm = () => {
   const handleSubmit = async () => {
     try {
       if (data.email.length < 1) {
-        setError({ state: true, message: "Error: you must enter both your password twice" });
+        setError({
+          state: true,
+          message: "Error: you must enter both your password twice",
+        });
       }
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_SERVER }/users/forget-password`,
+        `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/users/forget-password`,
         { email: data.email }
       );
       console.log("response", response);

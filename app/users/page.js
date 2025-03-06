@@ -1,11 +1,11 @@
-import React from 'react';
-import Users from '../ui/users/Users';
+import React from "react";
+import Users from "../ui/users/Users";
 
 const page = () => {
   return (
     <div className="container">
       <h2 className="title">Users</h2>
-      <Users/>
+      <Users />
     </div>
   );
 };
