@@ -2,7 +2,7 @@
 import "./globals.css";
 import Menu from "./ui/layout/menu/Menu";
 import styles from "./layout.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DMSans } from "./fonts";
 import { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
@@ -18,16 +18,21 @@ export default function RootLayout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
-   
+   const [iframeCall, setIframeCall]=useState(false)
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
+  useEffect(() => {
+    if (window.self !== window.top) {
+      setIframeCall(true);
+    }
+  }, []);
+  
   return (
     <html lang="en">
       <body className={DMSans.className}>
         <Toaster position="top-right" />
         <div className={styles.layout}>
           {
-          !isLoginPage && 
+          !isLoginPage && !iframeCall  &&
           <Menu 
           toggleMenu={toggleMenu} 
           isMenuOpen={isMenuOpen}
@@ -42,7 +47,7 @@ export default function RootLayout({ children }) {
             !isLoginPage && 
             <div className={styles.user}>
             <UserName />
-            <SignOutButton />
+          {!iframeCall  &&<SignOutButton />}
             </div>
             }
             {children}
