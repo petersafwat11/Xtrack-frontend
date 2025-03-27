@@ -1,6 +1,6 @@
 import React from "react";
-import MarineTrafficTracker from "../ui/marineTrafficTracker/MarineTrafficTracker";
-import { getExternalAPILink } from "../lib/trackingLogger";
+import MarineTrafficTracker from "../../ui/marineTrafficTracker/MarineTrafficTracker";
+import { getExternalAPILink } from "../../lib/trackingLogger";
 
 const page = async () => {
   let APILink = await getExternalAPILink("marine-traffic");

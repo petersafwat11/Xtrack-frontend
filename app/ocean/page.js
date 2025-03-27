@@ -1,6 +1,6 @@
 import React from "react";
-import Ocean from "../ui/ocean/Ocean";
-import { getExternalAPILink } from "../lib/trackingLogger";
+import Ocean from "../../ui/ocean/Ocean";
+import { getExternalAPILink } from "../../lib/trackingLogger";
 
 const page = async () => {
   let APILink = await getExternalAPILink("ocean");

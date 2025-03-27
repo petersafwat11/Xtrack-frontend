@@ -1,6 +1,6 @@
-import { getExternalAPILink } from "../lib/trackingLogger";
-import CargoTracker from "../ui/cargoTracker/CargoTracker";
-export default async function page() {
+import { getExternalAPILink } from "../../lib/trackingLogger";
+import CargoTracker from "../../ui/cargoTracker/CargoTracker";
+ const page= async() => {
   let APILink = await getExternalAPILink("air-cargo");
   APILink = APILink?.data?.endpoint;
 
@@ -11,3 +11,4 @@ export default async function page() {
     </div>
   );
 }
+export default page;

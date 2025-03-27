@@ -1,6 +1,6 @@
 import React from "react";
-import OceanAFTracker from "../ui/oceanAFTracker/OceanAFTracker";
-import { getExternalAPILink } from "../lib/trackingLogger";
+import OceanAFTracker from "../../ui/oceanAFTracker/OceanAFTracker";
+import { getExternalAPILink } from "../../lib/trackingLogger";
 
 const page = async () => {
   let APILink = await getExternalAPILink("ocean-af");

@@ -1,9 +1,9 @@
 import React from "react";
-import Logs from "../ui/logs/Logs";
+import Logs from "../../ui/logs/Logs";
 // import axios from 'axios';
 import { cookies } from "next/headers";
 
-const LogsPage = async (props) => {
+const page = async (props) => {
   const cookieStore = await cookies();
   const user = cookieStore.get("user")?.value
     ? JSON.parse(cookieStore.get("user")?.value)
@@ -17,4 +17,4 @@ const LogsPage = async (props) => {
   );
 };
 
-export default LogsPage;
+export default page;

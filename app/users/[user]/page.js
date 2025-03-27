@@ -1,5 +1,5 @@
 import React from "react";
-import Profile from "@/app/ui/users/profile/Profile";
+import Profile from "@/ui/users/profile/Profile";
 
 const getUserData = async (userId) => {
   try {
@@ -26,7 +26,7 @@ const getUserData = async (userId) => {
   }
 };
 
-async function Page({ params }) {
+const Page = async ({ params }) => {
   const { user } = await params;
   const isNewUser = user === "create-user";
   let userData = null;

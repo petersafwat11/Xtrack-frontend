@@ -1,13 +1,13 @@
 "use client";
 import "./globals.css";
-import Menu from "./ui/layout/menu/Menu";
+import Menu from "../ui/layout/menu/Menu";
 import styles from "./layout.module.css";
 import { useState } from "react";
 import { DMSans } from "./fonts";
 import { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
-import SignOutButton from "./ui/signout/SignOutButton";
-import UserName from "./ui/userName/UserName";
+import SignOutButton from "../ui/signout/SignOutButton";
+import UserName from "../ui/userName/UserName";
 
 // export const metadata = {
 //   title: "Xtrack",

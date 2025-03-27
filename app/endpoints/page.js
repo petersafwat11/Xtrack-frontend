@@ -1,6 +1,6 @@
-import APIEndPoint from "../ui/APIEndPoint/APIEndPoint";
+import APIEndPoint from "../../ui/APIEndPoint/APIEndPoint";
 
-export default async function page() {
+const page = async () => {
   return (
     <div className={"container"}>
       <h2 className={"title"}>API Endpoints</h2>
@@ -8,3 +8,4 @@ export default async function page() {
     </div>
   );
 }
+export default page;

@@ -1,5 +1,5 @@
 import React from "react";
-import FeedbackForm from "../ui/feedbackForm/FeedbackForm";
+import FeedbackForm from "../../ui/feedbackForm/FeedbackForm";
 import { cookies } from "next/headers";
 
 const page = async () => {

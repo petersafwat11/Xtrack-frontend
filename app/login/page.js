@@ -1,8 +1,7 @@
 import React from "react";
 import classes from "./page.module.css";
-import LoginForm from "../ui/loginForm/LoginForm";
+import LoginForm from "../../ui/loginForm/LoginForm";
 import Image from "next/image";
-import { DMSans } from "../fonts";
 const Login = () => {
   return (
     <div className={classes.page}>

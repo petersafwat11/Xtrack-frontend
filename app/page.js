@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import axios from "axios";
-import Dashboard from "./ui/dashboard/Dashboard";
+import Dashboard from "../ui/dashboard/Dashboard";
 
 export default async function Home() {
   const cookieStore = await cookies();

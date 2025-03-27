@@ -1,5 +1,5 @@
 import React from "react";
-import Profile from "@/app/ui/users/profile/Profile";
+import Profile from "@/ui/users/profile/Profile";
 import { cookies } from "next/headers";
 
 async function getCurrentUserData(id) {
@@ -23,7 +23,7 @@ async function getCurrentUserData(id) {
   }
 }
 
-export default async function ProfilePage() {
+const page = async () => {
   const cookieStore = await cookies();
   const user = JSON.parse(cookieStore.get("user").value);
   let userData = null;
@@ -45,3 +45,4 @@ export default async function ProfilePage() {
     </div>
   );
 }
+export default page;
