@@ -1,5 +1,5 @@
 import React from "react";
-import OceanSRTracker from "../../ui/oceanSRTracker/OceanSRTracker";
+import OceanSRTracker from "../../ui/trackersComponents/oceanSRTracker/OceanSRTracker";
 import { getExternalAPILink } from "../../lib/trackingLogger";
 
 const page = async () => {

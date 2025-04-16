@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import styles from "./feedbackForm.module.css";
-// import { getCookie } from 'cookies-next';
-import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
 import api from "@/lib/axios";
 
@@ -60,25 +58,17 @@ const FeedbackForm = ({ userID }) => {
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
       <div className={styles.inputs}>
-        <div className={styles.formGroup}>
-          <label className={styles.label}>User</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.user_id}
-            disabled
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Date</label>
-          <input
-            //   type="date"
-            className={styles.input}
-            value={formData.feedback_date}
-            disabled
-          />
-        </div>
+        {[{label:"User", value:formData.user_id, disabled:true}, {label:"Date", value:formData.feedback_date, disabled:true}].map((input)=>(
+          <div key={input.label} className={styles.formGroup}>
+            <label className={styles.label}>{input.label}</label>
+            <input
+              type="text"
+              className={styles.input}
+              value={input.value}
+              disabled={input.disabled}
+            />
+          </div>
+        ))}
 
         <div className={styles.formGroup}>
           <label className={styles.label}>Subject</label>

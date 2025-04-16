@@ -105,7 +105,7 @@ const Menu = ({ toggleMenu, isMenuOpen }) => {
       path: "/schedule",
       children: [
         { title: "Ocean", path: "/ocean" },
-        { title: "Air", path: "/air" },
+        // { title: "Air", path: "/air" },
       ],
     },
     {

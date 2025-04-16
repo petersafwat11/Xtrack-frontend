@@ -122,6 +122,18 @@
   margin-bottom: 1rem;
   color: #1e293b;
 }
+.success {
+  color: #28a745;
+  padding: 0.85rem;
+  font-size: 0.875rem;
+}
+
+.error {
+  color: #dc3545;
+  padding: 0.85rem;
+  font-size: 0.875rem;
+}
+
 @media (max-width: 1200px) {
   .chartsRow {
     flex-direction: column;

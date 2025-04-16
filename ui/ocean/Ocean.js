@@ -79,27 +79,6 @@ const Ocean = ({ APILink }) => {
         console.log("success");
 
         const responseData = error?.response?.data?.details;
-        // if (responseData?.error === "Data not found") {
-        //   setError("No Tracking Info Found");
-        //   await logTrackingSearch({
-        //     menu_id: "Ocean",
-        //     api_request: `From: ${inputsData.fromLocation}, To: ${inputsData.toLocation}, Date: ${inputsData.date}`,
-        //     api_status: "F",
-        //     api_error: "No Tracking Info Found",
-        //   });
-
-        //   return;
-        // }
-        // if (responseData?.error === "no data received") {
-        //   setError("No Tracking Info Found");
-        //   await logTrackingSearch({
-        //     menu_id: "Ocean",
-        //     api_request: `From: ${inputsData.fromLocation}, To: ${inputsData.toLocation}, Date: ${inputsData.date}`,
-        //     api_status: "F",
-        //     api_error: "No Tracking Info Found",
-        //   });
-        //   return;
-        // }
         if (responseData?.response_data.length===0) {
           setError("No Tracking Info Found");
           await logTrackingSearch({

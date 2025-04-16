@@ -6,8 +6,8 @@ import { useState } from "react";
 import { DMSans } from "./fonts";
 import { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
-import SignOutButton from "../ui/signout/SignOutButton";
-import UserName from "../ui/userName/UserName";
+import SignOutButton from "../ui/layout/signout/SignOutButton";
+import UserName from "../ui/layout/userName/UserName";
 
 // export const metadata = {
 //   title: "Xtrack",

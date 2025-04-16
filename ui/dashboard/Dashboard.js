@@ -7,9 +7,9 @@ import YearSelector from "./components/YearSelector";
 import TrackingUsageChart from "./components/TrackingUsageChart";
 import TrackRatioChart from "./components/TrackRatioChart";
 import SuccessRatioChart from "./components/SuccessRatioChart";
-import RecentTracksTable from "./components/RecentTracksTable";
 import { useState } from "react";
 import axios from "axios";
+import Table from "../trackersComponents/commen/table/Table";
 
 const Dashboard = ({ data, userId }) => {
   const currentMonth = new Date().toLocaleString("default", { month: "long" });
@@ -39,6 +39,15 @@ const Dashboard = ({ data, userId }) => {
       console.log("error", error);
     }
   };
+  const formatDate = (inputDate) => {
+    const date = new Date(inputDate);
+    const options = { day: "2-digit", month: "short", year: "numeric" };
+    return date
+      .toLocaleDateString("en-GB", options)
+      .replace(",", "")
+      .replace(/ /g, "-");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.headerRow}>
@@ -67,9 +76,43 @@ const Dashboard = ({ data, userId }) => {
         <TrackRatioChart trackRatio={pieChartsData.trackRatio} />
         <SuccessRatioChart successRatio={pieChartsData.successRatio} />
       </div>
-
-      <RecentTracksTable data={data?.dataGrid} />
+      <Table
+        headers={[
+          "User ID",
+          "Date",
+          // <DateHeader
+          //   handleSort={handleSort}
+          //   getSortIcon={getSortIcon}
+          //   key="date-header"
+          // />,
+          // "Date",
+          "Menu",
+          "Request",
+          "Status",
+          "Error Description",
+          "IP Config",
+          "Location",
+        ]}
+        data={data?.dataGrid?.map((log) => ({
+          user_id: log.user_id,
+          api_date: <span style={{ textWrap: "nowrap" }}>{formatDate(log.api_date)}</span>,
+          menu_id: log.menu_id,
+          api_request: log.api_request,
+          api_status: getStatusElement(log.api_status),
+          api_error: log.api_error || "-",
+          ip_config: log.ip_config,
+          ip_location: log.ip_location || "-",
+        }))}
+        smallPadding={true}
+      />
     </div>
   );
 };
 export default Dashboard;
+const getStatusElement = (status) => {
+  return (
+    <span className={status === "S" ? styles.success : styles.error}>
+      {status === "S" ? "Success" : "Failed"}
+    </span>
+  );
+};

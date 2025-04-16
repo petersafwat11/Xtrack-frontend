@@ -1,5 +1,5 @@
 import React from "react";
-import OceanAFTracker from "../../ui/oceanAFTracker/OceanAFTracker";
+import OceanAFTracker from "../../ui/trackersComponents/oceanAFTracker/OceanAFTracker";
 import { getExternalAPILink } from "../../lib/trackingLogger";
 
 const page = async () => {

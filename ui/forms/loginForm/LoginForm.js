@@ -62,14 +62,6 @@ const LoginForm = () => {
       console.log("error", error);
     }
   };
-
-  const handleLogout = () => {
-    Cookies.remove("token");
-    Cookies.remove("user");
-    delete api.defaults.headers.common["Authorization"];
-    router.push("/login");
-  };
-
   return (
     <>
       <Signup isOpen={isSignupOpen} onClose={() => setIsSignupOpen(false)} />
@@ -79,6 +71,7 @@ const LoginForm = () => {
       />
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>
+          
           <div className={styles.inputGroup}>
             <label htmlFor="user_id" className={styles.label}>
               User ID

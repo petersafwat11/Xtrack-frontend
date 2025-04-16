@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import classes from "./resetForm.module.css";
+import styles from "./resetForm.module.css";
 import InputGroup from "../inputGroup/InputGroup";
 import { DMSans } from "@/app/fonts";
 
@@ -25,13 +25,6 @@ const ResetForm = () => {
         { email: data.email }
       );
       console.log("response", response);
-      //   Cookies.set("user", JSON.stringify(response.data.data.user), {
-      //     expires: 1,
-      //   });
-      //   Cookies.set("token", response.data.token, {
-      //     expires: 1,
-      //   });
-
       router.push("/");
     } catch (error) {
       setError({
@@ -48,11 +41,11 @@ const ResetForm = () => {
   };
 
   return (
-    <div className={`${DMSans.className} ${classes["container"]}`}>
-      <div className={classes["form"]}>
-        {error.state && <p className={classes["error"]}>{error.message}</p>}
+    <div className={`${DMSans.className} ${styles["container"]}`}>
+      <div className={styles["form"]}>
+        {error.state && <p className={styles["error"]}>{error.message}</p>}
 
-        <h1 className={classes["title"]}>Title Placeholder</h1>
+        <h1 className={styles["title"]}>Title Placeholder</h1>
 
         <InputGroup
           placeHolder={"Please Enter Your New Passowrd"}
@@ -74,7 +67,7 @@ const ResetForm = () => {
           dataKey={"confirmPassword"}
           setData={setData}
         />
-        <button onClick={handleSubmit} className={classes["login-button"]}>
+        <button onClick={handleSubmit} className={styles["login-button"]}>
           Reset Password
         </button>
       </div>

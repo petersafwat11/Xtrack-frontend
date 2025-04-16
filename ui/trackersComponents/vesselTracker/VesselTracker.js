@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./vesselTracker.module.css";
 import dynamic from "next/dynamic";
 import { fetchTrackerData, formatTimestamp } from "@/lib/trackerService";
-import SearchContainer from "../commen/search/SearchContainer";
+import SearchContainer from "../trackersComponents/commen/search/SearchContainer";
 
 // Dynamically import the map component to avoid SSR issues
 const MapComponent = dynamic(() => import("./MapComponent"), {
@@ -35,15 +35,20 @@ const VesselTracker = ({ APILink }) => {
       },
     });
   };
-const handleSearchChange = (e) => {
-  setSearchNumber(e.target.value);
-};
-console.log("ddddd", data);
+  const handleSearchChange = (e) => {
+    setSearchNumber(e.target.value);
+  };
+  console.log("ddddd", data);
 
   return (
     <div className={styles.container}>
-      <SearchContainer label={"Vessel IMO"} loading={loading} fetchData={fetchData} searchNumber={searchNumber} handleSearchChange={handleSearchChange}/>
-
+      <SearchContainer
+        label={"Vessel IMO"}
+        loading={loading}
+        fetchData={fetchData}
+        searchNumber={searchNumber}
+        handleSearchChange={handleSearchChange}
+      />
 
       {loading && (
         <div className={styles.loadingState}>Loading vessel information...</div>

@@ -5,51 +5,19 @@ import api from "@/lib/axios";
 import styles from "./profile.module.css";
 import DateInput from "../../inputs/dateInput/DateInput";
 import CustomCheckbox from "../../inputs/checkbox/CustomCheckbox";
-
-// Function to generate a random password
-const generateRandomPassword = () => {
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-  let password = "";
-  for (let i = 0; i < 10; i++) {
-    password += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return password;
-};
+import {
+  permissionCheckboxes,
+  userFormFields,
+  getDefaultFormData,
+  generateRandomPassword,
+} from "./profileHelper";
 
 const Profile = ({ initialData, isNewUser = false, admin }) => {
   console.log("initialData", initialData);
   const router = useRouter();
 
   const [formData, setFormData] = useState(
-    initialData || {
-      user_id: "",
-      user_name: "",
-      user_email: "",
-      user_pwd: isNewUser ? generateRandomPassword() : "",
-      user_company: "",
-      user_address: "",
-      user_country: "",
-      user_phone: "",
-      ...(admin
-        ? {
-            dashboard: "Y",
-            ocean_af: "Y",
-            ocean_ar: "Y",
-            ocean_ft: "Y",
-            ocean_schedule: "Y",
-            air_cargo: "Y",
-            air_schedule: "Y",
-            vessel_tracking: "Y",
-            marine_traffic: "Y",
-            user_active: "Y",
-            valid_till: new Date(new Date().setDate(new Date().getDate() + 1))
-              .toISOString()
-              .split("T")[0],
-            admin_user: "N",
-          }
-        : {}),
-    }
+    initialData || getDefaultFormData(isNewUser, admin)
   );
 
   // Generate a random password when creating a new user
@@ -101,122 +69,36 @@ const Profile = ({ initialData, isNewUser = false, admin }) => {
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2>{isNewUser ? "Create New User" : "Edit User"}</h2>
 
-        <div className={styles.formGroup}>
-          <label htmlFor="user_id">
-            User ID: <span className={styles.required}>*</span>{" "}
-          </label>
-          <input
-            type="text"
-            id="user_id"
-            name="user_id"
-            value={formData.user_id}
-            onChange={handleChange}
-            disabled={!isNewUser}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="user_name">
-            User Name: <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            id="user_name"
-            name="user_name"
-            value={formData.user_name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="user_email">
-            Email: <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="email"
-            id="user_email"
-            name="user_email"
-            value={formData.user_email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="user_pwd">
-            Password: <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="password"
-            id="user_pwd"
-            name="user_pwd"
-            value={formData.user_pwd}
-            onChange={handleChange}
-            required={isNewUser}
-            placeholder={
-              !isNewUser ? "Leave empty to keep current password" : ""
-            }
-            disabled={isNewUser}
-            readOnly={isNewUser}
-          />
-          {isNewUser && (
-            <p className={styles.passwordNote}>
-              Password will be auto-generated and sent to the user's email
-            </p>
-          )}
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="user_company">
-            Company: <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            id="user_company"
-            name="user_company"
-            value={formData.user_company}
-            onChange={handleChange}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="user_address">
-            Address: <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            id="user_address"
-            name="user_address"
-            value={formData.user_address}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="user_country">
-            Country: <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            id="user_country"
-            name="user_country"
-            value={formData.user_country}
-            onChange={handleChange}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="user_phone">
-            Phone: <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            id="user_phone"
-            name="user_phone"
-            value={formData.user_phone}
-            onChange={handleChange}
-          />
-        </div>
+        {userFormFields.map((field) => (
+          <div className={styles.formGroup} key={field.id}>
+            <label htmlFor={field.id}>
+              {field.label}: <span className={styles.required}>*</span>
+              {field.id === "user_id" && " "}
+            </label>
+            <input
+              type={field.type}
+              id={field.id}
+              name={field.id}
+              value={formData[field.id]}
+              onChange={handleChange}
+              required={
+                field.required && (field.id !== "user_pwd" || isNewUser)
+              }
+              disabled={
+                field.disabledWhen ? field.disabledWhen(isNewUser) : false
+              }
+              readOnly={
+                field.readOnlyWhen ? field.readOnlyWhen(isNewUser) : false
+              }
+              placeholder={
+                field.placeholderWhen ? field.placeholderWhen(isNewUser) : ""
+              }
+            />
+            {field.note && field.note(isNewUser) && (
+              <p className={styles.passwordNote}>{field.note(isNewUser)}</p>
+            )}
+          </div>
+        ))}
 
         {admin && (
           <>
@@ -234,87 +116,17 @@ const Profile = ({ initialData, isNewUser = false, admin }) => {
             <div className={styles.adminSection}>
               <h3>User Permissions</h3>
               <div className={styles.checkboxGrid}>
-                <CustomCheckbox
-                  label="Admin User"
-                  checked={formData.admin_user}
-                  onChange={handleCheckboxChange}
-                  name="admin_user"
-                />
-                <CustomCheckbox
-                  label="Dashboard Access"
-                  checked={formData.dashboard}
-                  onChange={handleCheckboxChange}
-                  name="dashboard"
-                />
-                <CustomCheckbox
-                  label="Ocean AF Access"
-                  checked={formData.ocean_af}
-                  onChange={handleCheckboxChange}
-                  name="ocean_af"
-                />
-                <CustomCheckbox
-                  label="Ocean AR Access"
-                  checked={formData.ocean_ar}
-                  onChange={handleCheckboxChange}
-                  name="ocean_ar"
-                />
-                <CustomCheckbox
-                  label="Ocean FT Access"
-                  checked={formData.ocean_ft}
-                  onChange={handleCheckboxChange}
-                  name="ocean_ft"
-                />
-                <CustomCheckbox
-                  label="Ocean Schedule Access"
-                  checked={formData.ocean_schedule}
-                  onChange={handleCheckboxChange}
-                  name="ocean_schedule"
-                />
-                <CustomCheckbox
-                  label="Air Cargo Access"
-                  checked={formData.air_cargo}
-                  onChange={handleCheckboxChange}
-                  name="air_cargo"
-                />
-                <CustomCheckbox
-                  label="Air Schedule Access"
-                  checked={formData.air_schedule}
-                  onChange={handleCheckboxChange}
-                  name="air_schedule"
-                />
-                <CustomCheckbox
-                  label="Vessel Tracking Access"
-                  checked={formData.vessel_tracking}
-                  onChange={handleCheckboxChange}
-                  name="vessel_tracking"
-                />
-                <CustomCheckbox
-                  label="Marine Traffic Access"
-                  checked={formData.marine_traffic}
-                  onChange={handleCheckboxChange}
-                  name="marine_traffic"
-                />
-                <CustomCheckbox
-                  label="User Active"
-                  checked={formData.user_active}
-                  onChange={handleCheckboxChange}
-                  name="user_active"
-                />
+                {permissionCheckboxes.map((checkbox) => (
+                  <CustomCheckbox
+                    key={checkbox.id}
+                    label={checkbox.label}
+                    checked={formData[checkbox.id]}
+                    onChange={handleCheckboxChange}
+                    name={checkbox.id}
+                  />
+                ))}
               </div>
             </div>
-
-            {/* <div className={styles.formGroup}>
-              <label htmlFor="user_active">User Active:</label>
-              <select
-                id="user_active"
-                name="user_active"
-                value={formData.user_active}
-                onChange={handleChange}
-              >
-                <option value="Y">Yes</option>
-                <option value="N">No</option>
-              </select>
-            </div> */}
           </>
         )}
 

@@ -4,7 +4,7 @@ import styles from "./users.module.css";
 import api from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import DeleteConfirmation from "./DeleteConfirmation";
-
+import Table from "../trackersComponents/commen/table/Table";
 const Users = () => {
   const router = useRouter();
   const [page, setPage] = useState(1);
@@ -119,52 +119,36 @@ const Users = () => {
         <div className={styles.error}>{error}</div>
       ) : (
         <div className={styles.tableContainer}>
-          <table className={styles.table}>
-            <thead>
-              <tr className={styles["table-header"]}>
-                <th className={styles["header-item"]}>User ID</th>
-                <th className={styles["header-item"]}>User Name</th>
-                <th className={styles["header-item"]}>User Email</th>
-                <th className={styles["header-item"]}>Active</th>
-                <th className={styles["header-item"]}>Valid Till</th>
-                <th className={styles["header-item"]}>Company</th>
-                <th className={styles["header-item"]}>Country</th>
-                <th className={styles["header-item"]}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user, index) => (
-                <tr
-                  onClick={() => {
-                    router.push(`/users/${user.user_id}`);
-                  }}
-                  className={styles["table-row"]}
-                  key={user.user_id}
+          <Table
+            smallPadding={true}
+            headers={[
+              "User ID",
+              "User Name",
+              "User Email",
+              "Active",
+              "Valid Till",
+              "Company",
+              "Country",
+              "Action",
+            ]}
+            data={users.map((user) => ({
+              user_id: user.user_id,
+              user_name: user.user_name,
+              user_email: user.user_email,
+              active: user.user_active,
+              valid_till: user.valid_till,
+              company: user.user_company,
+              country: user.user_country,
+              action: (
+                <button
+                  onClick={(e) => openDeleteModal(e, user)}
+                  className={styles.deleteButton}
                 >
-                  <td className={styles["row-item"]}>{user.user_id}</td>
-                  <td className={styles["row-item"]}>{user.user_name}</td>
-                  <td className={styles["row-item"]}>{user.user_email}</td>
-                  <td className={styles["row-item"]}>
-                    {user.user_active === "Y" ? "Yes" : "No"}
-                  </td>
-                  <td className={styles["row-item"]}>
-                    {formatDate(user.valid_till)}
-                  </td>
-                  <td className={styles["row-item"]}>{user.user_company}</td>
-                  <td className={styles["row-item"]}>{user.user_country}</td>
-                  <td className={styles["row-item"]}>
-                    <button
-                      onClick={(e) => openDeleteModal(e, user)}
-                      className={styles.deleteButton}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
+                  Delete
+                </button>
+              ),
+            }))}
+          />
           <div className={styles.pagination}>
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}

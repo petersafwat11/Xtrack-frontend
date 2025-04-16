@@ -10,253 +10,35 @@
   border-radius: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-.filters {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-.inputContainer {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-.searchButton {
-  padding: 0.6rem 2.25rem;
-  background-color: #00aeef;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.searchButton:hover {
-  background-color: #0386b6;
-}
-
-.searchContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.searchControls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.statusButtons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.statusButton {
-  padding: 0.5rem 1rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  background-color: #f8fafc;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
-}
-
-.statusButton:hover {
-  background-color: #f1f5f9;
-}
-
-.statusActive {
-  background-color: #e2e8f0;
-  font-weight: 600;
-}
-
-.successButton {
-  border-color: #28a745;
-  color: #28a745;
-}
-
-.successButton.statusActive {
-  background-color: #28a745;
-  color: white;
-}
-
-.failureButton {
-  border-color: #dc3545;
-  color: #dc3545;
-}
-
-.failureButton.statusActive {
-  background-color: #dc3545;
-  color: white;
-}
-
-.exportButton {
-  padding: 0.5rem 1rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.exportButton:hover {
-  background-color: #388e3c;
-}
-
-.exportButton:disabled {
-  background-color: #a5d6a7;
-  cursor: not-allowed;
-}
-
-.user-id,
-.searchLabel {
-  font-size: 1rem;
-  color: #64748b;
-  font-weight: 600;
-}
-.searchInput {
-  padding: 0.7rem 1rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  background-color: white;
-  transition: all 0.2s ease;
-  max-width: 25rem;
-}
-
-.searchInput:focus {
-  outline: none;
-  border-color: #00aeef;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-.tableContainer {
-  background-color: #fff;
-  border-radius: 0.75rem;
-  overflow-x: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 700px;
-}
-
-.table-header {
-  font-weight: 600;
-  text-align: left;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  background-color: hsl(196, 100%, 47%);
-}
-.header-item {
-  padding: 0.7rem;
-  font-size: 0.875rem;
-  border-bottom: 2px solid #e2e8f0;
-}
-
-.sortable {
-  cursor: pointer;
-  user-select: none;
-  position: relative;
-}
-
-.sortable:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.table-row {
-  border-bottom: 1px solid #e2e8f0;
-  transition: background-color 0.2s ease;
-}
-
-.table-row:hover {
-  background-color: #f8fafc;
-}
-
-.row-item {
-  padding: 0.85rem;
-  color: #1e293b;
-  font-size: 0.875rem;
-}
-.success {
-  color: #28a745;
-}
-
-.error {
-  color: #dc3545;
-}
 
 .loading {
   text-align: center;
   padding: 20px;
   color: #666;
 }
-
-.paginationContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1rem;
-}
-
-.totalRecords {
-  font-size: 0.875rem;
-  color: #64748b;
-  font-weight: 600;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.pageButton {
-  padding: 8px 16px;
-  border: 1px solid #ddd;
+.error_fetching {
+  text-align: center;
+  padding: 20px;
+  color: #dc3545;
+  background-color: #f8d7da;
   border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
+  margin: 10px 0;
+}
+.header-item {
+  padding: 0.7rem;
+  font-size: 0.875rem;
+  border-bottom: 2px solid #e2e8f0;
+  color: white;
 }
 
-.pageButton:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
+.success {
+  color: #28a745;
+  padding: 0.85rem;
+  font-size: 0.875rem;
 }
 
-.pageButton:hover:not(:disabled) {
-  background-color: #f0f0f0;
-}
-
-.pageInfo {
-  color: #666;
-}
-
-@media (max-width: 768px) {
-  .searchContainer {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .searchControls {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .paginationContainer {
-    flex-direction: column;
-    gap: 1rem;
-  }
+.error {
+  color: #dc3545;
+  padding: 0.85rem;
+  font-size: 0.875rem;
 }
