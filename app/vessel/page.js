@@ -1,5 +1,5 @@
 import React from "react";
-import VesselTracker from "../../ui/vesselTracker/VesselTracker";
+import VesselTracker from "../../ui/trackersComponents/vesselTracker/VesselTracker";
 import { getExternalAPILink } from "../../lib/trackingLogger";
 
 const page = async () => {

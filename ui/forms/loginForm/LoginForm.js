@@ -34,6 +34,11 @@ const LoginForm = () => {
       ...prev,
       [name]: value,
     }));
+
+    // Clear error when user types
+    if (error) {
+      setError("");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -56,10 +61,10 @@ const LoginForm = () => {
         router.push("/");
       }
     } catch (error) {
+      // Just use the error message from the backend
       const errorMessage = error.response?.data?.message || "Login failed";
-      toast.error(errorMessage);
       setError(errorMessage);
-      console.log("error", error);
+      toast.error(errorMessage);
     }
   };
   return (
@@ -71,7 +76,6 @@ const LoginForm = () => {
       />
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>
-          
           <div className={styles.inputGroup}>
             <label htmlFor="user_id" className={styles.label}>
               User ID

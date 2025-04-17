@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import styles from "./APIEndPoint.module.css";
-import axios from "axios";
+import api from "@/lib/axios";
+import { toast } from "react-hot-toast";
 
 const APIEndPoint = () => {
   const [data, setData] = useState([]);
@@ -13,10 +14,8 @@ const APIEndPoint = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/endpoints`
-      );
-      console.log("Response data:", response.data);
+      const response = await api.get("/api/endpoints");
+
       if (response.data && response.data.data) {
         setData(response.data.data);
         const initialEditingData = {};
@@ -28,11 +27,15 @@ const APIEndPoint = () => {
         });
         setEditingData(initialEditingData);
       } else {
-        setError("Invalid data format received from server");
+        const errorMessage = "Invalid data format received from server";
+        setError(errorMessage);
+        toast.error(errorMessage);
       }
     } catch (error) {
-      console.log("error", error);
-      setError("Failed to fetch endpoints");
+      const errorMessage =
+        error.response?.data?.message || "Failed to fetch endpoints";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -64,6 +67,11 @@ const APIEndPoint = () => {
         [field]: value,
       },
     }));
+
+    // Clear error when user types
+    if (error) {
+      setError(null);
+    }
   };
 
   const handleSave = async (record, index) => {
@@ -75,31 +83,42 @@ const APIEndPoint = () => {
         endpoint: editingData[index].endpoint,
       };
 
+      // Validate inputs
+      if (!updatedData.menu_id || !updatedData.endpoint) {
+        const errorMessage = "Menu ID and Endpoint are required";
+        setError(errorMessage);
+        toast.error(errorMessage);
+        setLoading(false);
+        return;
+      }
+
       if (record.isNew) {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/endpoints`,
-          updatedData
-        );
-        if (!response.data || response.data.status !== "success") {
+        const response = await api.post("/api/endpoints", updatedData);
+        if (response.data && response.data.status === "success") {
+          toast.success("Endpoint created successfully");
+        } else {
           throw new Error("Failed to create endpoint");
         }
       } else {
-        const response = await axios.patch(
-          `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/endpoints/update`,
-          {
-            old_menu_id: record.menu_id,
-            old_endpoint: record.endpoint,
-            ...updatedData,
-          }
-        );
-        if (!response.data || response.data.status !== "success") {
+        const response = await api.patch("/api/endpoints/update", {
+          old_menu_id: record.menu_id,
+          old_endpoint: record.endpoint,
+          ...updatedData,
+        });
+        if (response.data && response.data.status === "success") {
+          toast.success("Endpoint updated successfully");
+        } else {
           throw new Error("Failed to update endpoint");
         }
       }
       fetchEndpoints();
     } catch (error) {
-      console.log("error", error);
-      setError(error.message);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to save endpoint";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

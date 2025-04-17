@@ -11,6 +11,7 @@ import {
   getDefaultFormData,
   generateRandomPassword,
 } from "./profileHelper";
+import { toast } from "react-hot-toast";
 
 const Profile = ({ initialData, isNewUser = false, admin }) => {
   console.log("initialData", initialData);
@@ -19,6 +20,7 @@ const Profile = ({ initialData, isNewUser = false, admin }) => {
   const [formData, setFormData] = useState(
     initialData || getDefaultFormData(isNewUser, admin)
   );
+  const [error, setError] = useState("");
 
   // Generate a random password when creating a new user
   useEffect(() => {
@@ -47,16 +49,21 @@ const Profile = ({ initialData, isNewUser = false, admin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     try {
       if (isNewUser) {
         await api.post("/api/users", formData);
+        toast.success("User created successfully!");
       } else {
         await api.patch(`/api/users/${formData.user_id}`, formData);
+        toast.success("User updated successfully!");
       }
       router.push("/users");
     } catch (error) {
-      console.error("Error saving user:", error);
-      //   alert(error.response?.data?.message || 'Error saving user data');
+      const errorMessage =
+        error.response?.data?.message || "Error saving user data";
+      setError(errorMessage);
+      toast.error(errorMessage);
     }
   };
 
@@ -99,6 +106,8 @@ const Profile = ({ initialData, isNewUser = false, admin }) => {
             )}
           </div>
         ))}
+
+        {error && <div className={styles.error}>{error}</div>}
 
         {admin && (
           <>

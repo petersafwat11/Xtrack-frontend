@@ -18,34 +18,8 @@ const FeedbackForm = ({ userID }) => {
     feedback_subject: "Error/Issue",
     feedback_description: "",
   });
+  const [error, setError] = useState("");
   const feedbackTypes = ["Error/Issue", "Enhancement/Idea", "Others"];
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!formData.feedback_subject) {
-      toast.error("Please enter a subject");
-      return;
-    }
-    if (!formData.feedback_description) {
-      toast.error("Please enter a description");
-      return;
-    }
-    try {
-      const response = await api.post("/api/feedback", formData);
-      toast.success("Feedback submitted. Our support team will contact you");
-      console.log("response", response);
-      setFormData((prev) => ({
-        ...prev,
-        feedback_subject: "",
-        feedback_description: "",
-      }));
-    } catch (error) {
-      console.error("Error submitting feedback:", error);
-      toast.error(
-        error.response?.data?.message ||
-          "Failed to submit feedback. Please try again."
-      );
-    }
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,12 +27,59 @@ const FeedbackForm = ({ userID }) => {
       ...prev,
       [name]: value,
     }));
+
+    // Clear error when user types
+    if (error) {
+      setError("");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    // Client-side validation
+    if (!formData.feedback_subject) {
+      const errorMessage = "Please enter a subject";
+      setError(errorMessage);
+      toast.error(errorMessage);
+      return;
+    }
+
+    if (!formData.feedback_description) {
+      const errorMessage = "Please enter a description";
+      setError(errorMessage);
+      toast.error(errorMessage);
+      return;
+    }
+
+    try {
+      const response = await api.post("/api/feedback", formData);
+      toast.success("Feedback submitted. Our support team will contact you");
+
+      // Reset form after successful submission
+      setFormData((prev) => ({
+        ...prev,
+        feedback_subject: "Error/Issue",
+        feedback_description: "",
+      }));
+    } catch (error) {
+      // Just use the error message from the backend
+      const errorMessage =
+        error.response?.data?.message ||
+        "Failed to submit feedback. Please try again.";
+      setError(errorMessage);
+      toast.error(errorMessage);
+    }
   };
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
       <div className={styles.inputs}>
-        {[{label:"User", value:formData.user_id, disabled:true}, {label:"Date", value:formData.feedback_date, disabled:true}].map((input)=>(
+        {[
+          { label: "User", value: formData.user_id, disabled: true },
+          { label: "Date", value: formData.feedback_date, disabled: true },
+        ].map((input) => (
           <div key={input.label} className={styles.formGroup}>
             <label className={styles.label}>{input.label}</label>
             <input
@@ -97,7 +118,10 @@ const FeedbackForm = ({ userID }) => {
             maxLength={3000}
           />
         </div>
+
+        {error && <div className={styles.error}>{error}</div>}
       </div>
+
       <div className={styles.footer}>
         <p className={styles.contact}>
           You may also reach us via email{" "}

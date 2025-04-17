@@ -1,10 +1,13 @@
 import React from "react";
 import styles from "./table.module.css";
-const Table = ({ headers, data, smallPadding }) => {
+const Table = ({ headers, data, smallPadding, headerBackgorund }) => {
   return (
     <table className={styles.table}>
       <thead>
-        <tr className={styles["table-header"]}>
+        <tr
+          style={{ backgroundColor: headerBackgorund }}
+          className={styles["table-header"]}
+        >
           {headers.map((header, index) => (
             typeof header === "string" ? (
               <th

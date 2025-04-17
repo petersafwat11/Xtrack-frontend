@@ -16,7 +16,9 @@ const Signup = ({ isOpen, onClose }) => {
     phone: "",
   });
   const [captchaValue, setCaptchaValue] = useState(null);
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
+  const [generalError, setGeneralError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -26,12 +28,26 @@ const Signup = ({ isOpen, onClose }) => {
       ...prevState,
       [name]: value,
     }));
-    setError(""); // Clear error when user types
+
+    // Clear field-specific error when user types
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: "",
+      });
+    }
+
+    // Clear general error
+    if (generalError) {
+      setGeneralError("");
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setGeneralError("");
+    setErrors({});
+    setIsSubmitting(true);
 
     // Uncomment when ready to use captcha
     // if (!captchaValue) {
@@ -58,16 +74,20 @@ const Signup = ({ isOpen, onClose }) => {
       }
     } catch (error) {
       console.error("Full error:", error);
+
       if (error.code === "ECONNREFUSED") {
+        setGeneralError("Cannot connect to server. Please try again later.");
         toast.error("Cannot connect to server. Please try again later.");
       } else {
         const errorMessage =
           error.response?.data?.message ||
-          error.message ||
-          "Failed to submit account request";
+            error.message ||
+            "Failed to submit account request";
+          setGeneralError(errorMessage);
         toast.error(errorMessage);
       }
-      setError(errorMessage);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -87,7 +107,11 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.name}
               onChange={handleChange}
               required
+              className={errors.name ? styles.inputError : ""}
             />
+            {errors.name && (
+              <div className={styles.fieldError}>{errors.name}</div>
+            )}
           </div>
           <div className={styles.inputGroup}>
             <input
@@ -97,7 +121,11 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.company}
               onChange={handleChange}
               required
+              className={errors.company ? styles.inputError : ""}
             />
+            {errors.company && (
+              <div className={styles.fieldError}>{errors.company}</div>
+            )}
           </div>
           <div className={styles.inputGroup}>
             <input
@@ -107,7 +135,11 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.address}
               onChange={handleChange}
               required
+              className={errors.address ? styles.inputError : ""}
             />
+            {errors.address && (
+              <div className={styles.fieldError}>{errors.address}</div>
+            )}
           </div>
           <div className={styles.inputGroup}>
             <select
@@ -115,7 +147,9 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.country}
               onChange={handleChange}
               required
-              className={styles.select}
+              className={`${styles.select} ${
+                errors.country ? styles.inputError : ""
+              }`}
             >
               <option value="">Select Country</option>
               {COUNTRIES.map((country) => (
@@ -124,6 +158,9 @@ const Signup = ({ isOpen, onClose }) => {
                 </option>
               ))}
             </select>
+            {errors.country && (
+              <div className={styles.fieldError}>{errors.country}</div>
+            )}
           </div>
           <div className={styles.inputGroup}>
             <input
@@ -133,7 +170,11 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.email}
               onChange={handleChange}
               required
+              className={errors.email ? styles.inputError : ""}
             />
+            {errors.email && (
+              <div className={styles.fieldError}>{errors.email}</div>
+            )}
           </div>
           <div className={styles.inputGroup}>
             <input
@@ -143,17 +184,27 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.phone}
               onChange={handleChange}
               required
+              className={errors.phone ? styles.inputError : ""}
             />
+            {errors.phone && (
+              <div className={styles.fieldError}>{errors.phone}</div>
+            )}
           </div>
-          {error && <div className={styles.error}>{error}</div>}
+
+          {generalError && <div className={styles.error}>{generalError}</div>}
+
           <div className={styles.captchaContainer}>
             <ReCAPTCHA
               sitekey="YOUR_RECAPTCHA_SITE_KEY"
               onChange={(value) => setCaptchaValue(value)}
             />
           </div>
-          <button type="submit" className={styles.submitButton}>
-            Submit Registration
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit Registration"}
           </button>
         </form>
       </div>
