@@ -1,5 +1,6 @@
 import { getExternalAPILink } from "../../lib/trackingLogger";
 import CargoTracker from "../../ui/trackersComponents/cargoTracker/CargoTracker";
+
 const page = async () => {
   let APILink = await getExternalAPILink("air-cargo");
   APILink = APILink?.data?.endpoint;

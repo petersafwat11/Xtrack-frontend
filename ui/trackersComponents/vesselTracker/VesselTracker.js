@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./vesselTracker.module.css";
 import dynamic from "next/dynamic";
 import { fetchTrackerData, formatTimestamp } from "@/lib/trackerService";
-import SearchContainer from "../trackersComponents/commen/search/SearchContainer";
+import SearchContainer from "../commen/search/SearchContainer";
 
 // Dynamically import the map component to avoid SSR issues
 const MapComponent = dynamic(() => import("./MapComponent"), {

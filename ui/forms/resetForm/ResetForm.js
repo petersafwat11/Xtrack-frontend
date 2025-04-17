@@ -1,12 +1,10 @@
 "use client";
 import axios from "axios";
 
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import styles from "./resetForm.module.css";
 import InputGroup from "../inputGroup/InputGroup";
-import { DMSans } from "@/app/fonts";
 
 const ResetForm = () => {
   const router = useRouter();
@@ -41,7 +39,7 @@ const ResetForm = () => {
   };
 
   return (
-    <div className={`${DMSans.className} ${styles["container"]}`}>
+    <div className={styles["container"]}>
       <div className={styles["form"]}>
         {error.state && <p className={styles["error"]}>{error.message}</p>}
 

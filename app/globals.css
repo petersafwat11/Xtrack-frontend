@@ -43,6 +43,15 @@ a {
   font-weight: 800;
   font-size: 2rem;
   margin-left: 2rem;
+  color: #000;
+}
+body input,
+body button,
+body select,
+body textarea,
+body option,
+body label {
+  font-family: inherit;
 }
 
 @media (max-width: 900px) {
