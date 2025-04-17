@@ -2,9 +2,6 @@
 const nextConfig = {
     env: {
     NEXT_PUBLIC_BACKEND_SERVER: "https://xtrack-backenddd-production.up.railway.app",
-    // BACKEND_SERVER: "https://web-production-6b66.up.railway.app",
-    // NEXT_PUBLIC_BACKEND_SERVER: "http://localhost:5000",
-    // NEXT_PUBLIC_BACKEND_SERVER: "https://xtrack-backend-production.up.railway.app",
   },
 
   images: {

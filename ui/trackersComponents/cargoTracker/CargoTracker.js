@@ -86,21 +86,23 @@ export default function CargoTracker({ APILink }) {
         handleSearchChange={handleSearchChange}
       />
       {loading && (
-        <div className={styles.loadingContainer}>
-          <div className={styles.loadingSpinner} />
-          <p className={styles.loadingText}>Fetching tracking information...</p>
+        <div className={styles.loading_container}>
+          <div className={styles.loading_spinner} />
+          <p className={styles.loading_text}>
+            Fetching tracking information...
+          </p>
         </div>
       )}
 
-      {error && <div className={styles.errorMessage}>{error}</div>}
+      {error && <div className={styles.error_message}>{error}</div>}
 
       {metadata !== null && !loading && !error && (
         <MetaData metadata={metadata} />
       )}
 
-      <div className={styles.tableContainer}>
+      <div className={styles.table_container}>
         {!data && !loading && !error ? (
-          <div className={styles.emptyState}>
+          <div className={styles.empty_state}>
             Enter a tracking number to view shipment details
           </div>
         ) : data && !loading && !error ? (

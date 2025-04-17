@@ -23,7 +23,7 @@
   animation: slideIn 0.3s ease-in-out;
 }
 
-.closeButton {
+.close_button {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -34,7 +34,7 @@
   color: #666;
 }
 
-.closeButton:hover {
+.close_button:hover {
   color: #333;
 }
 
@@ -44,11 +44,11 @@
   gap: 1rem;
 }
 
-.inputGroup {
+.input_group {
   position: relative;
 }
 
-.inputGroup input {
+.input_group input {
   width: 100%;
   padding: 12px;
   border: 2px solid #e1e1e1;
@@ -58,12 +58,12 @@
   color: #333;
 }
 
-.inputGroup input:focus {
+.input_group input:focus {
   outline: none;
   border-color: #2196f3;
 }
 
-.submitButton {
+.submit_button {
   background-color: #2196f3;
   color: white;
   padding: 12px;
@@ -74,11 +74,11 @@
   transition: background-color 0.3s ease;
 }
 
-.submitButton:hover {
+.submit_button:hover {
   background-color: #1976d2;
 }
 
-.captchaContainer {
+.captcha_container {
   display: flex;
   justify-content: center;
   margin: 1rem 0;
@@ -135,4 +135,14 @@
 
 .select:hover {
   border-color: #2196f3;
+}
+
+.input_error {
+  border-color: #dc3545 !important;
+}
+
+.field_error {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
 }

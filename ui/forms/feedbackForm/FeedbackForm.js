@@ -80,7 +80,7 @@ const FeedbackForm = ({ userID }) => {
           { label: "User", value: formData.user_id, disabled: true },
           { label: "Date", value: formData.feedback_date, disabled: true },
         ].map((input) => (
-          <div key={input.label} className={styles.formGroup}>
+          <div key={input.label} className={styles.form_group}>
             <label className={styles.label}>{input.label}</label>
             <input
               type="text"
@@ -91,7 +91,7 @@ const FeedbackForm = ({ userID }) => {
           </div>
         ))}
 
-        <div className={styles.formGroup}>
+        <div className={styles.form_group}>
           <label className={styles.label}>Subject</label>
           <select
             name="feedback_subject"
@@ -107,7 +107,7 @@ const FeedbackForm = ({ userID }) => {
           </select>
         </div>
 
-        <div className={styles.formGroup}>
+        <div className={styles.form_group}>
           <label className={styles.label}>Description</label>
           <textarea
             name="feedback_description"
@@ -129,7 +129,7 @@ const FeedbackForm = ({ userID }) => {
             contact@trackww.com
           </a>
         </p>
-        <button type="submit" className={styles.submitButton}>
+        <button type="submit" className={styles.submit_button}>
           Submit
         </button>
       </div>

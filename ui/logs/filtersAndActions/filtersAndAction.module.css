@@ -4,13 +4,13 @@
   align-items: center;
 }
 
-.inputContainer {
+.input_container {
   display: flex;
   gap: 1.5rem;
   align-items: center;
 }
 
-.searchButton {
+.search_button {
   padding: 0.6rem 2.25rem;
   background-color: #00aeef;
   color: white;
@@ -21,30 +21,30 @@
   transition: all 0.2s ease;
 }
 
-.searchButton:hover {
+.search_button:hover {
   background-color: #0386b6;
 }
 
-.searchContainer {
+.search_container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
 }
 
-.searchControls {
+.search_controls {
   display: flex;
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
-.statusButtons {
+.status_buttons {
   display: flex;
   gap: 0.5rem;
 }
 
-.statusButton {
+.status_button {
   padding: 0.5rem 1rem;
   border: 1px solid #e2e8f0;
   border-radius: 0.5rem;
@@ -54,36 +54,36 @@
   transition: all 0.2s ease;
 }
 
-.statusButton:hover {
+.status_button:hover {
   background-color: #f1f5f9;
 }
 
-.statusActive {
+.status_active {
   background-color: #e2e8f0;
   font-weight: 600;
 }
 
-.successButton {
+.success_button {
   border-color: #28a745;
   color: #28a745;
 }
 
-.successButton.statusActive {
+.success_button.status_active {
   background-color: #28a745;
   color: white;
 }
 
-.failureButton {
+.failure_button {
   border-color: #dc3545;
   color: #dc3545;
 }
 
-.failureButton.statusActive {
+.failure_button.status_active {
   background-color: #dc3545;
   color: white;
 }
 
-.exportButton {
+.export_button {
   padding: 0.5rem 1rem;
   background-color: #4caf50;
   color: white;
@@ -95,23 +95,23 @@
   white-space: nowrap;
 }
 
-.exportButton:hover {
+.export_button:hover {
   background-color: #388e3c;
 }
 
-.exportButton:disabled {
+.export_button:disabled {
   background-color: #a5d6a7;
   cursor: not-allowed;
 }
 
-.userId,
-.searchLabel {
+.user_id,
+.search_label {
   font-size: 1rem;
   color: #64748b;
   font-weight: 600;
 }
 
-.searchInput {
+.search_input {
   padding: 0.7rem 1rem;
   border: 1px solid #e2e8f0;
   border-radius: 0.5rem;
@@ -121,19 +121,19 @@
   max-width: 25rem;
 }
 
-.searchInput:focus {
+.search_input:focus {
   outline: none;
   border-color: #00aeef;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 @media (max-width: 768px) {
-  .searchContainer {
+  .search_container {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .searchControls {
+  .search_controls {
     width: 100%;
     justify-content: space-between;
   }

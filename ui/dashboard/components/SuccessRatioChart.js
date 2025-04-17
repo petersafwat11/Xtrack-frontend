@@ -41,7 +41,7 @@ export default function SuccessRatioChart({ successRatio }) {
   };
 
   return (
-    <div className={styles.chartBox}>
+    <div className={styles.chart_box}>
       <h3>Success Ratio</h3>
       <ResponsiveContainer width="100%" height={250}>
         <PieChart>
@@ -71,7 +71,7 @@ export default function SuccessRatioChart({ successRatio }) {
           <Tooltip />
         </PieChart>
       </ResponsiveContainer>
-      {!hasData && <div className={styles.noData}>No data available</div>}
+      {!hasData && <div className={styles.no_data}>No data available</div>}
     </div>
   );
 }

@@ -146,7 +146,7 @@ const Menu = ({ toggleMenu, isMenuOpen }) => {
         !isMenuOpen ? styles.collapsed : ""
       }`}
     >
-      <div className={styles.menuHeader}>
+      <div className={styles.menu_header}>
         {/* <h1 className={styles.title}>Xtrack</h1> */}
         <Image
           style={{ cursor: "pointer" }}
@@ -155,7 +155,7 @@ const Menu = ({ toggleMenu, isMenuOpen }) => {
           width={80}
           height={39}
         />
-        <button className={styles.menuToggle} onClick={toggleMenu}>
+        <button className={styles.menu_toggle} onClick={toggleMenu}>
           <FiMenu size={20} />
         </button>
       </div>
@@ -163,14 +163,14 @@ const Menu = ({ toggleMenu, isMenuOpen }) => {
       <ul className={styles.menu}>
         {dashboardItems.map((page, index) => (
           <li
-            className={`${styles["standalone-item"]} ${
+            className={`${styles.standalone_item} ${
               isActive(page.path) ? styles.active : ""
             }`}
             key={page.path}
           >
             {index === 0 && (
               <span
-                className={styles.menuIcon}
+                className={styles.menu_icon}
                 style={{ marginRight: !isMenuOpen ? 0 : "0.75rem" }}
               >
                 <FiHome
@@ -186,7 +186,7 @@ const Menu = ({ toggleMenu, isMenuOpen }) => {
               style={{ padding: index === 0 ? "0" : "" }}
               href={page.path}
               className={`
-                  ${styles.submenuItem}
+                  ${styles.submenu_item}
                   ${isActive(page.path) ? styles.active : ""}
                 `}
             >
@@ -199,18 +199,18 @@ const Menu = ({ toggleMenu, isMenuOpen }) => {
           <li
             key={item.path}
             className={`
-            ${styles.menuItem}
+            ${styles.menu_item}
           `}
           >
             <div
-              className={styles.menuItemHeader}
+              className={styles.menu_item_header}
               onClick={() => toggleSubmenu(item.title)}
             >
-              <span className={styles.menuIcon}>{item.icon}</span>
-              <span className={styles.menuTitle}>
+              <span className={styles.menu_icon}>{item.icon}</span>
+              <span className={styles.menu_title}>
                 {item.title === "Tracker" ? "Live Tracking" : item.title}
               </span>
-              <span className={styles.menuArrow}>
+              <span className={styles.menu_arrow}>
                 {expandedItems[item.title] ? (
                   <FiChevronDown />
                 ) : (
@@ -230,7 +230,7 @@ const Menu = ({ toggleMenu, isMenuOpen }) => {
                     <Link
                       href={child.path}
                       className={`
-                        ${styles.submenuItem}
+                        ${styles.submenu_item}
                         ${isActive(child.path) ? styles.active : ""}
                       `}
                     >

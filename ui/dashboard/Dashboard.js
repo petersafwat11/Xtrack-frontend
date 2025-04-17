@@ -14,7 +14,7 @@ import Table from "../trackersComponents/commen/table/Table";
 const Dashboard = ({ data, userId }) => {
   const currentMonth = new Date().toLocaleString("default", { month: "long" });
   const currentYear = new Date().getFullYear();
-
+  console.log("dashboard data", data);
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const years = Array.from({ length: 10 }, (_, i) => currentYear + i);
   console.log("years", years);
@@ -29,7 +29,7 @@ const Dashboard = ({ data, userId }) => {
         `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/tracking/dashboard?user_id=${userId}&year=${year}`,
         {}
       );
-      const data = response.data;
+      const data = response.data?.data;
       console.log("data", data);
       setPieChartsData({
         trackRatio: data?.trackRatio,
@@ -50,7 +50,7 @@ const Dashboard = ({ data, userId }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.headerRow}>
+      <div className={styles.header_row}>
         <TotalsCard
           title={`Total Tracks for ${currentMonth}`}
           value={data?.currentMonthTotal}
@@ -71,7 +71,7 @@ const Dashboard = ({ data, userId }) => {
         )}
       </div>
 
-      <div className={styles.chartsRow}>
+      <div className={styles.charts_row}>
         <TrackingUsageChart last7Days={data?.last7Days} />
         <TrackRatioChart trackRatio={pieChartsData.trackRatio} />
         <SuccessRatioChart successRatio={pieChartsData.successRatio} />
@@ -95,7 +95,11 @@ const Dashboard = ({ data, userId }) => {
         ]}
         data={data?.dataGrid?.map((log) => ({
           user_id: log.user_id,
-          api_date: <span style={{ textWrap: "nowrap" }}>{formatDate(log.api_date)}</span>,
+          api_date: (
+            <span style={{ textWrap: "nowrap" }}>
+              {formatDate(log.api_date)}
+            </span>
+          ),
           menu_id: log.menu_id,
           api_request: log.api_request,
           api_status: getStatusElement(log.api_status),

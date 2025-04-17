@@ -198,7 +198,7 @@ const getStatusElement = (status) => {
 const DateHeader = ({ handleSort, getSortIcon }) => {
   return (
     <th
-      className={`${styles["header-item"]} ${styles.sortable}`}
+      className={`${styles.header_item} ${styles.sortable}`}
       onClick={handleSort}
     >
       Date {getSortIcon()}

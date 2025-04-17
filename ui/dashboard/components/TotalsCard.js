@@ -10,11 +10,11 @@ export default function TotalsCard({
 }) {
   return (
     <div
-      className={styles.totalBox}
+      className={styles.total_box}
       style={{ backgroundColor, color: textColor }}
     >
       <h3>{title}</h3>
-      <div className={styles.totalValue}>{value}</div>
+      <div className={styles.total_value}>{value}</div>
     </div>
   );
 }

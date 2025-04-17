@@ -127,14 +127,14 @@ const APIEndPoint = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <button className={styles.addButton} onClick={handleAdd}>
+        <button className={styles.add_button} onClick={handleAdd}>
           Add Endpoint
         </button>
       </div>
 
       {error && <div className={styles.error}>{error}</div>}
 
-      <div className={styles.tableContainer}>
+      <div className={styles.table_container}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -177,7 +177,7 @@ const APIEndPoint = () => {
                   <td>{new Date(record.update_date).toLocaleString()}</td>
                   <td>
                     <button
-                      className={styles.saveButton}
+                      className={styles.save_button}
                       onClick={() => handleSave(record, index)}
                       disabled={loading}
                     >

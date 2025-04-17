@@ -1,4 +1,4 @@
-.signOutButton {
+.sign_out_button {
   padding: 0.5rem 1rem;
   background-color: #f1093f;
   color: white;
@@ -9,6 +9,6 @@
   transition: background-color 0.2s;
 }
 
-.signOutButton:hover {
+.sign_out_button:hover {
   background-color: #c80533;
 }

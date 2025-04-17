@@ -28,7 +28,7 @@ export default function SignOutButton() {
   };
 
   return (
-    <button onClick={handleSignOut} className={styles.signOutButton}>
+    <button onClick={handleSignOut} className={styles.sign_out_button}>
       Sign Out
     </button>
   );

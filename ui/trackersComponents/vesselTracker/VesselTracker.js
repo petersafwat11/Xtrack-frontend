@@ -51,66 +51,68 @@ const VesselTracker = ({ APILink }) => {
       />
 
       {loading && (
-        <div className={styles.loadingState}>Loading vessel information...</div>
+        <div className={styles.loading_state}>
+          Loading vessel information...
+        </div>
       )}
 
-      {error && <div className={styles.errorState}>{error}</div>}
+      {error && <div className={styles.error_state}>{error}</div>}
 
       {/* {data &&
         !loading &&
         !error &&
         data?.results &&
         data?.results.length > 0 && (
-          <div className={styles.resultContainer}>
-            <div className={styles.vesselInfo}>
+          <div className={styles.result_container}>
+            <div className={styles.vessel_info}>
               <h3>Vessel Information</h3>
-              <div className={styles.infoGrid}>
-                <div className={styles.infoItem}>
+              <div className={styles.info_grid}>
+                <div className={styles.info_item}>
                   <span className={styles.label}>UPDATED AT:</span>
                   <span className={styles.value}>
                     {formatTimestamp(data?.results[0].updated_at)}
                   </span>
                 </div>
-                <div className={styles.infoItem}>
+                <div className={styles.info_item}>
                   <span className={styles.label}>VESSEL ID:</span>
                   <span className={styles.value}>{data?.results[0].id}</span>
                 </div>
-                <div className={styles.infoItem}>
+                <div className={styles.info_item}>
                   <span className={styles.label}>Name:</span>
                   <span className={styles.value}>{data?.results[0].name}</span>
                 </div>
-                <div className={styles.infoItem}>
+                <div className={styles.info_item}>
                   <span className={styles.label}>MMSI:</span>
                   <span className={styles.value}>{data?.results[0].mmsi}</span>
                 </div>
-                <div className={styles.infoItem}>
+                <div className={styles.info_item}>
                   <span className={styles.label}>IMO:</span>
                   <span className={styles.value}>{data?.results[0].imo}</span>
                 </div>
-                <div className={styles.infoItem}>
+                <div className={styles.info_item}>
                   <span className={styles.label}>CALL SIGN:</span>
                   <span className={styles.value}>
                     {data?.results[0].call_sign}
                   </span>
                 </div>
 
-                <div className={styles.infoItem}>
+                <div className={styles.info_item}>
                   <span className={styles.label}>SHIP TYPE:</span>
                   <span className={styles.value}>
                     {data?.results[0].ship_type}
                   </span>
                 </div>
-                <div className={styles.infoItem}>
+                <div className={styles.info_item}>
                   <span className={styles.label}>Flag:</span>
                   <span className={styles.value}>{data?.results[0].flag}</span>
                 </div>
-                <div className={styles.infoItem}>
+                <div className={styles.info_item}>
                   <span className={styles.label}>Length:</span>
                   <span className={styles.value}>
                     {data?.results[0].length}m
                   </span>
                 </div>
-                <div className={styles.infoItem}>
+                <div className={styles.info_item}>
                   <span className={styles.label}>Width:</span>
                   <span className={styles.value}>
                     {data?.results[0].width}m
@@ -120,7 +122,7 @@ const VesselTracker = ({ APILink }) => {
             </div>
 
             {data.results[0].last_position && (
-              <div className={styles.mapContainer}>
+              <div className={styles.map_container}>
                 <MapComponent
                   position={[
                     data.results[0].last_position.position.coordinates[1],

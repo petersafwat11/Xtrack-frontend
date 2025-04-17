@@ -51,13 +51,15 @@ export default function MarineTrafficTracker({ APILink }) {
       />
 
       {loading && (
-        <div className={styles.loadingContainer}>
-          <div className={styles.loadingSpinner} />
-          <p className={styles.loadingText}>Fetching tracking information...</p>
+        <div className={styles.loading_container}>
+          <div className={styles.loading_spinner} />
+          <p className={styles.loading_text}>
+            Fetching tracking information...
+          </p>
         </div>
       )}
 
-      {error && <div className={styles.errorMessage}>{error}</div>}
+      {error && <div className={styles.error_message}>{error}</div>}
       {data !== null && !loading && !error && (
         <>
           <div className={styles.dates}>
@@ -91,8 +93,8 @@ export default function MarineTrafficTracker({ APILink }) {
             </div>
           </div>
           <div className={styles.info}>
-            <div className={styles.vesselInfo}>
-              <h3 className={styles.infoTitle}>Other Info</h3>
+            <div className={styles.vessel_info}>
+              <h3 className={styles.info_title}>Other Info</h3>
               <InfoContainer
                 data={{
                   Name: data?.general?.name,
@@ -108,8 +110,8 @@ export default function MarineTrafficTracker({ APILink }) {
                 }}
               />
             </div>
-            <div className={styles.otherInfo}>
-              <h3 className={styles.infoTitle}>Other Info</h3>
+            <div className={styles.other_info}>
+              <h3 className={styles.info_title}>Other Info</h3>
               <InfoContainer
                 data={{
                   Status: data?.latest_ais_information?.navigational_status,

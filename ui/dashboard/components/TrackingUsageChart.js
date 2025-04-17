@@ -12,7 +12,7 @@ import {
 
 export default function TrackingUsageChart({ last7Days }) {
   return (
-    <div className={styles.chartBox}>
+    <div className={styles.chart_box}>
       <h3>Tracking Usage</h3>
       <ResponsiveContainer width="100%" height={250}>
         <BarChart
@@ -28,7 +28,7 @@ export default function TrackingUsageChart({ last7Days }) {
         </BarChart>
       </ResponsiveContainer>
       {(!last7Days || last7Days.length === 0) && (
-        <div className={styles.noData}>No data available</div>
+        <div className={styles.no_data}>No data available</div>
       )}
     </div>
   );

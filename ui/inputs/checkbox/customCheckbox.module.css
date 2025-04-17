@@ -1,4 +1,4 @@
-.checkboxContainer {
+.checkbox_container {
   display: flex;
   align-items: center;
   position: relative;
@@ -10,7 +10,7 @@
   color: #333;
 }
 
-.hiddenCheckbox {
+.hidden_checkbox {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -29,11 +29,11 @@
   transition: all 0.2s ease;
 }
 
-.checkboxContainer:hover .checkmark {
+.checkbox_container:hover .checkmark {
   background-color: #f0f8ff;
 }
 
-.checkboxContainer input:checked ~ .checkmark {
+.checkbox_container input:checked ~ .checkmark {
   background-color: #2196f3;
 }
 
@@ -50,6 +50,6 @@
   transform: rotate(45deg);
 }
 
-.checkboxContainer input:checked ~ .checkmark:after {
+.checkbox_container input:checked ~ .checkmark:after {
   display: block;
 }

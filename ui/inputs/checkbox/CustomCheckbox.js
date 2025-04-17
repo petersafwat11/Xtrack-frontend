@@ -4,13 +4,13 @@ import styles from "./customCheckbox.module.css";
 
 const CustomCheckbox = ({ label, checked, onChange, name }) => {
   return (
-    <label className={styles.checkboxContainer}>
+    <label className={styles.checkbox_container}>
       {label}
       <input
         type="checkbox"
         checked={checked === "Y"}
         onChange={(e) => onChange(name, e.target.checked ? "Y" : "N")}
-        className={styles.hiddenCheckbox}
+        className={styles.hidden_checkbox}
       />
       <span className={styles.checkmark}></span>
     </label>

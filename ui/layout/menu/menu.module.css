@@ -15,29 +15,29 @@
   width: 4.5rem;
 }
 
-.menuHeader {
+.menu_header {
   padding: 1.1em;
   border-bottom: 1px solid #e1e1e1;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.standalone-item{
+.standalone_item {
   display: flex;
   align-items: center;
   transition: all 0.3s ease;
   padding: 1rem 1.5rem;
 }
-.standalone-item.active{
+.standalone_item.active {
   background-color: #edf2f7;
   color: #2196f3;
 }
-.standalone-item:hover {
+.standalone_item:hover {
   background-color: #edf2f7;
   color: #2196f3;
 }
 
-.menuToggle {
+.menu_toggle {
   background: none;
   border: none;
   color: #2196f3;
@@ -49,7 +49,7 @@
   transition: color 0.2s ease;
 }
 
-.menuToggle:hover {
+.menu_toggle:hover {
   color: #1976d2;
 }
 
@@ -69,11 +69,11 @@
   margin: 0;
 }
 
-.menuItem {
+.menu_item {
   border-bottom: 1px solid #e1e1e1;
 }
 
-.menuItemHeader {
+.menu_item_header {
   display: flex;
   align-items: center;
   padding: 1rem 1.5rem;
@@ -82,11 +82,11 @@
   color: #4a5568;
 }
 
-.menuItemHeader:hover {
+.menu_item_header:hover {
   background-color: #edf2f7;
 }
 
-.menuIcon {
+.menu_icon {
   margin-right: 0.75rem;
   color: #2196f3;
   display: flex;
@@ -94,26 +94,26 @@
   min-width: 20px;
 }
 
-.sidebar.collapsed .menuIcon {
+.sidebar.collapsed .menu_icon {
   margin-right: 0;
 }
 
-.menuTitle {
+.menu_title {
   flex: 1;
   color: #4a5568;
 }
 
-.sidebar.collapsed .menuTitle {
+.sidebar.collapsed .menu_title {
   display: none;
 }
 
-.menuArrow {
+.menu_arrow {
   color: #718096;
   display: flex;
   align-items: center;
 }
 
-.sidebar.collapsed .menuArrow {
+.sidebar.collapsed .menu_arrow {
   display: none;
 }
 
@@ -135,7 +135,7 @@
   display: none;
 }
 
-.submenuItem {
+.submenu_item {
   display: block;
   padding: 0.75rem 1.5rem 0.75rem 3.25rem;
   color: #718096;
@@ -144,31 +144,31 @@
   flex-grow: 1;
 }
 
-.submenuItem:hover {
+.submenu_item:hover {
   background-color: #edf2f7;
   color: #2196f3;
 }
 
-.active > .menuItemHeader {
+.active > .menu_item_header {
   background-color: #e3f2fd;
   color: #2196f3;
 }
 
-.submenuItem.active {
+.submenu_item.active {
   background-color: #e3f2fd;
   color: #2196f3;
 }
 
-.sidebar.collapsed .submenuItem {
+.sidebar.collapsed .submenu_item {
   font-size: 0;
   padding: 0;
 }
 
-.sidebar.collapsed .standalone-item {
+.sidebar.collapsed .standalone_item {
   justify-content: center;
 }
 
-.sidebar.collapsed .menuIcon {
+.sidebar.collapsed .menu_icon {
   margin-right: 0;
 }
 
@@ -184,5 +184,4 @@
   .sidebar.collapsed {
     width: 3.5rem;
   }
-  
 }

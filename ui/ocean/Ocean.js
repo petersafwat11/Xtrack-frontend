@@ -51,10 +51,10 @@ const Ocean = ({ APILink }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.searchSection}>
-        <div className={styles.searchForm}>
-          <div className={styles.inputContainer}>
-            <p className={styles.searchLabel}>From</p>
+      <div className={styles.search_section}>
+        <div className={styles.search_form}>
+          <div className={styles.input_container}>
+            <p className={styles.search_label}>From</p>
 
             <input
               type="text"
@@ -63,11 +63,11 @@ const Ocean = ({ APILink }) => {
                 setInputsData({ ...inputsData, fromLocation: e.target.value })
               }
               placeholder="Enter From Location"
-              className={styles.searchInput}
+              className={styles.search_input}
             />
           </div>
-          <div className={styles.inputContainer}>
-            <p className={styles.searchLabel}>To</p>
+          <div className={styles.input_container}>
+            <p className={styles.search_label}>To</p>
 
             <input
               type="text"
@@ -76,11 +76,11 @@ const Ocean = ({ APILink }) => {
                 setInputsData({ ...inputsData, toLocation: e.target.value })
               }
               placeholder="Enter To Location"
-              className={styles.searchInput}
+              className={styles.search_input}
             />
           </div>
-          <div className={styles.inputContainer}>
-            <p className={styles.searchLabel}>From</p>
+          <div className={styles.input_container}>
+            <p className={styles.search_label}>From</p>
             <DateInput
               data={inputsData}
               setData={setInputsData}
@@ -90,7 +90,7 @@ const Ocean = ({ APILink }) => {
           </div>
           <button
             onClick={handleFetchData}
-            className={styles.searchButton}
+            className={styles.search_button}
             disabled={loading}
           >
             {loading ? "Tracking..." : "Track"}
@@ -99,20 +99,22 @@ const Ocean = ({ APILink }) => {
       </div>
 
       {loading && (
-        <div className={styles.loadingContainer}>
-          <div className={styles.loadingSpinner} />
-          <p className={styles.loadingText}>Fetching tracking information...</p>
+        <div className={styles.loading_container}>
+          <div className={styles.loading_spinner} />
+          <p className={styles.loading_text}>
+            Fetching tracking information...
+          </p>
         </div>
       )}
 
-      {error && <div className={styles.errorMessage}>{error}</div>}
+      {error && <div className={styles.error_message}>{error}</div>}
       {!data && !loading && !error ? (
-        <div className={styles.emptyState}>
+        <div className={styles.empty_state}>
           Enter a tracking number to view shipment details
         </div>
       ) : data && !loading && !error && data?.response_data?.length > 0 ? (
         data.response_data.map((oceanData, index) => (
-          <div className={styles.tableContainer} key={index}>
+          <div className={styles.table_container} key={index}>
             {/* Main Table */}
             <Table
               headers={mainTableHeaders}
@@ -134,7 +136,7 @@ const Ocean = ({ APILink }) => {
 
             {/* Routing Details Table */}
             {oceanData?.routing_details?.length > 0 && (
-              <div className={styles.routingTableWrapper}>
+              <div className={styles.routing_table_wrapper}>
                 <Table
                   headerBackgorund={"rgb(160 168 186)"}
                   headers={routingTableHeaders}

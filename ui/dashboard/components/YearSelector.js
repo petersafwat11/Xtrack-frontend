@@ -9,12 +9,12 @@ export default function YearSelector({ selectedYear, years, onYearChange }) {
   };
 
   return (
-    <div className={styles.yearSelector}>
+    <div className={styles.year_selector}>
       <h3>Year</h3>
       <select
         value={selectedYear}
         onChange={handleYearChange}
-        className={styles.yearDropdown}
+        className={styles.year_dropdown}
       >
         {years.map((year) => (
           <option key={year} value={year}>

@@ -76,7 +76,7 @@ const LoginForm = () => {
       />
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <label htmlFor="user_id" className={styles.label}>
               User ID
             </label>
@@ -90,7 +90,7 @@ const LoginForm = () => {
               required
             />
           </div>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <label htmlFor="user_pwd" className={styles.label}>
               Password
             </label>
@@ -105,20 +105,20 @@ const LoginForm = () => {
             />
           </div>
           {error && <div className={styles.error}>{error}</div>}
-          <button type="submit" className={styles.submitButton}>
+          <button type="submit" className={styles.submit_button}>
             Login
           </button>
         </form>
-        <div className={styles.formFooter}>
+        <div className={styles.form_footer}>
           <button
             onClick={() => setIsSignupOpen(true)}
-            className={styles.signupButton}
+            className={styles.signup_button}
           >
             Sign Up
           </button>
           <button
             onClick={() => setIsForgetPasswordOpen(true)}
-            className={styles.forgotPasswordButton}
+            className={styles.forgot_password_button}
           >
             Reset Password
           </button>

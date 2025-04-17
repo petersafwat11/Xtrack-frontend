@@ -1,4 +1,4 @@
-.tableContainer {
+.table_container {
   background-color: white;
   border-radius: 0.75rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -11,29 +11,29 @@
   min-width: 700px;
 }
 
-.table-header {
+.table_header {
   background-color: hsl(196, 100%, 47%);
   color: black;
   font-weight: 600;
   text-align: left;
 }
 
-.header-item {
+.header_item {
   padding: 1rem;
   font-size: 0.875rem;
   border-bottom: 2px solid #e2e8f0;
 }
 
-.table-row {
+.table_row {
   border-bottom: 1px solid #e2e8f0;
   transition: background-color 0.2s ease;
 }
 
-.table-row:hover {
+.table_row:hover {
   background-color: #f8fafc;
 }
 
-.row-item {
+.row_item {
   padding: 1rem;
   color: #1e293b;
   font-size: 0.875rem;

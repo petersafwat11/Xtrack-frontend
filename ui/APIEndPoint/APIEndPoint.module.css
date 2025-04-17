@@ -8,7 +8,7 @@
   margin-bottom: 24px;
 }
 
-.addButton {
+.add_button {
   background-color: #1a73e8;
   color: white;
   border: none;
@@ -20,11 +20,11 @@
   transition: background-color 0.2s;
 }
 
-.addButton:hover {
+.add_button:hover {
   background-color: #1557b0;
 }
 
-.tableContainer {
+.table_container {
   background: white;
   border-radius: 8px;
   padding: 16px;
@@ -65,7 +65,7 @@
   box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
 }
 
-.saveButton {
+.save_button {
   background-color: #34a853;
   color: white;
   border: none;
@@ -76,11 +76,11 @@
   transition: background-color 0.2s;
 }
 
-.saveButton:hover {
+.save_button:hover {
   background-color: #2d8745;
 }
 
-.saveButton:disabled {
+.save_button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }

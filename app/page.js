@@ -37,7 +37,7 @@ export default async function Home() {
           </div>
         }
       >
-        <Dashboard data={data} userId={userId} />
+        <Dashboard data={data?.data} userId={userId} />
       </Suspense>
     </div>
   );

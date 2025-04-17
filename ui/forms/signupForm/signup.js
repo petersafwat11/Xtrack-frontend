@@ -81,9 +81,9 @@ const Signup = ({ isOpen, onClose }) => {
       } else {
         const errorMessage =
           error.response?.data?.message ||
-            error.message ||
-            "Failed to submit account request";
-          setGeneralError(errorMessage);
+          error.message ||
+          "Failed to submit account request";
+        setGeneralError(errorMessage);
         toast.error(errorMessage);
       }
     } finally {
@@ -94,12 +94,12 @@ const Signup = ({ isOpen, onClose }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <button className={styles.closeButton} onClick={onClose}>
+        <button className={styles.close_button} onClick={onClose}>
           ×
         </button>
         <h2 className={styles.title}>Register Your Interest</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <input
               type="text"
               name="name"
@@ -107,13 +107,13 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.name}
               onChange={handleChange}
               required
-              className={errors.name ? styles.inputError : ""}
+              className={errors.name ? styles.input_error : ""}
             />
             {errors.name && (
-              <div className={styles.fieldError}>{errors.name}</div>
+              <div className={styles.field_error}>{errors.name}</div>
             )}
           </div>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <input
               type="text"
               name="company"
@@ -121,13 +121,13 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.company}
               onChange={handleChange}
               required
-              className={errors.company ? styles.inputError : ""}
+              className={errors.company ? styles.input_error : ""}
             />
             {errors.company && (
-              <div className={styles.fieldError}>{errors.company}</div>
+              <div className={styles.field_error}>{errors.company}</div>
             )}
           </div>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <input
               type="text"
               name="address"
@@ -135,20 +135,20 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.address}
               onChange={handleChange}
               required
-              className={errors.address ? styles.inputError : ""}
+              className={errors.address ? styles.input_error : ""}
             />
             {errors.address && (
-              <div className={styles.fieldError}>{errors.address}</div>
+              <div className={styles.field_error}>{errors.address}</div>
             )}
           </div>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <select
               name="country"
               value={formData.country}
               onChange={handleChange}
               required
               className={`${styles.select} ${
-                errors.country ? styles.inputError : ""
+                errors.country ? styles.input_error : ""
               }`}
             >
               <option value="">Select Country</option>
@@ -159,10 +159,10 @@ const Signup = ({ isOpen, onClose }) => {
               ))}
             </select>
             {errors.country && (
-              <div className={styles.fieldError}>{errors.country}</div>
+              <div className={styles.field_error}>{errors.country}</div>
             )}
           </div>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <input
               type="email"
               name="email"
@@ -170,13 +170,13 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.email}
               onChange={handleChange}
               required
-              className={errors.email ? styles.inputError : ""}
+              className={errors.email ? styles.input_error : ""}
             />
             {errors.email && (
-              <div className={styles.fieldError}>{errors.email}</div>
+              <div className={styles.field_error}>{errors.email}</div>
             )}
           </div>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <input
               type="tel"
               name="phone"
@@ -184,16 +184,16 @@ const Signup = ({ isOpen, onClose }) => {
               value={formData.phone}
               onChange={handleChange}
               required
-              className={errors.phone ? styles.inputError : ""}
+              className={errors.phone ? styles.input_error : ""}
             />
             {errors.phone && (
-              <div className={styles.fieldError}>{errors.phone}</div>
+              <div className={styles.field_error}>{errors.phone}</div>
             )}
           </div>
 
           {generalError && <div className={styles.error}>{generalError}</div>}
 
-          <div className={styles.captchaContainer}>
+          <div className={styles.captcha_container}>
             <ReCAPTCHA
               sitekey="YOUR_RECAPTCHA_SITE_KEY"
               onChange={(value) => setCaptchaValue(value)}
@@ -201,7 +201,7 @@ const Signup = ({ isOpen, onClose }) => {
           </div>
           <button
             type="submit"
-            className={styles.submitButton}
+            className={styles.submit_button}
             disabled={isSubmitting}
           >
             {isSubmitting ? "Submitting..." : "Submit Registration"}

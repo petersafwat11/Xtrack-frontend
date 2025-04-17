@@ -81,12 +81,12 @@ const ForgetPassword = ({ isOpen, onClose }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <button className={styles.closeButton} onClick={onClose}>
+        <button className={styles.close_button} onClick={onClose}>
           ×
         </button>
         <h2 className={styles.title}>Change Password</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <input
               id="old_password"
               type="password"
@@ -100,7 +100,7 @@ const ForgetPassword = ({ isOpen, onClose }) => {
               onCut={preventCopyPaste}
             />
           </div>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <input
               id="new_password"
               type="password"
@@ -114,7 +114,7 @@ const ForgetPassword = ({ isOpen, onClose }) => {
               onCut={preventCopyPaste}
             />
           </div>
-          <div className={styles.inputGroup}>
+          <div className={styles.input_group}>
             <input
               id="confirm_password"
               type="password"
@@ -129,7 +129,7 @@ const ForgetPassword = ({ isOpen, onClose }) => {
             />
           </div>
           {error && <div className={styles.error}>{error}</div>}
-          <button type="submit" className={styles.submitButton}>
+          <button type="submit" className={styles.submit_button}>
             Change Password
           </button>
         </form>

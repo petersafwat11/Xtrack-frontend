@@ -12,14 +12,14 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.emptyState {
+.empty_state {
   text-align: center;
   padding: 3rem;
   color: #64748b;
   font-size: 1rem;
 }
 
-.loadingSpinner {
+.loading_spinner {
   width: 40px;
   height: 40px;
   border: 3px solid #f3f3f3;
@@ -29,7 +29,7 @@
   margin: 2rem auto;
 }
 
-.loadingContainer {
+.loading_container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,13 +38,13 @@
   text-align: center;
 }
 
-.loadingText {
+.loading_text {
   margin-top: 1rem;
   color: #64748b;
   font-size: 0.875rem;
 }
 
-.errorMessage {
+.error_message {
   text-align: center;
   padding: 2rem;
   color: #64748b;
@@ -98,8 +98,8 @@
   gap: 2rem;
 }
 
-.vesselInfo,
-.otherInfo {
+.vessel_info,
+.other_info {
   flex: 1;
   background: white;
   border-radius: 0.5rem;
@@ -107,7 +107,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.infoTitle {
+.info_title {
   background-color: #00aeef;
   color: white;
   padding: 0.5rem 1rem;

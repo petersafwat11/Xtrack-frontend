@@ -6,13 +6,13 @@ const Table = ({ headers, data, smallPadding, headerBackgorund }) => {
       <thead>
         <tr
           style={{ backgroundColor: headerBackgorund }}
-          className={styles["table-header"]}
+          className={styles.table_header}
         >
-          {headers.map((header, index) => (
+          {headers.map((header, index) =>
             typeof header === "string" ? (
               <th
                 style={{ padding: smallPadding ? "0.75rem" : "" }}
-                className={styles["header-item"]}
+                className={styles.header_item}
                 key={index}
               >
                 {header}
@@ -20,16 +20,16 @@ const Table = ({ headers, data, smallPadding, headerBackgorund }) => {
             ) : (
               header
             )
-          ))}
+          )}
         </tr>
       </thead>
       <tbody>
         {data?.map((item, index) => (
-          <tr className={styles["table-row"]} key={index}>
+          <tr className={styles.table_row} key={index}>
             {Object.keys(item).map((key, index) => (
               <td
                 style={{ padding: smallPadding ? "0.85rem" : "" }}
-                className={styles["row-item"]}
+                className={styles.row_item}
                 key={index}
               >
                 {item[key]}

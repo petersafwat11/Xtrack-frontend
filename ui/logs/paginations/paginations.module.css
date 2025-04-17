@@ -1,11 +1,11 @@
-.paginationContainer {
+.pagination_container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
 }
 
-.totalRecords {
+.total_records {
   font-size: 0.875rem;
   color: #64748b;
   font-weight: 600;
@@ -19,7 +19,7 @@
   margin-top: 20px;
 }
 
-.pageButton {
+.page_button {
   padding: 8px 16px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -27,21 +27,21 @@
   cursor: pointer;
 }
 
-.pageButton:disabled {
+.page_button:disabled {
   background-color: #f5f5f5;
   cursor: not-allowed;
 }
 
-.pageButton:hover:not(:disabled) {
+.page_button:hover:not(:disabled) {
   background-color: #f0f0f0;
 }
 
-.pageInfo {
+.page_info {
   color: #666;
 }
 
 @media (max-width: 768px) {
-  .paginationContainer {
+  .pagination_container {
     flex-direction: column;
     gap: 10px;
     align-items: center;
