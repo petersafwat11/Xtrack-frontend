@@ -46,7 +46,7 @@ const LoginForm = () => {
     setError("");
 
     try {
-      const response = await api.post("/api/users/login", formData);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, formData);
 
       if (response.status === 200) {
         const { token, data } = response.data;
