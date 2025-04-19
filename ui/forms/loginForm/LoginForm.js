@@ -48,6 +48,8 @@ const LoginForm = () => {
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, formData);
 
+      console.log("response", response);
+
       if (response.status === 200) {
         const { token, data } = response.data;
 
@@ -62,6 +64,7 @@ const LoginForm = () => {
       }
     } catch (error) {
       // Just use the error message from the backend
+      console.log("error", error);
       const errorMessage = error.response?.data?.message || "Login failed";
       setError(errorMessage);
       toast.error(errorMessage);
