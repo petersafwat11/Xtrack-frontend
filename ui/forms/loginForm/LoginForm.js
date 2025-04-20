@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Signup from "../signupForm/signup";
 import Cookies from "js-cookie";
 import ForgetPassword from "../forgetPassword/ForgetPassword";
-
+import axios from "axios";
 const LoginForm = () => {
   const router = useRouter();
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -46,7 +46,8 @@ const LoginForm = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, formData);
+      console.log("process.env.NEXT_PUBLIC_API_URL", process.env.NEXT_PUBLIC_BACKEND_SERVER);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/api/users/login`, formData, { withCredentials: true });
 
       console.log("response", response);
 

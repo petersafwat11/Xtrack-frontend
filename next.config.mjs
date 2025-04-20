@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-    NEXT_PUBLIC_BACKEND_SERVER: "https://xtrack-backenddd-production.up.railway.app",
+    NEXT_PUBLIC_BACKEND_SERVER: "https://xtrack-backend-production-67a3.up.railway.app",
   },
 
   images: {
