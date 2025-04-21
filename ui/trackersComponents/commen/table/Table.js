@@ -1,6 +1,12 @@
 import React from "react";
 import styles from "./table.module.css";
-const Table = ({ headers, data, smallPadding, headerBackgorund }) => {
+const Table = ({
+  headers,
+  data,
+  smallPadding,
+  headerBackgorund,
+  onRowClick,
+}) => {
   return (
     <table className={styles.table}>
       <thead>
@@ -25,7 +31,14 @@ const Table = ({ headers, data, smallPadding, headerBackgorund }) => {
       </thead>
       <tbody>
         {data?.map((item, index) => (
-          <tr className={styles.table_row} key={index}>
+          <tr
+            onClick={() => {
+              console.log("row clicked", item);
+              onRowClick && onRowClick(item);
+            }}
+            className={styles.table_row}
+            key={index}
+          >
             {Object.keys(item).map((key, index) => (
               <td
                 style={{ padding: smallPadding ? "0.85rem" : "" }}
