@@ -1,6 +1,5 @@
 // "use client";
 import "./globals.css";
-import Menu from "../ui/layout/menu/Menu";
 import styles from "./layout.module.css";
 import { Toaster } from "react-hot-toast";
 import SignOutButton from "../ui/layout/signout/SignOutButton";
