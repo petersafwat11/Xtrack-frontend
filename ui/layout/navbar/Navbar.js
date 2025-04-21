@@ -42,34 +42,40 @@ const Navbar = () => {
         const userData = JSON.parse(userCookie);
         const admin = userData?.menuPermissions?.showSettingsAPI || false;
         setIsAdmin(admin);
-        const settingsItems = [
-          { title: "Profile", path: "/profile" },
-          admin ? { title: "API Endpoints", path: "/endpoints" } : null,
-          { title: "Logs", path: "/logs" },
-          { title: "Feedback", path: "/feedback" },
-          admin ? { title: "Users", path: "/users" } : null,
-        ].filter(Boolean);
-        const itemsWithoutSettings = navDefault.items.filter(
-          (item) => item.title !== "Settings"
-        );
-        const newNavItems = [
-          ...itemsWithoutSettings,
-          {
-            title: "Settings",
-            active: false,
-          children: settingsItems,
-        },
-        ];
-        const navState = {
-          expanded: navDefault.expanded,
-          items: newNavItems,
-        };
-        setNavbar(navState);
       }
     } catch (error) {
       console.error("Error parsing user cookie:", error);
     }
   }, []);
+
+  // Update navbar items whenever admin status changes
+  useEffect(() => {
+    const settingsItems = [
+      { title: "Profile", path: "/profile" },
+      isAdmin ? { title: "API Endpoints", path: "/endpoints" } : null,
+      { title: "Logs", path: "/logs" },
+      { title: "Feedback", path: "/feedback" },
+      isAdmin ? { title: "Users", path: "/users" } : null,
+    ].filter(Boolean);
+
+    const itemsWithoutSettings = navDefault.items.filter(
+      (item) => item.title !== "Settings"
+    );
+
+    const newNavItems = [
+      ...itemsWithoutSettings,
+      {
+        title: "Settings",
+        active: false,
+        children: settingsItems,
+      },
+    ];
+
+    setNavbar((prevState) => ({
+      ...prevState,
+      items: newNavItems,
+    }));
+  }, [isAdmin]);
 
   // Add effect to toggle body class based on navbar state
   useEffect(() => {
