@@ -1,8 +1,9 @@
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
+  
 }
-
+ */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -68,4 +69,41 @@ body .react-date-picker {
   html {
     color-scheme: dark;
   }
+}
+.main-content {
+  margin-left: 7rem; /* Default margin for collapsed navbar */
+  transition: margin-left 0.3s ease;
+  width: calc(100% - 7rem);
+  flex: 1;
+}
+
+/* When navbar is expanded, adjust main content */
+body.nav-expanded .main-content {
+  margin-left: 25rem;
+  width: calc(100% - 25rem);
+}
+/* App container and layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Apply z-index to navbar */
+.navbar,
+[class*="navbar_"] {
+  z-index: var(--z-navbar) !important;
+}
+/* Layout classes */
+.main-content {
+  margin-left: 7rem; /* Default margin for collapsed navbar */
+  transition: margin-left 0.3s ease;
+  width: calc(100% - 7rem);
+  flex: 1;
+}
+
+/* When navbar is expanded, adjust main content */
+body.nav-expanded .main-content {
+  margin-left: 25rem;
+  width: calc(100% - 25rem);
 }

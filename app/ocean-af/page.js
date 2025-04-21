@@ -8,7 +8,7 @@ const page = async () => {
 
   return (
     <div className={"container"}>
-      <h2 className={"title"}>CONTAINER TRACKING (AF)</h2>
+      <h2 className={"title"}>Container Tracking (AF)</h2>
       <OceanAFTracker APILink={APILink} />
     </div>
   );

@@ -1,0 +1,273 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: #405189;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.expanded {
+  width: 15.625rem;
+}
+
+.collapsed {
+  width: 4.375rem;
+}
+
+.navbar_header {
+  padding: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.1);
+}
+
+.logo_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+}
+
+.toggle_btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.toggle_btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav_items {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-grow: 1;
+  padding: 0.8rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.nav_items::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+.nav_items::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nav_items::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+}
+
+.nav_item {
+  margin-bottom: 0.4rem;
+  position: relative;
+}
+
+.nav_item_header {
+  display: flex;
+  align-items: center;
+}
+
+.nav_link {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav_link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateX(0.3125rem);
+}
+
+.nav_link:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0.1875rem;
+  background: #ffffff;
+  transform: scaleY(0);
+  transition: all 0.3s ease;
+}
+
+.nav_link:hover:before {
+  transform: scaleY(1);
+}
+
+.icon {
+  font-size: 1.2rem;
+  min-width: 1.5rem;
+}
+
+.nav_title {
+  margin-left: 0.6rem;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.arrow {
+  font-size: 0.71875rem;
+  transition: transform 0.3s ease;
+  opacity: 0.7;
+}
+
+.arrow_active {
+  transform: rotate(90deg);
+}
+
+.nav_sub_items {
+  padding: 0.25rem 0;
+  margin-top: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  animation: slideDown 0.3s ease-in-out;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 0.4rem;
+  gap: 0.1rem;
+}
+
+.nav_sub_link {
+  padding: 0.3125rem 0.8rem 0.3125rem 1rem;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 0.15625rem;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  margin: 0.1rem 0.4rem;
+  white-space: nowrap;
+  position: relative;
+}
+
+.nav_sub_link:before {
+  content: "_";
+  margin-right: 0.25rem;
+}
+
+.nav_sub_link:hover {
+  background-color: transparent;
+  color: #ffffff;
+  transform: translateX(0.3125rem);
+}
+
+.nav_sub_link:after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+  transform-origin: 0 50%;
+}
+
+.nav_sub_link:hover:after {
+  transform: scaleX(1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 48rem) {
+  .navbar {
+    width: 4.375rem;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    z-index: 1001;
+  }
+
+  .expanded {
+    width: 15.625rem;
+  }
+
+  .collapsed {
+    width: 4.375rem;
+  }
+
+  .nav_items {
+    flex-direction: column;
+    padding: 0.8rem 0;
+  }
+
+  .nav_item {
+    margin-bottom: 0.4rem;
+  }
+
+  .nav_sub_items {
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+  }
+
+  .expanded:after {
+    content: "";
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 15.625rem;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+}

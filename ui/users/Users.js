@@ -224,12 +224,12 @@ const Users = () => {
                   country: user.user_country || "N/A",
                   action: (
                     <div className={styles.actionButtons}>
-                      <button
+                      {/* <button
                         onClick={() => handleEditUser(user.user_id)}
                         className={styles.editButton}
                       >
                         Edit
-                      </button>
+                      </button> */}
                       <button
                         onClick={(e) => openDeleteModal(e, user)}
                         className={styles.deleteButton}

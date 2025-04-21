@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import styles from "./SignOutButton.module.css";
 import api from "@/lib/axios";
 import Cookies from "js-cookie";
@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 
 export default function SignOutButton() {
   const router = useRouter();
-
+  const pathname = usePathname();
   const handleSignOut = async () => {
     try {
       // Call backend logout endpoint
@@ -28,8 +28,10 @@ export default function SignOutButton() {
   };
 
   return (
-    <button onClick={handleSignOut} className={styles.sign_out_button}>
-      Sign Out
-    </button>
+    pathname === "/login" ? null : (
+      <button onClick={handleSignOut} className={styles.sign_out_button}>
+        Sign Out  
+      </button>
+    )
   );
 }

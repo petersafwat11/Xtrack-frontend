@@ -3,19 +3,6 @@
   flex-direction: column;
   min-height: 100vh;
 }
-
-.main {
-  flex: 1;
-  margin-left: 260px;
-  margin-top: 1rem;
-  background-color: #f8f9fa;
-  min-height: calc(100vh - 60px);
-  transition: margin-left 0.3s ease;
-}
-
-.main.expanded {
-  margin-left: 4.5rem;
-}
 .user {
   display: flex;
   align-items: center;
