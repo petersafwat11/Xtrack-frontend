@@ -29,6 +29,10 @@ const Navbar = () => {
   const pathname = usePathname();
   const isLogin = pathname === "/login";
   const [isAdmin, setIsAdmin] = useState(false);
+  const [navbar, setNavbar] = useState({
+    expanded: navDefault.expanded,
+    items: [...navDefault.items],
+  });
 
   // Safely access cookies only on the client side
   useEffect(() => {
@@ -36,34 +40,32 @@ const Navbar = () => {
       const userCookie = Cookies.get("user");
       if (userCookie) {
         const userData = JSON.parse(userCookie);
-        setIsAdmin(userData?.menuPermissions?.showSettingsAPI || false);
+        const admin = userData?.menuPermissions?.showSettingsAPI || false;
+        setIsAdmin(admin);
+        const settingsItems = [
+          { title: "Profile", path: "/profile" },
+          admin ? { title: "API Endpoints", path: "/endpoints" } : null,
+          { title: "Logs", path: "/logs" },
+          { title: "Feedback", path: "/feedback" },
+          admin ? { title: "Users", path: "/users" } : null,
+        ].filter(Boolean);
+        const navState = {
+          expanded: navDefault.expanded,
+          items: [
+            ...navDefault.items,
+            {
+              title: "Settings",
+              active: false,
+              children: settingsItems,
+            },
+          ],
+        };
+        setNavbar(navState);
       }
     } catch (error) {
       console.error("Error parsing user cookie:", error);
     }
   }, []);
-
-  const settingsItems = [
-    { title: "Profile", path: "/profile" },
-    isAdmin ? { title: "API Endpoints", path: "/endpoints" } : null,
-    { title: "Logs", path: "/logs" },
-    { title: "Feedback", path: "/feedback" },
-    isAdmin ? { title: "Users", path: "/users" } : null,
-  ].filter(Boolean);
-
-  const navState = {
-    expanded: navDefault.expanded,
-    items: [
-      ...navDefault.items,
-      {
-        title: "Settings",
-        active: false,
-        children: settingsItems,
-      },
-    ],
-  };
-
-  const [navbar, setNavbar] = useState(navState);
 
   // Add effect to toggle body class based on navbar state
   useEffect(() => {

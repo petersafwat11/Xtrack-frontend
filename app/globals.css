@@ -79,8 +79,11 @@ body .react-date-picker {
 
 /* When navbar is expanded, adjust main content */
 body.nav-expanded .main-content {
-  margin-left: 25rem;
-  width: calc(100% - 25rem);
+  margin-left: 15.6rem;
+  width: calc(100% - 15.6rem);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 /* App container and layout */
 .app-container {
@@ -96,14 +99,13 @@ body.nav-expanded .main-content {
 }
 /* Layout classes */
 .main-content {
-  margin-left: 7rem; /* Default margin for collapsed navbar */
+  margin-left: 4.375rem; /* Default margin for collapsed navbar */
   transition: margin-left 0.3s ease;
-  width: calc(100% - 7rem);
+  width: calc(100% - 4.375rem);
   flex: 1;
+}
+.container {
+  padding: 1.5rem;
 }
 
 /* When navbar is expanded, adjust main content */
-body.nav-expanded .main-content {
-  margin-left: 25rem;
-  width: calc(100% - 25rem);
-}
