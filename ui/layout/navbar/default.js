@@ -1,6 +1,12 @@
 const navDefault = {
   expanded: false,
+
   items: [
+    {
+      title: "Dashboard",
+      active: false,
+      children: [{ title: "Dashboard", path: "/dashboard" }],
+    },
     {
       title: "Tracker",
       active: false,
