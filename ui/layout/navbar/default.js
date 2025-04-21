@@ -18,6 +18,15 @@ const navDefault = {
       active: false,
       children: [{ title: "Ocean", path: "/ocean" }],
     },
+    {
+      title: "Settings",
+      active: false,
+      children: [
+        { title: "Profile", path: "/profile" },
+        { title: "Logs", path: "/logs" },
+        { title: "Feedback", path: "/feedback" },
+      ],
+    },
   ],
 };
 export default navDefault;

@@ -49,16 +49,20 @@ const Navbar = () => {
           { title: "Feedback", path: "/feedback" },
           admin ? { title: "Users", path: "/users" } : null,
         ].filter(Boolean);
+        const itemsWithoutSettings = navDefault.items.filter(
+          (item) => item.title !== "Settings"
+        );
+        const newNavItems = [
+          ...itemsWithoutSettings,
+          {
+            title: "Settings",
+            active: false,
+          children: settingsItems,
+        },
+        ];
         const navState = {
           expanded: navDefault.expanded,
-          items: [
-            ...navDefault.items,
-            {
-              title: "Settings",
-              active: false,
-              children: settingsItems,
-            },
-          ],
+          items: newNavItems,
         };
         setNavbar(navState);
       }
