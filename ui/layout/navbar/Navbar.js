@@ -3,18 +3,13 @@ import React, { useState, useEffect } from "react";
 import classes from "./navbar.module.css";
 import Link from "next/link";
 import navDefault from "./default";
-import {
-  FaHome,
-  FaCog,
-  FaChevronRight,
-  FaBars,
-  FaTimes,
-} from "react-icons/fa";
+import { FaHome, FaCog, FaChevronRight, FaBars, FaTimes } from "react-icons/fa";
 import logo from "@/public/svg/logo.png";
 import { usePathname } from "next/navigation";
 import { poppins } from "@/app/fonts";
 import Image from "next/image";
 import { FiCalendar, FiCrosshair } from "react-icons/fi";
+import Cookies from "js-cookie";
 const getIcon = (title) => {
   switch (title) {
     case "Dashboard":
@@ -33,7 +28,42 @@ const getIcon = (title) => {
 const Navbar = () => {
   const pathname = usePathname();
   const isLogin = pathname === "/login";
-  const [navbar, setNavbar] = useState(navDefault);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Safely access cookies only on the client side
+  useEffect(() => {
+    try {
+      const userCookie = Cookies.get("user");
+      if (userCookie) {
+        const userData = JSON.parse(userCookie);
+        setIsAdmin(userData?.menuPermissions?.showSettingsAPI || false);
+      }
+    } catch (error) {
+      console.error("Error parsing user cookie:", error);
+    }
+  }, []);
+
+  const settingsItems = [
+    { title: "Profile", path: "/profile" },
+    isAdmin ? { title: "API Endpoints", path: "/endpoints" } : null,
+    { title: "Logs", path: "/logs" },
+    { title: "Feedback", path: "/feedback" },
+    isAdmin ? { title: "Users", path: "/users" } : null,
+  ].filter(Boolean);
+
+  const navState = {
+    expanded: navDefault.expanded,
+    items: [
+      ...navDefault.items,
+      {
+        title: "Settings",
+        active: false,
+        children: settingsItems,
+      },
+    ],
+  };
+
+  const [navbar, setNavbar] = useState(navState);
 
   // Add effect to toggle body class based on navbar state
   useEffect(() => {
@@ -82,7 +112,13 @@ const Navbar = () => {
       <div className={classes.navbar_header}>
         {navbar.expanded ? (
           <div className={classes.logo_container}>
-            <Image width={80} height={40} src={logo} alt="logo" className={classes.logo} />
+            <Image
+              width={80}
+              height={40}
+              src={logo}
+              alt="logo"
+              className={classes.logo}
+            />
             <button className={classes.toggle_btn} onClick={toggleNavbar}>
               <FaTimes />
             </button>

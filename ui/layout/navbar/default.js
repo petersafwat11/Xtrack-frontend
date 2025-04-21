@@ -1,4 +1,3 @@
-
 const navDefault = {
   expanded: false,
   items: [
@@ -12,27 +11,13 @@ const navDefault = {
         { title: "Air Cargo", path: "/air-cargo" },
         { title: "Vessel", path: "/vessel" },
         { title: "Marine Traffic", path: "/marine-traffic" },
-        ],
+      ],
     },
     {
       title: "Schedule",
       active: false,
-      children: [
-        { title: "Ocean", path: "/ocean" },
-      ],
+      children: [{ title: "Ocean", path: "/ocean" }],
     },
-    {
-      title: "Settings",
-      active: false,
-      children: [
-        {
-          title: "Stock Balance",
-          path: "/stock-balance",
-        },
-      ],
-    },
-
-
   ],
 };
 export default navDefault;
