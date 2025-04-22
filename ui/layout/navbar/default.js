@@ -5,7 +5,7 @@ const navDefault = {
     {
       title: "Dashboard",
       active: false,
-      children: [{ title: "Dashboard", path: "/dashboard" }],
+      children: [{ title: "Dashboard", path: "/" }],
     },
     {
       title: "Tracker",
